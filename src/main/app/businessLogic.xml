@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:json="http://www.mulesoft.org/schema/mule/json"
+	xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+	xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
+      xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      version="EE-3.5.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+
+    <data-mapper:config name="salesfore_account_to_debmas01" transformationGraphPath="salesfore_account_to_debmas01.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="CUSTOMER_GET_KTOKD_to_KTOKD" transformationGraphPath="customer_get_ktokd_to_ktokd.grf" doc:name="CUSTOMER_GET_KTOKD_to_KTOKD"/>
+    <data-mapper:config name="BAPI_CUSTOMER_FIND_to_Customer" transformationGraphPath="bapi_customer_find_to_customer.grf" doc:name="BAPI_CUSTOMER_FIND_to_Customer"/>
+    <data-mapper:config name="BAPI_CUSTOMER_GETINTNUMBER_to_Customr_Number" transformationGraphPath="bapi_customer_getintnumber_to_customr_number.grf" doc:name="BAPI_CUSTOMER_GETINTNUMBER_to_Customr_Number"/>
+    <data-mapper:config name="XML_To_Account" transformationGraphPath="xml_to_account_1.grf" doc:name="XML_To_Account"/>
+
+
+	<batch:job name="fromSapToSalesforceBatch">
+		<batch:threading-profile poolExhaustedAction="WAIT" />
+		<batch:process-records>
+
+			<batch:step name="foreachaccountInSapGetAccountInSalesforceStep" accept-expression="payload['Name'] != null">
+                <expression-component doc:name="clean out invalid characters"><![CDATA[payload.put('Name',payload['Name'].replaceAll("'", ""));]]></expression-component>
+                <enricher target="#[recordVars['accountInSalesforce']]"
+					doc:name="Store result in record var 'accountInSalesforce'">
+                    <sfdc:query-single config-ref="Salesforce" query="SELECT Id, Name, LastModifiedDate FROM Account WHERE Name = '#[payload.Name]'" doc:name="query Salesforce for current Account"/>
+
+				</enricher>
+
+			</batch:step>
+			<batch:step name="foreachaccountInSapUpsertaccountInSalesforceStep" accept-expression="payload['Name'] != null &amp;&amp; ( recordVars['accountInSalesforce'] is NullPayload || recordVars['accountInSalesforce'] == null || (org.mule.templates.date.DateUtils.stringToDateTimeWithProvidedOffset(payload['LastModifiedDate'], &quot;yyyy-MM-dd'T'HH:mm:ss'Z'&quot;, &quot;-00:01:05&quot;).compareTo(org.mule.templates.date.DateUtils.stringToDateTimeWithProvidedOffset(recordVars['accountInSalesforce']['LastModifiedDate'], &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;, &quot;+00:00:00&quot;)) &gt; 0 &amp;&amp; ('${sap.jco.user}' != (payload['LastModifiedById'] == null ? payload['CreatedById'] : payload['LastModifiedById'])) ))">
+                <expression-component doc:name="Expression"><![CDATA[if(recordVars['accountInSalesforce'] == null || recordVars['accountInSalesforce'] is NullPayload) {
+	payload.remove('Id');
+} else {
+	payload.put('Id',recordVars['accountInSalesforce']['Id']);
+}
+
+payload.remove('LastModifiedById');
+payload.remove('LastModifiedDate');
+payload.remove('OwnerId');
+		]]></expression-component>
+                <logger message="000000000 before upsert #[payload]" level="INFO" doc:name="Logger"/>
+
+				<batch:commit doc:name="Batch Commit" size="200">
+                    <sfdc:upsert config-ref="Salesforce" externalIdFieldName="Id" type="Account" doc:name="upsert accounts in Salesforce">
+                        <sfdc:objects ref="#[payload]"/>
+                    </sfdc:upsert>
+
+					<logger message="000000000 Upsert Salesforce Response: #[payload]"
+						level="INFO" doc:name="Log Response" />
+				</batch:commit>
+			</batch:step>
+		</batch:process-records>
+        <batch:on-complete>
+            <expression-component doc:name="Release Lock"><![CDATA[app.registry['PollSynchronizer'].unlock();]]></expression-component>
+        </batch:on-complete>
+	</batch:job>
+
+	<batch:job name="fromSalesforceToSapBatch">
+		<batch:threading-profile poolExhaustedAction="WAIT" />
+		<batch:process-records>
+			<batch:step name="foreachAccountInSalesforceGetAccountInSap">
+
+				<enricher source="#[payload.isEmpty() || payload[0]['CustomerNumber'] == null ? NullPayload.getInstance() : payload[0]]" target="#[recordVars['sapCustomer']]"
+					doc:name="store result in record var 'sapCustomer'">
+                    <processor-chain doc:name="Processor Chain">
+                        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_CUSTOMER_FIND" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Customer by Name">
+                            <sap:definition><![CDATA[<jco>
+	<import>
+		<field name="MAX_CNT">0</field>
+		<field name="PL_HOLD">X</field>
+	</import>
+  	<tables>
+		<table name="SELOPT_TAB">
+			<row id="0">
+				<field name="TABNAME">KNA1</field>
+				<field name="FIELDNAME">NAME1</field>
+				<field name="FIELDVALUE">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload['Name'])]</field>
+			</row>
+		</table>
+	</tables>
+</jco>
+]]></sap:definition>
+
+
+                        </sap:outbound-endpoint>
+
+                        <data-mapper:transform config-ref="BAPI_CUSTOMER_FIND_to_Customer" doc:name="BAPI_CUSTOMER_FIND to Customer"/>
+                    </processor-chain>
+				</enricher>
+
+			</batch:step>
+            <batch:step name="forEachAccountInSapGetLastModifiedDate" accept-expression="!(recordVars['sapCustomer'] is NullPayload)">
+                <enricher source="#[payload['LastModifiedDate']]" target="#[recordVars['lastModDate']]" doc:name="store result in record var 'lastModDate'">
+                    <processor-chain doc:name="Processor Chain">
+                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="query customer detail from SAP">
+                            <sap:definition><![CDATA[<jco>
+  	<import>
+    	<field name="I_CUST_ID">#[recordVars['sapCustomer']['CustomerNumber']]</field>
+	</import>
+</jco>
+]]></sap:definition>
+
+                </sap:outbound-endpoint>
+                        <data-mapper:transform config-ref="XML_To_Account" doc:name="XML To Account"/>
+                    </processor-chain>
+                </enricher>
+                <expression-component doc:name="add lastModDate field to sapCustomer "><![CDATA[if(!(recordVars['sapCustomer'] is NullPayload)){
+	recordVars['sapCustomer'].put("LastModifiedDate", recordVars['lastModDate']);
+}]]></expression-component>
+            </batch:step>
+            <batch:step name="forEachAccountInSapGetAccountGroup" accept-expression="!(recordVars['sapCustomer'] is NullPayload)">
+                <enricher source="#[payload['AccountGroup']]" target="#[payload['AccountGroup']]" doc:name="store 'AccountGroup' to payload">
+                    <processor-chain doc:name="Processor Chain">
+                        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="CUSTOMER_GET_KTOKD" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Account Group from SAP">
+                            <sap:definition><![CDATA[<jco>
+	<import>
+		<field name="IV_KUNNR">#[recordVars['sapCustomer']['Id']]</field>
+	</import>
+</jco>
+]]></sap:definition>
+
+
+                        </sap:outbound-endpoint>
+                        <data-mapper:transform config-ref="CUSTOMER_GET_KTOKD_to_KTOKD" doc:name="CUSTOMER_GET_KTOKD to AccountGroup"/>
+                    </processor-chain>
+                </enricher>
+                <expression-component doc:name="Setup Properties for Update"><![CDATA[payload.put('MessageFunction', '005'); // Replace: This message replaces previous messages
+payload.put('CustomerNumber', recordVars['sapCustomer']['CustomerNumber']);
+]]></expression-component>
+            </batch:step>
+            <batch:step name="forEachNewAccountGetCustomerNumber" accept-expression="recordVars['sapCustomer'] is NullPayload">
+                <enricher source="#[payload['CustomerNumber']]" target="#[payload['CustomerNumber']]" doc:name="store 'CustomerNumber' to payload">
+                    <processor-chain doc:name="Processor Chain">
+                        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_CUSTOMER_GETINTNUMBER" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Next Customer Number from SAP">
+                            <sap:definition><![CDATA[<jco>
+	<import>
+		<field name="ACCOUNTGROUP">ZAG2</field>
+	</import>
+</jco>
+]]></sap:definition>
+
+
+                        </sap:outbound-endpoint>
+                        <data-mapper:transform config-ref="BAPI_CUSTOMER_GETINTNUMBER_to_Customr_Number" doc:name="BAPI_CUSTOMER_GETINTNUMBER to Customr Number"/>
+                    </processor-chain>
+                </enricher>
+                <expression-component doc:name="Setup Properties for Create"><![CDATA[payload.put('MessageFunction', '009'); // Original: First message for process
+payload.put('AccountGroup', '${sap.default.accountGroup}');
+]]></expression-component>
+            </batch:step>
+			<batch:step name="foreachAccountInSalesForceUpsertAccountInSapStep" accept-expression="recordVars['sapCustomer'] is NullPayload || (org.mule.templates.date.DateUtils.stringToDateTimeWithProvidedOffset(payload['LastModifiedDate'], &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;, &quot;+00:00:00&quot;).compareTo(org.mule.templates.date.DateUtils.stringToDateTimeWithProvidedOffset(recordVars['sapCustomer']['LastModifiedDate'], &quot;yyyy-MM-dd'T'HH:mm:ss'Z'&quot;, &quot;-00:01:05&quot;)) &gt; 0 &amp;&amp; '${sfdc.integration.user.id}' != payload['LastModifiedById'])">
+                <flow-ref name="commitAccountsFlow" doc:name="Flow Reference"/>
+			</batch:step>
+		</batch:process-records>
+		<batch:on-complete>
+            <expression-component doc:name="Release lock"><![CDATA[app.registry['PollSynchronizer'].unlock();]]></expression-component>
+
+		</batch:on-complete>
+	</batch:job>
+    <flow name="commitAccountsFlow" doc:name="commitAccountsFlow">
+        <expression-component doc:name="prepare Customer for upsert"><![CDATA[if(recordVars['sapCustomer'] is NullPayload){
+	//when doing insert set MSGFN to 009
+	payload.put("MSGFN", "009");
+} else {
+    //when doing insert set MSGFN to 004
+	payload.put("MSGFN", "004");
+}]]></expression-component>
+        <logger message="999999999 Accounts to update/create: #[payload]" level="INFO" doc:name="Log Accounts to update/create"/>
+
+        <data-mapper:transform config-ref="salesfore_account_to_debmas01" doc:name="DataMapper"/>
+        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="idoc" functionName="DEBMAS01" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Upsert Customer in SAP"/>
+
+        <logger message="Upsert result: #[payload]" level="INFO" doc:name="Log Result"/>
+    </flow>
+
+</mule>

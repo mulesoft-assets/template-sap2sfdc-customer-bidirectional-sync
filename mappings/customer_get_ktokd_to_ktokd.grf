@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="martin" created="Thu Jun 26 11:45:24 CEST 2014" description="CUSTOMER_GET_KTOKD to AccountGroup" guiVersion="3.4.3.P" id="1403776228245" licenseCode="Unlicensed" licenseType="Unknown" modified="Thu Jun 26 11:45:24 CEST 2014" modifiedBy="martin" name="CUSTOMER_GET_KTOKD_to_KTOKD" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/CUSTOMER_GET_KTOKD" _dataStructure="OBJECT" _id="__id" _type="Input" id="4436bbdd-7bc8-40d4-950d-ebee0b90b20b">
+<Record fieldDelimiter="," name="CUSTOMER_GET_KTOKD" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/CUSTOMER_GET_KTOKD/import/IV_KTOKD" containerType="SINGLE" label="IV_KTOKD" name="IV_KTOKD" type="string"/>
+<Field __index="1" __sourcePath="{}/CUSTOMER_GET_KTOKD/import/IV_KUNNR" containerType="SINGLE" label="IV_KUNNR" name="IV_KUNNR" type="string"/>
+<Field __index="2" __sourcePath="{}/CUSTOMER_GET_KTOKD/export/EV_KTOKD" containerType="SINGLE" label="EV_KTOKD" name="EV_KTOKD" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/AccountGroupWrapper" _dataStructure="OBJECT" _id="__id" _type="Output" id="4cbd0c52-bc51-4424-83d7-c3faea25232c">
+<Record fieldDelimiter="," name="AccountGroupWrapper" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/AccountGroupWrapper/AccountGroup" containerType="SINGLE" label="AccountGroup" name="AccountGroup" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'CUSTOMER_GET_KTOKD' -&gt; 'AccountGroup'" guiX="460" guiY="20" id="FOREACH_CUSTOMER_GET_KTOKD_KTOKD" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.AccountGroup = input.EV_KTOKD;]]></attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<AccountGroup xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <AccountGroup>$0.AccountGroup</AccountGroup>
+</AccountGroup>]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/CUSTOMER_GET_KTOKD.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath="/CUSTOMER_GET_KTOKD">
+  <Mapping cloverField="IV_KTOKD" trim="true" xpath="import/IV_KTOKD"/>
+  <Mapping cloverField="IV_KUNNR" trim="true" xpath="import/IV_KUNNR"/>
+  <Mapping cloverField="EV_KTOKD" trim="true" xpath="export/EV_KTOKD"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__rootGlobalElementName"><![CDATA[CUSTOMER_GET_KTOKD]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_CUSTOMER_GET_KTOKD_KTOKD:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="4cbd0c52-bc51-4424-83d7-c3faea25232c" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="4436bbdd-7bc8-40d4-950d-ebee0b90b20b" outPort="Port 0 (out)" toNode="FOREACH_CUSTOMER_GET_KTOKD_KTOKD:0"/>
+</Phase>
+</Graph>

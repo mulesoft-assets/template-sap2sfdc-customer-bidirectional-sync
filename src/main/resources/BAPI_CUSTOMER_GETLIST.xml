@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<BAPI_CUSTOMER_GETLIST timestamp="1404468926622"
+	version="1.0">
+	<import>
+		<CPDONLY type="field"
+			sapDescription="Control indicator: Read one-time customers only"
+			sapType="CHAR" sapLength="1" />
+		<MAXROWS type="field" sapDescription="Maximum number of customers"
+			sapType="INT" sapLength="4" />
+	</import>
+	<export>
+		<RETURN type="structure">
+			<TYPE type="field"
+				sapDescription="Message type: S Success, E Error, W Warning, I Info, A Abort"
+				sapType="CHAR" sapLength="1" />
+			<ID type="field" sapDescription="Message Class" sapType="CHAR"
+				sapLength="20" />
+			<NUMBER type="field" sapDescription="Message Number" sapType="NUM"
+				sapLength="3" />
+			<MESSAGE type="field" sapDescription="Message Text" sapType="CHAR"
+				sapLength="220" />
+			<LOG_NO type="field" sapDescription="Application log: log number"
+				sapType="CHAR" sapLength="20" />
+			<LOG_MSG_NO type="field"
+				sapDescription="Application log: Internal message serial number"
+				sapType="NUM" sapLength="6" />
+			<MESSAGE_V1 type="field" sapDescription="Message Variable"
+				sapType="CHAR" sapLength="50" />
+			<MESSAGE_V2 type="field" sapDescription="Message Variable"
+				sapType="CHAR" sapLength="50" />
+			<MESSAGE_V3 type="field" sapDescription="Message Variable"
+				sapType="CHAR" sapLength="50" />
+			<MESSAGE_V4 type="field" sapDescription="Message Variable"
+				sapType="CHAR" sapLength="50" />
+		</RETURN>
+	</export>
+	<tables>
+		<ADDRESSDATA type="table">
+			<row id="0">
+				<CUSTOMER type="field" sapDescription="Customer Number"
+					sapType="CHAR" sapLength="10" />
+				<SORT1 type="field" sapDescription="Search Term 1" sapType="CHAR"
+					sapLength="20" />
+				<NAME type="field" sapDescription="Name 1" sapType="CHAR"
+					sapLength="40" />
+				<COUNTRY type="field" sapDescription="Country Key" sapType="CHAR"
+					sapLength="3" />
+				<COUNTRYISO type="field" sapDescription="Country ISO code"
+					sapType="CHAR" sapLength="2" />
+				<CITY type="field" sapDescription="City" sapType="CHAR"
+					sapLength="40" />
+				<POSTL_COD1 type="field" sapDescription="City postal code"
+					sapType="CHAR" sapLength="10" />
+				<REGION type="field" sapDescription="Region (State, Province, County)"
+					sapType="CHAR" sapLength="3" />
+				<STREET type="field" sapDescription="Street" sapType="CHAR"
+					sapLength="60" />
+				<TEL1_NUMBR type="field"
+					sapDescription="First telephone no.: dialling code+number" sapType="CHAR"
+					sapLength="30" />
+				<FAX_NUMBER type="field" sapDescription="First fax no.: dialling code+number"
+					sapType="CHAR" sapLength="30" />
+				<ADDRESS type="field" sapDescription="Address" sapType="CHAR"
+					sapLength="10" />
+			</row>
+		</ADDRESSDATA>
+		<IDRANGE type="table">
+			<row id="0">
+				<SIGN type="field"
+					sapDescription="Inclusion/exclusion criterion SIGN for range tables"
+					sapType="CHAR" sapLength="1" />
+				<OPTION type="field" sapDescription="Selection operator OPTION for range tables"
+					sapType="CHAR" sapLength="2" />
+				<LOW type="field" sapDescription="Customer Number" sapType="CHAR"
+					sapLength="10" />
+				<HIGH type="field" sapDescription="Customer Number" sapType="CHAR"
+					sapLength="10" />
+			</row>
+		</IDRANGE>
+		<SPECIALDATA type="table">
+			<row id="0">
+				<CUSTOMER type="field" sapDescription="Customer Number"
+					sapType="CHAR" sapLength="10" />
+				<ACC_1_TIME type="field"
+					sapDescription="Indicator: Is the account a one-time account?"
+					sapType="CHAR" sapLength="1" />
+			</row>
+		</SPECIALDATA>
+	</tables>
+</BAPI_CUSTOMER_GETLIST>

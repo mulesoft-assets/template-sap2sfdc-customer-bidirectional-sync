@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="Marek" created="Fri Jul 25 15:51:51 CEST 2014" description="XML To Account" guiVersion="3.4.4.P" id="1406303480315" licenseCode="Unlicensed" licenseType="Unknown" modified="Fri Jul 25 15:51:51 CEST 2014" modifiedBy="Marek" name="XML_To_Account" preview-file="${Project_Home}/src/main/resources/ZMULE_CUSTOMER_GETLIST.xml" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/Account" _dataStructure="OBJECT" _id="__id" _type="Output" id="6415657c-9e11-46c1-bbcb-1510d45aa0dc">
+<Record fieldDelimiter="," name="Account" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __implementationClass="java.lang.String" __index="13" __sourcePath="{}/Account/AccountNumber" containerType="SINGLE" label="AccountNumber" name="AccountNumber" type="string"/>
+<Field __index="26" __sourcePath="{}/Account/AccountSource" containerType="SINGLE" label="AccountSource" name="AccountSource" type="string"/>
+<Field __index="15" __sourcePath="{}/Account/Active_x005f_x005fc" containerType="SINGLE" label="Active__c" name="Active__c" type="string"/>
+<Field __implementationClass="java.lang.String" __index="34" __sourcePath="{}/Account/AnnualRevenue" containerType="SINGLE" label="AnnualRevenue" name="AnnualRevenue" type="string"/>
+<Field __implementationClass="java.lang.String" __index="16" __sourcePath="{}/Account/BillingCity" containerType="SINGLE" label="BillingCity" name="BillingCity" type="string"/>
+<Field __implementationClass="java.lang.String" __index="9" __sourcePath="{}/Account/BillingCountry" containerType="SINGLE" label="BillingCountry" name="BillingCountry" type="string"/>
+<Field __implementationClass="java.lang.String" __index="37" __sourcePath="{}/Account/BillingPostalCode" containerType="SINGLE" label="BillingPostalCode" name="BillingPostalCode" type="string"/>
+<Field __implementationClass="java.lang.String" __index="35" __sourcePath="{}/Account/BillingState" containerType="SINGLE" label="BillingState" name="BillingState" type="string"/>
+<Field __implementationClass="java.lang.String" __index="14" __sourcePath="{}/Account/BillingStreet" containerType="SINGLE" label="BillingStreet" name="BillingStreet" type="string"/>
+<Field __index="20" __sourcePath="{}/Account/CleanStatus" containerType="SINGLE" label="CleanStatus" name="CleanStatus" type="string"/>
+<Field __implementationClass="java.lang.String" __index="19" __sourcePath="{}/Account/CreatedById" containerType="SINGLE" label="CreatedById" name="CreatedById" type="string"/>
+<Field __dmType="Calendar" __implementationClass="java.util.Calendar" __index="50" __sourcePath="{}/Account/CreatedDate" containerType="SINGLE" label="CreatedDate" name="CreatedDate" type="string"/>
+<Field __index="47" __sourcePath="{}/Account/CustomerPriority_x005f_x005fc" containerType="SINGLE" label="CustomerPriority__c" name="CustomerPriority__c" type="string"/>
+<Field __implementationClass="java.lang.String" __index="6" __sourcePath="{}/Account/DandbCompanyId" containerType="SINGLE" label="DandbCompanyId" name="DandbCompanyId" type="string"/>
+<Field __implementationClass="java.lang.String" __index="40" __sourcePath="{}/Account/Description" containerType="SINGLE" label="Description" name="Description" type="string"/>
+<Field __implementationClass="java.lang.String" __index="27" __sourcePath="{}/Account/DunsNumber" containerType="SINGLE" label="DunsNumber" name="DunsNumber" type="string"/>
+<Field __implementationClass="java.lang.String" __index="44" __sourcePath="{}/Account/Fax" containerType="SINGLE" label="Fax" name="Fax" type="string"/>
+<Field __implementationClass="java.lang.String" __index="22" __sourcePath="{}/Account/Id" containerType="SINGLE" label="Id" name="Id" type="string"/>
+<Field __index="24" __sourcePath="{}/Account/Industry" containerType="SINGLE" label="Industry" name="Industry" type="string"/>
+<Field __implementationClass="java.lang.Boolean" __index="21" __sourcePath="{}/Account/IsDeleted" containerType="SINGLE" label="IsDeleted" name="IsDeleted" type="boolean"/>
+<Field __implementationClass="java.lang.String" __index="10" __sourcePath="{}/Account/Jigsaw" containerType="SINGLE" label="Jigsaw" name="Jigsaw" type="string"/>
+<Field __implementationClass="java.lang.String" __index="51" __sourcePath="{}/Account/JigsawCompanyId" containerType="SINGLE" label="JigsawCompanyId" name="JigsawCompanyId" type="string"/>
+<Field __dmType="Calendar" __implementationClass="java.util.Calendar" __index="36" __sourcePath="{}/Account/LastActivityDate" containerType="SINGLE" label="LastActivityDate" name="LastActivityDate" type="string"/>
+<Field __implementationClass="java.lang.String" __index="41" __sourcePath="{}/Account/LastModifiedById" containerType="SINGLE" label="LastModifiedById" name="LastModifiedById" type="string"/>
+<Field __implementationClass="java.lang.String" __index="3" __sourcePath="{}/Account/LastModifiedDate" containerType="SINGLE" label="LastModifiedDate" name="LastModifiedDate" type="string"/>
+<Field __implementationClass="java.lang.String" __index="48" __sourcePath="{}/Account/MasterRecordId" containerType="SINGLE" label="MasterRecordId" name="MasterRecordId" type="string"/>
+<Field __implementationClass="java.lang.String" __index="8" __sourcePath="{}/Account/NaicsCode" containerType="SINGLE" label="NaicsCode" name="NaicsCode" type="string"/>
+<Field __implementationClass="java.lang.String" __index="18" __sourcePath="{}/Account/NaicsDesc" containerType="SINGLE" label="NaicsDesc" name="NaicsDesc" type="string"/>
+<Field __implementationClass="java.lang.String" __index="49" __sourcePath="{}/Account/Name" containerType="SINGLE" label="Name" name="Name" type="string"/>
+<Field __implementationClass="java.lang.Integer" __index="5" __sourcePath="{}/Account/NumberOfEmployees" containerType="SINGLE" label="NumberOfEmployees" name="NumberOfEmployees" type="integer"/>
+<Field __implementationClass="java.lang.Double" __index="4" __sourcePath="{}/Account/NumberofLocations_x005f_x005fc" containerType="SINGLE" label="NumberofLocations__c" name="NumberofLocations__c" type="number"/>
+<Field __implementationClass="java.lang.String" __index="32" __sourcePath="{}/Account/OwnerId" containerType="SINGLE" label="OwnerId" name="OwnerId" type="string"/>
+<Field __index="53" __sourcePath="{}/Account/Ownership" containerType="SINGLE" label="Ownership" name="Ownership" type="string"/>
+<Field __implementationClass="java.lang.String" __index="1" __sourcePath="{}/Account/ParentId" containerType="SINGLE" label="ParentId" name="ParentId" type="string"/>
+<Field __implementationClass="java.lang.String" __index="28" __sourcePath="{}/Account/Phone" containerType="SINGLE" label="Phone" name="Phone" type="string"/>
+<Field __index="17" __sourcePath="{}/Account/Rating" containerType="SINGLE" label="Rating" name="Rating" type="string"/>
+<Field __dmType="Calendar" __implementationClass="java.util.Calendar" __index="29" __sourcePath="{}/Account/SLAExpirationDate_x005f_x005fc" containerType="SINGLE" label="SLAExpirationDate__c" name="SLAExpirationDate__c" type="string"/>
+<Field __implementationClass="java.lang.String" __index="38" __sourcePath="{}/Account/SLASerialNumber_x005f_x005fc" containerType="SINGLE" label="SLASerialNumber__c" name="SLASerialNumber__c" type="string"/>
+<Field __index="46" __sourcePath="{}/Account/SLA_x005f_x005fc" containerType="SINGLE" label="SLA__c" name="SLA__c" type="string"/>
+<Field __implementationClass="java.lang.String" __index="7" __sourcePath="{}/Account/ShippingCity" containerType="SINGLE" label="ShippingCity" name="ShippingCity" type="string"/>
+<Field __implementationClass="java.lang.String" __index="11" __sourcePath="{}/Account/ShippingCountry" containerType="SINGLE" label="ShippingCountry" name="ShippingCountry" type="string"/>
+<Field __implementationClass="java.lang.String" __index="23" __sourcePath="{}/Account/ShippingPostalCode" containerType="SINGLE" label="ShippingPostalCode" name="ShippingPostalCode" type="string"/>
+<Field __implementationClass="java.lang.String" __index="33" __sourcePath="{}/Account/ShippingState" containerType="SINGLE" label="ShippingState" name="ShippingState" type="string"/>
+<Field __implementationClass="java.lang.String" __index="43" __sourcePath="{}/Account/ShippingStreet" containerType="SINGLE" label="ShippingStreet" name="ShippingStreet" type="string"/>
+<Field __implementationClass="java.lang.String" __index="52" __sourcePath="{}/Account/Sic" containerType="SINGLE" label="Sic" name="Sic" type="string"/>
+<Field __implementationClass="java.lang.String" __index="0" __sourcePath="{}/Account/SicDesc" containerType="SINGLE" label="SicDesc" name="SicDesc" type="string"/>
+<Field __implementationClass="java.lang.String" __index="12" __sourcePath="{}/Account/Site" containerType="SINGLE" label="Site" name="Site" type="string"/>
+<Field __dmType="Calendar" __implementationClass="java.util.Calendar" __index="39" __sourcePath="{}/Account/SystemModstamp" containerType="SINGLE" label="SystemModstamp" name="SystemModstamp" type="string"/>
+<Field __implementationClass="java.lang.String" __index="2" __sourcePath="{}/Account/TickerSymbol" containerType="SINGLE" label="TickerSymbol" name="TickerSymbol" type="string"/>
+<Field __implementationClass="java.lang.String" __index="30" __sourcePath="{}/Account/Tradestyle" containerType="SINGLE" label="Tradestyle" name="Tradestyle" type="string"/>
+<Field __index="31" __sourcePath="{}/Account/Type" containerType="SINGLE" label="Type" name="Type" type="string"/>
+<Field __index="25" __sourcePath="{}/Account/UpsellOpportunity_x005f_x005fc" containerType="SINGLE" label="UpsellOpportunity__c" name="UpsellOpportunity__c" type="string"/>
+<Field __implementationClass="java.lang.String" __index="42" __sourcePath="{}/Account/Website" containerType="SINGLE" label="Website" name="Website" type="string"/>
+<Field __implementationClass="java.lang.String" __index="45" __sourcePath="{}/Account/YearStarted" containerType="SINGLE" label="YearStarted" name="YearStarted" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="181" __referenceCounter="0" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/exceptions/exception" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="acb357d5-cb83-4b16-9ad4-843a5d1b0743" _parent_id="__parent_id" _type="Input" id="53eaa9d8-8f35-4077-bb1e-00b80ffd260a">
+<Record fieldDelimiter="," name="exception" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="181" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/exceptions/exception/@key" containerType="SINGLE" label="key" name="key" type="string"/>
+<Field __index="182" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/exceptions/exception/@messageClass" containerType="SINGLE" label="messageClass" name="messageClass" type="string"/>
+<Field __index="183" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/exceptions/exception/@messageNumber" containerType="SINGLE" label="messageNumber" name="messageNumber" type="string"/>
+<Field __index="184" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/exceptions/exception/@messageType" containerType="SINGLE" label="messageType" name="messageType" type="string"/>
+<Field __index="185" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/exceptions/exception/@text()" containerType="SINGLE" label="text()" name="text" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="16" __referenceCounter="1" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="acb357d5-cb83-4b16-9ad4-843a5d1b0743" _parent_id="__parent_id" _type="Input" id="39359dea-48ed-41b9-b601-09d6e63bc471">
+<Record fieldDelimiter="," name="row" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="16" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/MANDT" containerType="SINGLE" label="MANDT" name="MANDT" type="string"/>
+<Field __index="17" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KUNNR" containerType="SINGLE" label="KUNNR" name="KUNNR" type="string"/>
+<Field __index="18" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/LAND1" containerType="SINGLE" label="LAND1" name="LAND1" type="string"/>
+<Field __index="19" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/NAME1" containerType="SINGLE" label="NAME1" name="NAME1" type="string"/>
+<Field __index="20" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/NAME2" containerType="SINGLE" label="NAME2" name="NAME2" type="string"/>
+<Field __index="21" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ORT01" containerType="SINGLE" label="ORT01" name="ORT01" type="string"/>
+<Field __index="22" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSTLZ" containerType="SINGLE" label="PSTLZ" name="PSTLZ" type="string"/>
+<Field __index="23" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/REGIO" containerType="SINGLE" label="REGIO" name="REGIO" type="string"/>
+<Field __index="24" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/SORTL" containerType="SINGLE" label="SORTL" name="SORTL" type="string"/>
+<Field __index="25" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STRAS" containerType="SINGLE" label="STRAS" name="STRAS" type="string"/>
+<Field __index="26" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TELF1" containerType="SINGLE" label="TELF1" name="TELF1" type="string"/>
+<Field __index="27" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TELFX" containerType="SINGLE" label="TELFX" name="TELFX" type="string"/>
+<Field __index="28" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/XCPDK" containerType="SINGLE" label="XCPDK" name="XCPDK" type="string"/>
+<Field __index="29" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ADRNR" containerType="SINGLE" label="ADRNR" name="ADRNR" type="string"/>
+<Field __index="30" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/MCOD1" containerType="SINGLE" label="MCOD1" name="MCOD1" type="string"/>
+<Field __index="31" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/MCOD2" containerType="SINGLE" label="MCOD2" name="MCOD2" type="string"/>
+<Field __index="32" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/MCOD3" containerType="SINGLE" label="MCOD3" name="MCOD3" type="string"/>
+<Field __index="33" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ANRED" containerType="SINGLE" label="ANRED" name="ANRED" type="string"/>
+<Field __index="34" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/AUFSD" containerType="SINGLE" label="AUFSD" name="AUFSD" type="string"/>
+<Field __index="35" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BAHNE" containerType="SINGLE" label="BAHNE" name="BAHNE" type="string"/>
+<Field __index="36" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BAHNS" containerType="SINGLE" label="BAHNS" name="BAHNS" type="string"/>
+<Field __index="37" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BBBNR" containerType="SINGLE" label="BBBNR" name="BBBNR" type="string"/>
+<Field __index="38" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BBSNR" containerType="SINGLE" label="BBSNR" name="BBSNR" type="string"/>
+<Field __index="39" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BEGRU" containerType="SINGLE" label="BEGRU" name="BEGRU" type="string"/>
+<Field __index="40" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BRSCH" containerType="SINGLE" label="BRSCH" name="BRSCH" type="string"/>
+<Field __index="41" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BUBKZ" containerType="SINGLE" label="BUBKZ" name="BUBKZ" type="string"/>
+<Field __index="42" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DATLT" containerType="SINGLE" label="DATLT" name="DATLT" type="string"/>
+<Field __index="43" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ERDAT" containerType="SINGLE" label="ERDAT" name="ERDAT" type="string"/>
+<Field __index="44" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ERNAM" containerType="SINGLE" label="ERNAM" name="ERNAM" type="string"/>
+<Field __index="45" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/EXABL" containerType="SINGLE" label="EXABL" name="EXABL" type="string"/>
+<Field __index="46" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/FAKSD" containerType="SINGLE" label="FAKSD" name="FAKSD" type="string"/>
+<Field __index="47" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/FISKN" containerType="SINGLE" label="FISKN" name="FISKN" type="string"/>
+<Field __index="48" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KNAZK" containerType="SINGLE" label="KNAZK" name="KNAZK" type="string"/>
+<Field __index="49" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KNRZA" containerType="SINGLE" label="KNRZA" name="KNRZA" type="string"/>
+<Field __index="50" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KONZS" containerType="SINGLE" label="KONZS" name="KONZS" type="string"/>
+<Field __index="51" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KTOKD" containerType="SINGLE" label="KTOKD" name="KTOKD" type="string"/>
+<Field __index="52" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KUKLA" containerType="SINGLE" label="KUKLA" name="KUKLA" type="string"/>
+<Field __index="53" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/LIFNR" containerType="SINGLE" label="LIFNR" name="LIFNR" type="string"/>
+<Field __index="54" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/LIFSD" containerType="SINGLE" label="LIFSD" name="LIFSD" type="string"/>
+<Field __index="55" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/LOCCO" containerType="SINGLE" label="LOCCO" name="LOCCO" type="string"/>
+<Field __index="56" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/LOEVM" containerType="SINGLE" label="LOEVM" name="LOEVM" type="string"/>
+<Field __index="57" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/NAME3" containerType="SINGLE" label="NAME3" name="NAME3" type="string"/>
+<Field __index="58" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/NAME4" containerType="SINGLE" label="NAME4" name="NAME4" type="string"/>
+<Field __index="59" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/NIELS" containerType="SINGLE" label="NIELS" name="NIELS" type="string"/>
+<Field __index="60" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ORT02" containerType="SINGLE" label="ORT02" name="ORT02" type="string"/>
+<Field __index="61" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PFACH" containerType="SINGLE" label="PFACH" name="PFACH" type="string"/>
+<Field __index="62" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSTL2" containerType="SINGLE" label="PSTL2" name="PSTL2" type="string"/>
+<Field __index="63" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/COUNC" containerType="SINGLE" label="COUNC" name="COUNC" type="string"/>
+<Field __index="64" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CITYC" containerType="SINGLE" label="CITYC" name="CITYC" type="string"/>
+<Field __index="65" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/RPMKR" containerType="SINGLE" label="RPMKR" name="RPMKR" type="string"/>
+<Field __index="66" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/SPERR" containerType="SINGLE" label="SPERR" name="SPERR" type="string"/>
+<Field __index="67" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/SPRAS" containerType="SINGLE" label="SPRAS" name="SPRAS" type="string"/>
+<Field __index="68" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STCD1" containerType="SINGLE" label="STCD1" name="STCD1" type="string"/>
+<Field __index="69" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STCD2" containerType="SINGLE" label="STCD2" name="STCD2" type="string"/>
+<Field __index="70" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STKZA" containerType="SINGLE" label="STKZA" name="STKZA" type="string"/>
+<Field __index="71" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STKZU" containerType="SINGLE" label="STKZU" name="STKZU" type="string"/>
+<Field __index="72" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TELBX" containerType="SINGLE" label="TELBX" name="TELBX" type="string"/>
+<Field __index="73" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TELF2" containerType="SINGLE" label="TELF2" name="TELF2" type="string"/>
+<Field __index="74" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TELTX" containerType="SINGLE" label="TELTX" name="TELTX" type="string"/>
+<Field __index="75" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TELX1" containerType="SINGLE" label="TELX1" name="TELX1" type="string"/>
+<Field __index="76" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/LZONE" containerType="SINGLE" label="LZONE" name="LZONE" type="string"/>
+<Field __index="77" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/XZEMP" containerType="SINGLE" label="XZEMP" name="XZEMP" type="string"/>
+<Field __index="78" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/VBUND" containerType="SINGLE" label="VBUND" name="VBUND" type="string"/>
+<Field __index="79" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STCEG" containerType="SINGLE" label="STCEG" name="STCEG" type="string"/>
+<Field __index="80" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DEAR1" containerType="SINGLE" label="DEAR1" name="DEAR1" type="string"/>
+<Field __index="81" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DEAR2" containerType="SINGLE" label="DEAR2" name="DEAR2" type="string"/>
+<Field __index="82" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DEAR3" containerType="SINGLE" label="DEAR3" name="DEAR3" type="string"/>
+<Field __index="83" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DEAR4" containerType="SINGLE" label="DEAR4" name="DEAR4" type="string"/>
+<Field __index="84" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DEAR5" containerType="SINGLE" label="DEAR5" name="DEAR5" type="string"/>
+<Field __index="85" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/GFORM" containerType="SINGLE" label="GFORM" name="GFORM" type="string"/>
+<Field __index="86" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BRAN1" containerType="SINGLE" label="BRAN1" name="BRAN1" type="string"/>
+<Field __index="87" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BRAN2" containerType="SINGLE" label="BRAN2" name="BRAN2" type="string"/>
+<Field __index="88" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BRAN3" containerType="SINGLE" label="BRAN3" name="BRAN3" type="string"/>
+<Field __index="89" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BRAN4" containerType="SINGLE" label="BRAN4" name="BRAN4" type="string"/>
+<Field __index="90" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/BRAN5" containerType="SINGLE" label="BRAN5" name="BRAN5" type="string"/>
+<Field __index="91" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/EKONT" containerType="SINGLE" label="EKONT" name="EKONT" type="string"/>
+<Field __index="92" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/UMSAT" containerType="SINGLE" label="UMSAT" name="UMSAT" type="string"/>
+<Field __index="93" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/UMJAH" containerType="SINGLE" label="UMJAH" name="UMJAH" type="string"/>
+<Field __index="94" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/UWAER" containerType="SINGLE" label="UWAER" name="UWAER" type="string"/>
+<Field __index="95" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/JMZAH" containerType="SINGLE" label="JMZAH" name="JMZAH" type="string"/>
+<Field __index="96" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/JMJAH" containerType="SINGLE" label="JMJAH" name="JMJAH" type="string"/>
+<Field __index="97" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR1" containerType="SINGLE" label="KATR1" name="KATR1" type="string"/>
+<Field __index="98" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR2" containerType="SINGLE" label="KATR2" name="KATR2" type="string"/>
+<Field __index="99" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR3" containerType="SINGLE" label="KATR3" name="KATR3" type="string"/>
+<Field __index="100" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR4" containerType="SINGLE" label="KATR4" name="KATR4" type="string"/>
+<Field __index="101" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR5" containerType="SINGLE" label="KATR5" name="KATR5" type="string"/>
+<Field __index="102" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR6" containerType="SINGLE" label="KATR6" name="KATR6" type="string"/>
+<Field __index="103" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR7" containerType="SINGLE" label="KATR7" name="KATR7" type="string"/>
+<Field __index="104" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR8" containerType="SINGLE" label="KATR8" name="KATR8" type="string"/>
+<Field __index="105" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR9" containerType="SINGLE" label="KATR9" name="KATR9" type="string"/>
+<Field __index="106" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KATR10" containerType="SINGLE" label="KATR10" name="KATR10" type="string"/>
+<Field __index="107" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STKZN" containerType="SINGLE" label="STKZN" name="STKZN" type="string"/>
+<Field __index="108" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/UMSA1" containerType="SINGLE" label="UMSA1" name="UMSA1" type="string"/>
+<Field __index="109" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TXJCD" containerType="SINGLE" label="TXJCD" name="TXJCD" type="string"/>
+<Field __index="110" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PERIV" containerType="SINGLE" label="PERIV" name="PERIV" type="string"/>
+<Field __index="111" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ABRVW" containerType="SINGLE" label="ABRVW" name="ABRVW" type="string"/>
+<Field __index="112" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/INSPBYDEBI" containerType="SINGLE" label="INSPBYDEBI" name="INSPBYDEBI" type="string"/>
+<Field __index="113" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/INSPATDEBI" containerType="SINGLE" label="INSPATDEBI" name="INSPATDEBI" type="string"/>
+<Field __index="114" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KTOCD" containerType="SINGLE" label="KTOCD" name="KTOCD" type="string"/>
+<Field __index="115" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PFORT" containerType="SINGLE" label="PFORT" name="PFORT" type="string"/>
+<Field __index="116" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/WERKS" containerType="SINGLE" label="WERKS" name="WERKS" type="string"/>
+<Field __index="117" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DTAMS" containerType="SINGLE" label="DTAMS" name="DTAMS" type="string"/>
+<Field __index="118" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DTAWS" containerType="SINGLE" label="DTAWS" name="DTAWS" type="string"/>
+<Field __index="119" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DUEFL" containerType="SINGLE" label="DUEFL" name="DUEFL" type="string"/>
+<Field __index="120" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/HZUOR" containerType="SINGLE" label="HZUOR" name="HZUOR" type="string"/>
+<Field __index="121" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/SPERZ" containerType="SINGLE" label="SPERZ" name="SPERZ" type="string"/>
+<Field __index="122" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ETIKG" containerType="SINGLE" label="ETIKG" name="ETIKG" type="string"/>
+<Field __index="123" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CIVVE" containerType="SINGLE" label="CIVVE" name="CIVVE" type="string"/>
+<Field __index="124" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/MILVE" containerType="SINGLE" label="MILVE" name="MILVE" type="string"/>
+<Field __index="125" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KDKG1" containerType="SINGLE" label="KDKG1" name="KDKG1" type="string"/>
+<Field __index="126" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KDKG2" containerType="SINGLE" label="KDKG2" name="KDKG2" type="string"/>
+<Field __index="127" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KDKG3" containerType="SINGLE" label="KDKG3" name="KDKG3" type="string"/>
+<Field __index="128" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KDKG4" containerType="SINGLE" label="KDKG4" name="KDKG4" type="string"/>
+<Field __index="129" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KDKG5" containerType="SINGLE" label="KDKG5" name="KDKG5" type="string"/>
+<Field __index="130" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/XKNZA" containerType="SINGLE" label="XKNZA" name="XKNZA" type="string"/>
+<Field __index="131" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/FITYP" containerType="SINGLE" label="FITYP" name="FITYP" type="string"/>
+<Field __index="132" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STCDT" containerType="SINGLE" label="STCDT" name="STCDT" type="string"/>
+<Field __index="133" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STCD3" containerType="SINGLE" label="STCD3" name="STCD3" type="string"/>
+<Field __index="134" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STCD4" containerType="SINGLE" label="STCD4" name="STCD4" type="string"/>
+<Field __index="135" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/STCD5" containerType="SINGLE" label="STCD5" name="STCD5" type="string"/>
+<Field __index="136" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/XICMS" containerType="SINGLE" label="XICMS" name="XICMS" type="string"/>
+<Field __index="137" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/XXIPI" containerType="SINGLE" label="XXIPI" name="XXIPI" type="string"/>
+<Field __index="138" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/XSUBT" containerType="SINGLE" label="XSUBT" name="XSUBT" type="string"/>
+<Field __index="139" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CFOPC" containerType="SINGLE" label="CFOPC" name="CFOPC" type="string"/>
+<Field __index="140" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TXLW1" containerType="SINGLE" label="TXLW1" name="TXLW1" type="string"/>
+<Field __index="141" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/TXLW2" containerType="SINGLE" label="TXLW2" name="TXLW2" type="string"/>
+<Field __index="142" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CCC01" containerType="SINGLE" label="CCC01" name="CCC01" type="string"/>
+<Field __index="143" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CCC02" containerType="SINGLE" label="CCC02" name="CCC02" type="string"/>
+<Field __index="144" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CCC03" containerType="SINGLE" label="CCC03" name="CCC03" type="string"/>
+<Field __index="145" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CCC04" containerType="SINGLE" label="CCC04" name="CCC04" type="string"/>
+<Field __index="146" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CASSD" containerType="SINGLE" label="CASSD" name="CASSD" type="string"/>
+<Field __index="147" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/KNURL" containerType="SINGLE" label="KNURL" name="KNURL" type="string"/>
+<Field __index="148" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/J_1KFREPRE" containerType="SINGLE" label="J_1KFREPRE" name="J_1KFREPRE" type="string"/>
+<Field __index="149" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/J_1KFTBUS" containerType="SINGLE" label="J_1KFTBUS" name="J_1KFTBUS" type="string"/>
+<Field __index="150" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/J_1KFTIND" containerType="SINGLE" label="J_1KFTIND" name="J_1KFTIND" type="string"/>
+<Field __index="151" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CONFS" containerType="SINGLE" label="CONFS" name="CONFS" type="string"/>
+<Field __index="152" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/UPDAT" containerType="SINGLE" label="UPDAT" name="UPDAT" type="string"/>
+<Field __index="153" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/UPTIM" containerType="SINGLE" label="UPTIM" name="UPTIM" type="string"/>
+<Field __index="154" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/NODEL" containerType="SINGLE" label="NODEL" name="NODEL" type="string"/>
+<Field __index="155" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DEAR6" containerType="SINGLE" label="DEAR6" name="DEAR6" type="string"/>
+<Field __index="156" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/ALC" containerType="SINGLE" label="ALC" name="ALC" type="string"/>
+<Field __index="157" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PMT_OFFICE" containerType="SINGLE" label="PMT_OFFICE" name="PMT_OFFICE" type="string"/>
+<Field __index="158" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/FEE_SCHEDULE" containerType="SINGLE" label="FEE_SCHEDULE" name="FEE_SCHEDULE" type="string"/>
+<Field __index="159" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DUNS" containerType="SINGLE" label="DUNS" name="DUNS" type="string"/>
+<Field __index="160" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/DUNS4" containerType="SINGLE" label="DUNS4" name="DUNS4" type="string"/>
+<Field __index="161" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOFG" containerType="SINGLE" label="PSOFG" name="PSOFG" type="string"/>
+<Field __index="162" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOIS" containerType="SINGLE" label="PSOIS" name="PSOIS" type="string"/>
+<Field __index="163" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSON1" containerType="SINGLE" label="PSON1" name="PSON1" type="string"/>
+<Field __index="164" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSON2" containerType="SINGLE" label="PSON2" name="PSON2" type="string"/>
+<Field __index="165" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSON3" containerType="SINGLE" label="PSON3" name="PSON3" type="string"/>
+<Field __index="166" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOVN" containerType="SINGLE" label="PSOVN" name="PSOVN" type="string"/>
+<Field __index="167" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOTL" containerType="SINGLE" label="PSOTL" name="PSOTL" type="string"/>
+<Field __index="168" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOHS" containerType="SINGLE" label="PSOHS" name="PSOHS" type="string"/>
+<Field __index="169" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOST" containerType="SINGLE" label="PSOST" name="PSOST" type="string"/>
+<Field __index="170" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOO1" containerType="SINGLE" label="PSOO1" name="PSOO1" type="string"/>
+<Field __index="171" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOO2" containerType="SINGLE" label="PSOO2" name="PSOO2" type="string"/>
+<Field __index="172" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOO3" containerType="SINGLE" label="PSOO3" name="PSOO3" type="string"/>
+<Field __index="173" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOO4" containerType="SINGLE" label="PSOO4" name="PSOO4" type="string"/>
+<Field __index="174" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/PSOO5" containerType="SINGLE" label="PSOO5" name="PSOO5" type="string"/>
+<Field __index="175" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/LAEDA" containerType="SINGLE" label="LAEDA" name="LAEDA" type="string"/>
+<Field __index="176" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/AENAM" containerType="SINGLE" label="AENAM" name="AENAM" type="string"/>
+<Field __index="177" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/UTIME" containerType="SINGLE" label="UTIME" name="UTIME" type="string"/>
+<Field __index="178" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/CTIME" containerType="SINGLE" label="CTIME" name="CTIME" type="string"/>
+<Field __index="179" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/LAST_MODIF_DATE" containerType="SINGLE" label="LAST_MODIF_DATE" name="LAST_MODIF_DATE" type="string"/>
+<Field __index="180" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row/@id" containerType="SINGLE" label="id" name="id" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="0" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST" _dataStructure="OBJECT" _id="__id" _type="Input" id="acb357d5-cb83-4b16-9ad4-843a5d1b0743">
+<Record fieldDelimiter="," name="ZMULE_CUSTOMER_GETLIST" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/import/I_CUST_ID" containerType="SINGLE" label="I_CUST_ID" name="I_CUST_ID" type="string"/>
+<Field __index="1" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/import/I_FROM_DATE" containerType="SINGLE" label="I_FROM_DATE" name="I_FROM_DATE" type="string"/>
+<Field __index="2" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/TYPE" containerType="SINGLE" label="TYPE" name="TYPE" type="string"/>
+<Field __index="3" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/ID" containerType="SINGLE" label="ID" name="ID" type="string"/>
+<Field __index="4" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/NUMBER" containerType="SINGLE" label="NUMBER" name="NUMBER" type="string"/>
+<Field __index="5" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/MESSAGE" containerType="SINGLE" label="MESSAGE" name="MESSAGE" type="string"/>
+<Field __index="6" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/LOG_NO" containerType="SINGLE" label="LOG_NO" name="LOG_NO" type="string"/>
+<Field __index="7" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/LOG_MSG_NO" containerType="SINGLE" label="LOG_MSG_NO" name="LOG_MSG_NO" type="string"/>
+<Field __index="8" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/MESSAGE_V1" containerType="SINGLE" label="MESSAGE_V1" name="MESSAGE_V1" type="string"/>
+<Field __index="9" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/MESSAGE_V2" containerType="SINGLE" label="MESSAGE_V2" name="MESSAGE_V2" type="string"/>
+<Field __index="10" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/MESSAGE_V3" containerType="SINGLE" label="MESSAGE_V3" name="MESSAGE_V3" type="string"/>
+<Field __index="11" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/MESSAGE_V4" containerType="SINGLE" label="MESSAGE_V4" name="MESSAGE_V4" type="string"/>
+<Field __index="12" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/PARAMETER" containerType="SINGLE" label="PARAMETER" name="PARAMETER" type="string"/>
+<Field __index="13" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/ROW" containerType="SINGLE" label="ROW" name="ROW" type="string"/>
+<Field __index="14" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/FIELD" containerType="SINGLE" label="FIELD" name="FIELD" type="string"/>
+<Field __index="15" __sourcePath="{}/ZMULE_CUSTOMER_GETLIST/export/E_RETURN/SYSTEM" containerType="SINGLE" label="SYSTEM" name="SYSTEM" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'row' -&gt; 'Account'" guiX="460" guiY="20" id="FOREACH_ROW_ACCOUNT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.LastModifiedDate = input.LAST_MODIF_DATE;;]]></attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Account xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <SicDesc clover:dataType="java.lang.String">$0.SicDesc</SicDesc>
+  <ParentId clover:dataType="java.lang.String">$0.ParentId</ParentId>
+  <TickerSymbol clover:dataType="java.lang.String">$0.TickerSymbol</TickerSymbol>
+  <LastModifiedDate clover:dataType="java.lang.String">$0.LastModifiedDate</LastModifiedDate>
+  <clover:element clover:name="NumberofLocations__c" clover:dataType="java.lang.Double">$0.NumberofLocations__c</clover:element>
+  <NumberOfEmployees clover:dataType="java.lang.Integer">$0.NumberOfEmployees</NumberOfEmployees>
+  <DandbCompanyId clover:dataType="java.lang.String">$0.DandbCompanyId</DandbCompanyId>
+  <ShippingCity clover:dataType="java.lang.String">$0.ShippingCity</ShippingCity>
+  <NaicsCode clover:dataType="java.lang.String">$0.NaicsCode</NaicsCode>
+  <BillingCountry clover:dataType="java.lang.String">$0.BillingCountry</BillingCountry>
+  <Jigsaw clover:dataType="java.lang.String">$0.Jigsaw</Jigsaw>
+  <ShippingCountry clover:dataType="java.lang.String">$0.ShippingCountry</ShippingCountry>
+  <Site clover:dataType="java.lang.String">$0.Site</Site>
+  <AccountNumber clover:dataType="java.lang.String">$0.AccountNumber</AccountNumber>
+  <BillingStreet clover:dataType="java.lang.String">$0.BillingStreet</BillingStreet>
+  <clover:element clover:name="Active__c">$0.Active__c</clover:element>
+  <BillingCity clover:dataType="java.lang.String">$0.BillingCity</BillingCity>
+  <Rating>$0.Rating</Rating>
+  <NaicsDesc clover:dataType="java.lang.String">$0.NaicsDesc</NaicsDesc>
+  <CreatedById clover:dataType="java.lang.String">$0.CreatedById</CreatedById>
+  <CleanStatus>$0.CleanStatus</CleanStatus>
+  <IsDeleted clover:dataType="java.lang.Boolean">$0.IsDeleted</IsDeleted>
+  <Id clover:dataType="java.lang.String">$0.Id</Id>
+  <ShippingPostalCode clover:dataType="java.lang.String">$0.ShippingPostalCode</ShippingPostalCode>
+  <Industry>$0.Industry</Industry>
+  <clover:element clover:name="UpsellOpportunity__c">$0.UpsellOpportunity__c</clover:element>
+  <AccountSource>$0.AccountSource</AccountSource>
+  <DunsNumber clover:dataType="java.lang.String">$0.DunsNumber</DunsNumber>
+  <Phone clover:dataType="java.lang.String">$0.Phone</Phone>
+  <clover:element clover:name="SLAExpirationDate__c" clover:dataType="java.util.Calendar">$0.SLAExpirationDate__c</clover:element>
+  <Tradestyle clover:dataType="java.lang.String">$0.Tradestyle</Tradestyle>
+  <Type>$0.Type</Type>
+  <OwnerId clover:dataType="java.lang.String">$0.OwnerId</OwnerId>
+  <ShippingState clover:dataType="java.lang.String">$0.ShippingState</ShippingState>
+  <AnnualRevenue clover:dataType="java.lang.String">$0.AnnualRevenue</AnnualRevenue>
+  <BillingState clover:dataType="java.lang.String">$0.BillingState</BillingState>
+  <LastActivityDate clover:dataType="java.util.Calendar">$0.LastActivityDate</LastActivityDate>
+  <BillingPostalCode clover:dataType="java.lang.String">$0.BillingPostalCode</BillingPostalCode>
+  <clover:element clover:name="SLASerialNumber__c" clover:dataType="java.lang.String">$0.SLASerialNumber__c</clover:element>
+  <SystemModstamp clover:dataType="java.util.Calendar">$0.SystemModstamp</SystemModstamp>
+  <Description clover:dataType="java.lang.String">$0.Description</Description>
+  <LastModifiedById clover:dataType="java.lang.String">$0.LastModifiedById</LastModifiedById>
+  <Website clover:dataType="java.lang.String">$0.Website</Website>
+  <ShippingStreet clover:dataType="java.lang.String">$0.ShippingStreet</ShippingStreet>
+  <Fax clover:dataType="java.lang.String">$0.Fax</Fax>
+  <YearStarted clover:dataType="java.lang.String">$0.YearStarted</YearStarted>
+  <clover:element clover:name="SLA__c">$0.SLA__c</clover:element>
+  <clover:element clover:name="CustomerPriority__c">$0.CustomerPriority__c</clover:element>
+  <MasterRecordId clover:dataType="java.lang.String">$0.MasterRecordId</MasterRecordId>
+  <Name clover:dataType="java.lang.String">$0.Name</Name>
+  <CreatedDate clover:dataType="java.util.Calendar">$0.CreatedDate</CreatedDate>
+  <JigsawCompanyId clover:dataType="java.lang.String">$0.JigsawCompanyId</JigsawCompanyId>
+  <Sic clover:dataType="java.lang.String">$0.Sic</Sic>
+  <Ownership>$0.Ownership</Ownership>
+</Account>]]></attr>
+<attr name="__typeName"><![CDATA[Account]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+<attr name="__connectorName"><![CDATA[Salesforce]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/ZMULE_CUSTOMER_GETLIST.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath="/ZMULE_CUSTOMER_GETLIST/tables/T_KNA1/row">
+  <Mapping cloverField="MANDT" trim="true" xpath="MANDT"/>
+  <Mapping cloverField="KUNNR" trim="true" xpath="KUNNR"/>
+  <Mapping cloverField="LAND1" trim="true" xpath="LAND1"/>
+  <Mapping cloverField="NAME1" trim="true" xpath="NAME1"/>
+  <Mapping cloverField="NAME2" trim="true" xpath="NAME2"/>
+  <Mapping cloverField="ORT01" trim="true" xpath="ORT01"/>
+  <Mapping cloverField="PSTLZ" trim="true" xpath="PSTLZ"/>
+  <Mapping cloverField="REGIO" trim="true" xpath="REGIO"/>
+  <Mapping cloverField="SORTL" trim="true" xpath="SORTL"/>
+  <Mapping cloverField="STRAS" trim="true" xpath="STRAS"/>
+  <Mapping cloverField="TELF1" trim="true" xpath="TELF1"/>
+  <Mapping cloverField="TELFX" trim="true" xpath="TELFX"/>
+  <Mapping cloverField="XCPDK" trim="true" xpath="XCPDK"/>
+  <Mapping cloverField="ADRNR" trim="true" xpath="ADRNR"/>
+  <Mapping cloverField="MCOD1" trim="true" xpath="MCOD1"/>
+  <Mapping cloverField="MCOD2" trim="true" xpath="MCOD2"/>
+  <Mapping cloverField="MCOD3" trim="true" xpath="MCOD3"/>
+  <Mapping cloverField="ANRED" trim="true" xpath="ANRED"/>
+  <Mapping cloverField="AUFSD" trim="true" xpath="AUFSD"/>
+  <Mapping cloverField="BAHNE" trim="true" xpath="BAHNE"/>
+  <Mapping cloverField="BAHNS" trim="true" xpath="BAHNS"/>
+  <Mapping cloverField="BBBNR" trim="true" xpath="BBBNR"/>
+  <Mapping cloverField="BBSNR" trim="true" xpath="BBSNR"/>
+  <Mapping cloverField="BEGRU" trim="true" xpath="BEGRU"/>
+  <Mapping cloverField="BRSCH" trim="true" xpath="BRSCH"/>
+  <Mapping cloverField="BUBKZ" trim="true" xpath="BUBKZ"/>
+  <Mapping cloverField="DATLT" trim="true" xpath="DATLT"/>
+  <Mapping cloverField="ERDAT" trim="true" xpath="ERDAT"/>
+  <Mapping cloverField="ERNAM" trim="true" xpath="ERNAM"/>
+  <Mapping cloverField="EXABL" trim="true" xpath="EXABL"/>
+  <Mapping cloverField="FAKSD" trim="true" xpath="FAKSD"/>
+  <Mapping cloverField="FISKN" trim="true" xpath="FISKN"/>
+  <Mapping cloverField="KNAZK" trim="true" xpath="KNAZK"/>
+  <Mapping cloverField="KNRZA" trim="true" xpath="KNRZA"/>
+  <Mapping cloverField="KONZS" trim="true" xpath="KONZS"/>
+  <Mapping cloverField="KTOKD" trim="true" xpath="KTOKD"/>
+  <Mapping cloverField="KUKLA" trim="true" xpath="KUKLA"/>
+  <Mapping cloverField="LIFNR" trim="true" xpath="LIFNR"/>
+  <Mapping cloverField="LIFSD" trim="true" xpath="LIFSD"/>
+  <Mapping cloverField="LOCCO" trim="true" xpath="LOCCO"/>
+  <Mapping cloverField="LOEVM" trim="true" xpath="LOEVM"/>
+  <Mapping cloverField="NAME3" trim="true" xpath="NAME3"/>
+  <Mapping cloverField="NAME4" trim="true" xpath="NAME4"/>
+  <Mapping cloverField="NIELS" trim="true" xpath="NIELS"/>
+  <Mapping cloverField="ORT02" trim="true" xpath="ORT02"/>
+  <Mapping cloverField="PFACH" trim="true" xpath="PFACH"/>
+  <Mapping cloverField="PSTL2" trim="true" xpath="PSTL2"/>
+  <Mapping cloverField="COUNC" trim="true" xpath="COUNC"/>
+  <Mapping cloverField="CITYC" trim="true" xpath="CITYC"/>
+  <Mapping cloverField="RPMKR" trim="true" xpath="RPMKR"/>
+  <Mapping cloverField="SPERR" trim="true" xpath="SPERR"/>
+  <Mapping cloverField="SPRAS" trim="true" xpath="SPRAS"/>
+  <Mapping cloverField="STCD1" trim="true" xpath="STCD1"/>
+  <Mapping cloverField="STCD2" trim="true" xpath="STCD2"/>
+  <Mapping cloverField="STKZA" trim="true" xpath="STKZA"/>
+  <Mapping cloverField="STKZU" trim="true" xpath="STKZU"/>
+  <Mapping cloverField="TELBX" trim="true" xpath="TELBX"/>
+  <Mapping cloverField="TELF2" trim="true" xpath="TELF2"/>
+  <Mapping cloverField="TELTX" trim="true" xpath="TELTX"/>
+  <Mapping cloverField="TELX1" trim="true" xpath="TELX1"/>
+  <Mapping cloverField="LZONE" trim="true" xpath="LZONE"/>
+  <Mapping cloverField="XZEMP" trim="true" xpath="XZEMP"/>
+  <Mapping cloverField="VBUND" trim="true" xpath="VBUND"/>
+  <Mapping cloverField="STCEG" trim="true" xpath="STCEG"/>
+  <Mapping cloverField="DEAR1" trim="true" xpath="DEAR1"/>
+  <Mapping cloverField="DEAR2" trim="true" xpath="DEAR2"/>
+  <Mapping cloverField="DEAR3" trim="true" xpath="DEAR3"/>
+  <Mapping cloverField="DEAR4" trim="true" xpath="DEAR4"/>
+  <Mapping cloverField="DEAR5" trim="true" xpath="DEAR5"/>
+  <Mapping cloverField="GFORM" trim="true" xpath="GFORM"/>
+  <Mapping cloverField="BRAN1" trim="true" xpath="BRAN1"/>
+  <Mapping cloverField="BRAN2" trim="true" xpath="BRAN2"/>
+  <Mapping cloverField="BRAN3" trim="true" xpath="BRAN3"/>
+  <Mapping cloverField="BRAN4" trim="true" xpath="BRAN4"/>
+  <Mapping cloverField="BRAN5" trim="true" xpath="BRAN5"/>
+  <Mapping cloverField="EKONT" trim="true" xpath="EKONT"/>
+  <Mapping cloverField="UMSAT" trim="true" xpath="UMSAT"/>
+  <Mapping cloverField="UMJAH" trim="true" xpath="UMJAH"/>
+  <Mapping cloverField="UWAER" trim="true" xpath="UWAER"/>
+  <Mapping cloverField="JMZAH" trim="true" xpath="JMZAH"/>
+  <Mapping cloverField="JMJAH" trim="true" xpath="JMJAH"/>
+  <Mapping cloverField="KATR1" trim="true" xpath="KATR1"/>
+  <Mapping cloverField="KATR2" trim="true" xpath="KATR2"/>
+  <Mapping cloverField="KATR3" trim="true" xpath="KATR3"/>
+  <Mapping cloverField="KATR4" trim="true" xpath="KATR4"/>
+  <Mapping cloverField="KATR5" trim="true" xpath="KATR5"/>
+  <Mapping cloverField="KATR6" trim="true" xpath="KATR6"/>
+  <Mapping cloverField="KATR7" trim="true" xpath="KATR7"/>
+  <Mapping cloverField="KATR8" trim="true" xpath="KATR8"/>
+  <Mapping cloverField="KATR9" trim="true" xpath="KATR9"/>
+  <Mapping cloverField="KATR10" trim="true" xpath="KATR10"/>
+  <Mapping cloverField="STKZN" trim="true" xpath="STKZN"/>
+  <Mapping cloverField="UMSA1" trim="true" xpath="UMSA1"/>
+  <Mapping cloverField="TXJCD" trim="true" xpath="TXJCD"/>
+  <Mapping cloverField="PERIV" trim="true" xpath="PERIV"/>
+  <Mapping cloverField="ABRVW" trim="true" xpath="ABRVW"/>
+  <Mapping cloverField="INSPBYDEBI" trim="true" xpath="INSPBYDEBI"/>
+  <Mapping cloverField="INSPATDEBI" trim="true" xpath="INSPATDEBI"/>
+  <Mapping cloverField="KTOCD" trim="true" xpath="KTOCD"/>
+  <Mapping cloverField="PFORT" trim="true" xpath="PFORT"/>
+  <Mapping cloverField="WERKS" trim="true" xpath="WERKS"/>
+  <Mapping cloverField="DTAMS" trim="true" xpath="DTAMS"/>
+  <Mapping cloverField="DTAWS" trim="true" xpath="DTAWS"/>
+  <Mapping cloverField="DUEFL" trim="true" xpath="DUEFL"/>
+  <Mapping cloverField="HZUOR" trim="true" xpath="HZUOR"/>
+  <Mapping cloverField="SPERZ" trim="true" xpath="SPERZ"/>
+  <Mapping cloverField="ETIKG" trim="true" xpath="ETIKG"/>
+  <Mapping cloverField="CIVVE" trim="true" xpath="CIVVE"/>
+  <Mapping cloverField="MILVE" trim="true" xpath="MILVE"/>
+  <Mapping cloverField="KDKG1" trim="true" xpath="KDKG1"/>
+  <Mapping cloverField="KDKG2" trim="true" xpath="KDKG2"/>
+  <Mapping cloverField="KDKG3" trim="true" xpath="KDKG3"/>
+  <Mapping cloverField="KDKG4" trim="true" xpath="KDKG4"/>
+  <Mapping cloverField="KDKG5" trim="true" xpath="KDKG5"/>
+  <Mapping cloverField="XKNZA" trim="true" xpath="XKNZA"/>
+  <Mapping cloverField="FITYP" trim="true" xpath="FITYP"/>
+  <Mapping cloverField="STCDT" trim="true" xpath="STCDT"/>
+  <Mapping cloverField="STCD3" trim="true" xpath="STCD3"/>
+  <Mapping cloverField="STCD4" trim="true" xpath="STCD4"/>
+  <Mapping cloverField="STCD5" trim="true" xpath="STCD5"/>
+  <Mapping cloverField="XICMS" trim="true" xpath="XICMS"/>
+  <Mapping cloverField="XXIPI" trim="true" xpath="XXIPI"/>
+  <Mapping cloverField="XSUBT" trim="true" xpath="XSUBT"/>
+  <Mapping cloverField="CFOPC" trim="true" xpath="CFOPC"/>
+  <Mapping cloverField="TXLW1" trim="true" xpath="TXLW1"/>
+  <Mapping cloverField="TXLW2" trim="true" xpath="TXLW2"/>
+  <Mapping cloverField="CCC01" trim="true" xpath="CCC01"/>
+  <Mapping cloverField="CCC02" trim="true" xpath="CCC02"/>
+  <Mapping cloverField="CCC03" trim="true" xpath="CCC03"/>
+  <Mapping cloverField="CCC04" trim="true" xpath="CCC04"/>
+  <Mapping cloverField="CASSD" trim="true" xpath="CASSD"/>
+  <Mapping cloverField="KNURL" trim="true" xpath="KNURL"/>
+  <Mapping cloverField="J_1KFREPRE" trim="true" xpath="J_1KFREPRE"/>
+  <Mapping cloverField="J_1KFTBUS" trim="true" xpath="J_1KFTBUS"/>
+  <Mapping cloverField="J_1KFTIND" trim="true" xpath="J_1KFTIND"/>
+  <Mapping cloverField="CONFS" trim="true" xpath="CONFS"/>
+  <Mapping cloverField="UPDAT" trim="true" xpath="UPDAT"/>
+  <Mapping cloverField="UPTIM" trim="true" xpath="UPTIM"/>
+  <Mapping cloverField="NODEL" trim="true" xpath="NODEL"/>
+  <Mapping cloverField="DEAR6" trim="true" xpath="DEAR6"/>
+  <Mapping cloverField="ALC" trim="true" xpath="ALC"/>
+  <Mapping cloverField="PMT_OFFICE" trim="true" xpath="PMT_OFFICE"/>
+  <Mapping cloverField="FEE_SCHEDULE" trim="true" xpath="FEE_SCHEDULE"/>
+  <Mapping cloverField="DUNS" trim="true" xpath="DUNS"/>
+  <Mapping cloverField="DUNS4" trim="true" xpath="DUNS4"/>
+  <Mapping cloverField="PSOFG" trim="true" xpath="PSOFG"/>
+  <Mapping cloverField="PSOIS" trim="true" xpath="PSOIS"/>
+  <Mapping cloverField="PSON1" trim="true" xpath="PSON1"/>
+  <Mapping cloverField="PSON2" trim="true" xpath="PSON2"/>
+  <Mapping cloverField="PSON3" trim="true" xpath="PSON3"/>
+  <Mapping cloverField="PSOVN" trim="true" xpath="PSOVN"/>
+  <Mapping cloverField="PSOTL" trim="true" xpath="PSOTL"/>
+  <Mapping cloverField="PSOHS" trim="true" xpath="PSOHS"/>
+  <Mapping cloverField="PSOST" trim="true" xpath="PSOST"/>
+  <Mapping cloverField="PSOO1" trim="true" xpath="PSOO1"/>
+  <Mapping cloverField="PSOO2" trim="true" xpath="PSOO2"/>
+  <Mapping cloverField="PSOO3" trim="true" xpath="PSOO3"/>
+  <Mapping cloverField="PSOO4" trim="true" xpath="PSOO4"/>
+  <Mapping cloverField="PSOO5" trim="true" xpath="PSOO5"/>
+  <Mapping cloverField="LAEDA" trim="true" xpath="LAEDA"/>
+  <Mapping cloverField="AENAM" trim="true" xpath="AENAM"/>
+  <Mapping cloverField="UTIME" trim="true" xpath="UTIME"/>
+  <Mapping cloverField="CTIME" trim="true" xpath="CTIME"/>
+  <Mapping cloverField="LAST_MODIF_DATE" trim="true" xpath="LAST_MODIF_DATE"/>
+  <Mapping cloverField="id" trim="true" xpath="@id"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__rootGlobalElementName"><![CDATA[ZMULE_CUSTOMER_GETLIST]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_ROW_ACCOUNT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="6415657c-9e11-46c1-bbcb-1510d45aa0dc" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="39359dea-48ed-41b9-b601-09d6e63bc471" outPort="Port 0 (out)" toNode="FOREACH_ROW_ACCOUNT:0"/>
+</Phase>
+</Graph>

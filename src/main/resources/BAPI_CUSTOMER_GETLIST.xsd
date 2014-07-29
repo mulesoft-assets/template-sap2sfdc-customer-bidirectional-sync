@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Mule Anypoint Template
+
+    Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
+<xsd:element name="BAPI_CUSTOMER_GETLIST">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="import" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="CPDONLY" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Control indicator: Read one-time customers only</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="MAXROWS" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Maximum number of customers</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:all></xsd:complexType></xsd:element>
+<xsd:element name="export" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="RETURN" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="TYPE" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Message type: S Success, E Error, W Warning, I Info, A Abort</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="ID" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Message Class</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="NUMBER" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Message Number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="MESSAGE" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Message Text</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="LOG_NO" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Application log: log number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="LOG_MSG_NO" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Application log: Internal message serial number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="MESSAGE_V1" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Message Variable</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="MESSAGE_V2" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Message Variable</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="MESSAGE_V3" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Message Variable</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="MESSAGE_V4" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Message Variable</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:all></xsd:complexType></xsd:element></xsd:all></xsd:complexType></xsd:element>
+<xsd:element name="tables" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="ADDRESSDATA" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="row" minOccurs="0" maxOccurs="unbounded">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="CUSTOMER" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Customer Number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="SORT1" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Search Term 1</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="NAME" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Name 1</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="COUNTRY" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Country Key</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="COUNTRYISO" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Country ISO code</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="CITY" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>City</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="POSTL_COD1" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>City postal code</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="REGION" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Region (State, Province, County)</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="STREET" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Street</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="TEL1_NUMBR" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>First telephone no.: dialling code+number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="FAX_NUMBER" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>First fax no.: dialling code+number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="ADDRESS" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Address</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:sequence>
+<xsd:attribute name="id" type="xsd:integer" use="required"/></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element>
+<xsd:element name="IDRANGE" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="row" minOccurs="0" maxOccurs="unbounded">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="SIGN" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Inclusion/exclusion criterion SIGN for range tables</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="OPTION" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Selection operator OPTION for range tables</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="LOW" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Customer Number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="HIGH" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Customer Number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:sequence>
+<xsd:attribute name="id" type="xsd:integer" use="required"/></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element>
+<xsd:element name="SPECIALDATA" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="row" minOccurs="0" maxOccurs="unbounded">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="CUSTOMER" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Customer Number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="ACC_1_TIME" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Indicator: Is the account a one-time account?</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:sequence>
+<xsd:attribute name="id" type="xsd:integer" use="required"/></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element></xsd:all></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element>
+</xsd:schema>

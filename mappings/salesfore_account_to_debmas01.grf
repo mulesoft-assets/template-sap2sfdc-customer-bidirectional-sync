@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="martin" created="Tue Jun 17 10:32:03 CEST 2014" description="Salesfore Account to DEBMAS01" guiVersion="3.4.3.P" id="1403271665965" licenseCode="Unlicensed" licenseType="Unknown" modified="Tue Jun 17 10:32:03 CEST 2014" modifiedBy="martin" name="Salesfore_Account_to_DEBMAS01" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/DEBMAS01" _dataStructure="OBJECT" _id="__id" _type="Output" id="09f474e3-3fde-463f-974b-bd78133174e0">
+<Record fieldDelimiter="," name="DEBMAS01" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/TABNAM" containerType="SINGLE" label="TABNAM" name="TABNAM" type="string"/>
+<Field __index="1" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/MANDT" containerType="SINGLE" label="MANDT" name="MANDT" type="string"/>
+<Field __index="2" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/DOCNUM" containerType="SINGLE" label="DOCNUM" name="DOCNUM" type="string"/>
+<Field __index="3" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/DOCREL" containerType="SINGLE" label="DOCREL" name="DOCREL" type="string"/>
+<Field __index="4" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/STATUS" containerType="SINGLE" label="STATUS" name="STATUS" type="string"/>
+<Field __index="5" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/DIRECT" containerType="SINGLE" label="DIRECT" name="DIRECT" type="string"/>
+<Field __index="6" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/OUTMOD" containerType="SINGLE" label="OUTMOD" name="OUTMOD" type="string"/>
+<Field __index="7" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/EXPRSS" containerType="SINGLE" label="EXPRSS" name="EXPRSS" type="string"/>
+<Field __index="8" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/TEST" containerType="SINGLE" label="TEST" name="TEST" type="string"/>
+<Field __index="9" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/IDOCTYP" containerType="SINGLE" label="IDOCTYP" name="IDOCTYP" type="string"/>
+<Field __index="10" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/CIMTYP" containerType="SINGLE" label="CIMTYP" name="CIMTYP" type="string"/>
+<Field __index="11" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/MESTYP" containerType="SINGLE" label="MESTYP" name="MESTYP" type="string"/>
+<Field __index="12" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/MESCOD" containerType="SINGLE" label="MESCOD" name="MESCOD" type="string"/>
+<Field __index="13" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/MESFCT" containerType="SINGLE" label="MESFCT" name="MESFCT" type="string"/>
+<Field __index="14" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/STD" containerType="SINGLE" label="STD" name="STD" type="string"/>
+<Field __index="15" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/STDVRS" containerType="SINGLE" label="STDVRS" name="STDVRS" type="string"/>
+<Field __index="16" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/STDMES" containerType="SINGLE" label="STDMES" name="STDMES" type="string"/>
+<Field __index="17" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/SNDPOR" containerType="SINGLE" label="SNDPOR" name="SNDPOR" type="string"/>
+<Field __index="18" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/SNDPRT" containerType="SINGLE" label="SNDPRT" name="SNDPRT" type="string"/>
+<Field __index="19" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/SNDPFC" containerType="SINGLE" label="SNDPFC" name="SNDPFC" type="string"/>
+<Field __index="20" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/SNDPRN" containerType="SINGLE" label="SNDPRN" name="SNDPRN" type="string"/>
+<Field __index="21" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/SNDSAD" containerType="SINGLE" label="SNDSAD" name="SNDSAD" type="string"/>
+<Field __index="22" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/SNDLAD" containerType="SINGLE" label="SNDLAD" name="SNDLAD" type="string"/>
+<Field __index="23" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/RCVPOR" containerType="SINGLE" label="RCVPOR" name="RCVPOR" type="string"/>
+<Field __index="24" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/RCVPRT" containerType="SINGLE" label="RCVPRT" name="RCVPRT" type="string"/>
+<Field __index="25" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/RCVPFC" containerType="SINGLE" label="RCVPFC" name="RCVPFC" type="string"/>
+<Field __index="26" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/RCVPRN" containerType="SINGLE" label="RCVPRN" name="RCVPRN" type="string"/>
+<Field __index="27" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/RCVSAD" containerType="SINGLE" label="RCVSAD" name="RCVSAD" type="string"/>
+<Field __index="28" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/RCVLAD" containerType="SINGLE" label="RCVLAD" name="RCVLAD" type="string"/>
+<Field __index="29" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/CREDAT" containerType="SINGLE" label="CREDAT" name="CREDAT" type="string"/>
+<Field __index="30" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/CRETIM" containerType="SINGLE" label="CRETIM" name="CRETIM" type="string"/>
+<Field __index="31" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/REFINT" containerType="SINGLE" label="REFINT" name="REFINT" type="string"/>
+<Field __index="32" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/REFGRP" containerType="SINGLE" label="REFGRP" name="REFGRP" type="string"/>
+<Field __index="33" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/REFMES" containerType="SINGLE" label="REFMES" name="REFMES" type="string"/>
+<Field __index="34" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/ARCKEY" containerType="SINGLE" label="ARCKEY" name="ARCKEY" type="string"/>
+<Field __index="35" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/SERIAL" containerType="SINGLE" label="SERIAL" name="SERIAL" type="string"/>
+<Field __index="36" __sourcePath="{}/DEBMAS01/IDOC/EDI_DC40/@SEGMENT" containerType="SINGLE" label="SEGMENT" name="SEGMENT" type="string"/>
+<Field __index="37" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/MSGFN" containerType="SINGLE" label="MSGFN" name="MSGFN" type="string"/>
+<Field __index="38" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KUNNR" containerType="SINGLE" label="KUNNR" name="KUNNR" type="string"/>
+<Field __index="39" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/ANRED" containerType="SINGLE" label="ANRED" name="ANRED" type="string"/>
+<Field __index="40" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/AUFSD" containerType="SINGLE" label="AUFSD" name="AUFSD" type="string"/>
+<Field __index="41" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BAHNE" containerType="SINGLE" label="BAHNE" name="BAHNE" type="string"/>
+<Field __index="42" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BAHNS" containerType="SINGLE" label="BAHNS" name="BAHNS" type="string"/>
+<Field __index="43" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BBBNR" containerType="SINGLE" label="BBBNR" name="BBBNR" type="string"/>
+<Field __index="44" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BBSNR" containerType="SINGLE" label="BBSNR" name="BBSNR" type="string"/>
+<Field __index="45" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BEGRU" containerType="SINGLE" label="BEGRU" name="BEGRU" type="string"/>
+<Field __index="46" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BRSCH" containerType="SINGLE" label="BRSCH" name="BRSCH" type="string"/>
+<Field __index="47" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BUBKZ" containerType="SINGLE" label="BUBKZ" name="BUBKZ" type="string"/>
+<Field __index="48" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/DATLT" containerType="SINGLE" label="DATLT" name="DATLT" type="string"/>
+<Field __index="49" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/FAKSD" containerType="SINGLE" label="FAKSD" name="FAKSD" type="string"/>
+<Field __index="50" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/FISKN" containerType="SINGLE" label="FISKN" name="FISKN" type="string"/>
+<Field __index="51" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KNRZA" containerType="SINGLE" label="KNRZA" name="KNRZA" type="string"/>
+<Field __index="52" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KONZS" containerType="SINGLE" label="KONZS" name="KONZS" type="string"/>
+<Field __index="53" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KTOKD" containerType="SINGLE" label="KTOKD" name="KTOKD" type="string"/>
+<Field __index="54" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KUKLA" containerType="SINGLE" label="KUKLA" name="KUKLA" type="string"/>
+<Field __index="55" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/LAND1" containerType="SINGLE" label="LAND1" name="LAND1" type="string"/>
+<Field __index="56" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/LIFNR" containerType="SINGLE" label="LIFNR" name="LIFNR" type="string"/>
+<Field __index="57" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/LIFSD" containerType="SINGLE" label="LIFSD" name="LIFSD" type="string"/>
+<Field __index="58" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/LOCCO" containerType="SINGLE" label="LOCCO" name="LOCCO" type="string"/>
+<Field __index="59" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/LOEVM" containerType="SINGLE" label="LOEVM" name="LOEVM" type="string"/>
+<Field __index="60" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/NAME1" containerType="SINGLE" label="NAME1" name="NAME1" type="string"/>
+<Field __index="61" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/NAME2" containerType="SINGLE" label="NAME2" name="NAME2" type="string"/>
+<Field __index="62" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/NAME3" containerType="SINGLE" label="NAME3" name="NAME3" type="string"/>
+<Field __index="63" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/NAME4" containerType="SINGLE" label="NAME4" name="NAME4" type="string"/>
+<Field __index="64" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/NIELS" containerType="SINGLE" label="NIELS" name="NIELS" type="string"/>
+<Field __index="65" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/ORT01" containerType="SINGLE" label="ORT01" name="ORT01" type="string"/>
+<Field __index="66" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/ORT02" containerType="SINGLE" label="ORT02" name="ORT02" type="string"/>
+<Field __index="67" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/PFACH" containerType="SINGLE" label="PFACH" name="PFACH" type="string"/>
+<Field __index="68" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/PSTL2" containerType="SINGLE" label="PSTL2" name="PSTL2" type="string"/>
+<Field __index="69" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/PSTLZ" containerType="SINGLE" label="PSTLZ" name="PSTLZ" type="string"/>
+<Field __index="70" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/REGIO" containerType="SINGLE" label="REGIO" name="REGIO" type="string"/>
+<Field __index="71" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/COUNC" containerType="SINGLE" label="COUNC" name="COUNC" type="string"/>
+<Field __index="72" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/CITYC" containerType="SINGLE" label="CITYC" name="CITYC" type="string"/>
+<Field __index="73" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/RPMKR" containerType="SINGLE" label="RPMKR" name="RPMKR" type="string"/>
+<Field __index="74" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/SORTL" containerType="SINGLE" label="SORTL" name="SORTL" type="string"/>
+<Field __index="75" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/SPERR" containerType="SINGLE" label="SPERR" name="SPERR" type="string"/>
+<Field __index="76" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/SPRAS" containerType="SINGLE" label="SPRAS" name="SPRAS" type="string"/>
+<Field __index="77" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STCD1" containerType="SINGLE" label="STCD1" name="STCD1" type="string"/>
+<Field __index="78" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STCD2" containerType="SINGLE" label="STCD2" name="STCD2" type="string"/>
+<Field __index="79" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STKZA" containerType="SINGLE" label="STKZA" name="STKZA" type="string"/>
+<Field __index="80" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STKZU" containerType="SINGLE" label="STKZU" name="STKZU" type="string"/>
+<Field __index="81" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STRAS" containerType="SINGLE" label="STRAS" name="STRAS" type="string"/>
+<Field __index="82" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TELBX" containerType="SINGLE" label="TELBX" name="TELBX" type="string"/>
+<Field __index="83" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TELF1" containerType="SINGLE" label="TELF1" name="TELF1" type="string"/>
+<Field __index="84" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TELF2" containerType="SINGLE" label="TELF2" name="TELF2" type="string"/>
+<Field __index="85" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TELFX" containerType="SINGLE" label="TELFX" name="TELFX" type="string"/>
+<Field __index="86" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TELTX" containerType="SINGLE" label="TELTX" name="TELTX" type="string"/>
+<Field __index="87" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TELX1" containerType="SINGLE" label="TELX1" name="TELX1" type="string"/>
+<Field __index="88" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/LZONE" containerType="SINGLE" label="LZONE" name="LZONE" type="string"/>
+<Field __index="89" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/XZEMP" containerType="SINGLE" label="XZEMP" name="XZEMP" type="string"/>
+<Field __index="90" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/VBUND" containerType="SINGLE" label="VBUND" name="VBUND" type="string"/>
+<Field __index="91" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STCEG" containerType="SINGLE" label="STCEG" name="STCEG" type="string"/>
+<Field __index="92" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/GFORM" containerType="SINGLE" label="GFORM" name="GFORM" type="string"/>
+<Field __index="93" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BRAN1" containerType="SINGLE" label="BRAN1" name="BRAN1" type="string"/>
+<Field __index="94" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BRAN2" containerType="SINGLE" label="BRAN2" name="BRAN2" type="string"/>
+<Field __index="95" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BRAN3" containerType="SINGLE" label="BRAN3" name="BRAN3" type="string"/>
+<Field __index="96" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BRAN4" containerType="SINGLE" label="BRAN4" name="BRAN4" type="string"/>
+<Field __index="97" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/BRAN5" containerType="SINGLE" label="BRAN5" name="BRAN5" type="string"/>
+<Field __index="98" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/UMJAH" containerType="SINGLE" label="UMJAH" name="UMJAH" type="string"/>
+<Field __index="99" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/UWAER" containerType="SINGLE" label="UWAER" name="UWAER" type="string"/>
+<Field __index="100" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/JMZAH" containerType="SINGLE" label="JMZAH" name="JMZAH" type="string"/>
+<Field __index="101" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/JMJAH" containerType="SINGLE" label="JMJAH" name="JMJAH" type="string"/>
+<Field __index="102" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR1" containerType="SINGLE" label="KATR1" name="KATR1" type="string"/>
+<Field __index="103" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR2" containerType="SINGLE" label="KATR2" name="KATR2" type="string"/>
+<Field __index="104" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR3" containerType="SINGLE" label="KATR3" name="KATR3" type="string"/>
+<Field __index="105" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR4" containerType="SINGLE" label="KATR4" name="KATR4" type="string"/>
+<Field __index="106" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR5" containerType="SINGLE" label="KATR5" name="KATR5" type="string"/>
+<Field __index="107" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR6" containerType="SINGLE" label="KATR6" name="KATR6" type="string"/>
+<Field __index="108" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR7" containerType="SINGLE" label="KATR7" name="KATR7" type="string"/>
+<Field __index="109" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR8" containerType="SINGLE" label="KATR8" name="KATR8" type="string"/>
+<Field __index="110" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR9" containerType="SINGLE" label="KATR9" name="KATR9" type="string"/>
+<Field __index="111" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KATR10" containerType="SINGLE" label="KATR10" name="KATR10" type="string"/>
+<Field __index="112" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STKZN" containerType="SINGLE" label="STKZN" name="STKZN" type="string"/>
+<Field __index="113" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/UMSA1" containerType="SINGLE" label="UMSA1" name="UMSA1" type="string"/>
+<Field __index="114" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TXJCD" containerType="SINGLE" label="TXJCD" name="TXJCD" type="string"/>
+<Field __index="115" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/PERIV" containerType="SINGLE" label="PERIV" name="PERIV" type="string"/>
+<Field __index="116" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KTOCD" containerType="SINGLE" label="KTOCD" name="KTOCD" type="string"/>
+<Field __index="117" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/PFORT" containerType="SINGLE" label="PFORT" name="PFORT" type="string"/>
+<Field __index="118" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/DTAMS" containerType="SINGLE" label="DTAMS" name="DTAMS" type="string"/>
+<Field __index="119" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/DTAWS" containerType="SINGLE" label="DTAWS" name="DTAWS" type="string"/>
+<Field __index="120" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/HZUOR" containerType="SINGLE" label="HZUOR" name="HZUOR" type="string"/>
+<Field __index="121" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/CIVVE" containerType="SINGLE" label="CIVVE" name="CIVVE" type="string"/>
+<Field __index="122" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/MILVE" containerType="SINGLE" label="MILVE" name="MILVE" type="string"/>
+<Field __index="123" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/SPRAS_ISO" containerType="SINGLE" label="SPRAS_ISO" name="SPRAS_ISO" type="string"/>
+<Field __index="124" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/FITYP" containerType="SINGLE" label="FITYP" name="FITYP" type="string"/>
+<Field __index="125" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STCDT" containerType="SINGLE" label="STCDT" name="STCDT" type="string"/>
+<Field __index="126" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STCD3" containerType="SINGLE" label="STCD3" name="STCD3" type="string"/>
+<Field __index="127" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/STCD4" containerType="SINGLE" label="STCD4" name="STCD4" type="string"/>
+<Field __index="128" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/XICMS" containerType="SINGLE" label="XICMS" name="XICMS" type="string"/>
+<Field __index="129" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/XXIPI" containerType="SINGLE" label="XXIPI" name="XXIPI" type="string"/>
+<Field __index="130" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/XSUBT" containerType="SINGLE" label="XSUBT" name="XSUBT" type="string"/>
+<Field __index="131" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/CFOPC" containerType="SINGLE" label="CFOPC" name="CFOPC" type="string"/>
+<Field __index="132" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TXLW1" containerType="SINGLE" label="TXLW1" name="TXLW1" type="string"/>
+<Field __index="133" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/TXLW2" containerType="SINGLE" label="TXLW2" name="TXLW2" type="string"/>
+<Field __index="134" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/CCC01" containerType="SINGLE" label="CCC01" name="CCC01" type="string"/>
+<Field __index="135" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/CCC02" containerType="SINGLE" label="CCC02" name="CCC02" type="string"/>
+<Field __index="136" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/CCC03" containerType="SINGLE" label="CCC03" name="CCC03" type="string"/>
+<Field __index="137" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/CCC04" containerType="SINGLE" label="CCC04" name="CCC04" type="string"/>
+<Field __index="138" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/CASSD" containerType="SINGLE" label="CASSD" name="CASSD" type="string"/>
+<Field __index="139" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KDKG1" containerType="SINGLE" label="KDKG1" name="KDKG1" type="string"/>
+<Field __index="140" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KDKG2" containerType="SINGLE" label="KDKG2" name="KDKG2" type="string"/>
+<Field __index="141" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KDKG3" containerType="SINGLE" label="KDKG3" name="KDKG3" type="string"/>
+<Field __index="142" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KDKG4" containerType="SINGLE" label="KDKG4" name="KDKG4" type="string"/>
+<Field __index="143" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/KDKG5" containerType="SINGLE" label="KDKG5" name="KDKG5" type="string"/>
+<Field __index="144" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/NODEL" containerType="SINGLE" label="NODEL" name="NODEL" type="string"/>
+<Field __index="145" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/XSUB2" containerType="SINGLE" label="XSUB2" name="XSUB2" type="string"/>
+<Field __index="146" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/WERKS" containerType="SINGLE" label="WERKS" name="WERKS" type="string"/>
+<Field __index="468" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/@SEGMENT" containerType="SINGLE" label="SEGMENT" name="SEGMENT_2" type="string"/>
+<Field __index="469" __sourcePath="{}/DEBMAS01/IDOC/@BEGIN" containerType="SINGLE" label="BEGIN" name="BEGIN" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="304" __referenceCounter="0" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="577696c6-9e7f-4f1a-bc33-b9aaa6831eba" _parent_id="__parent_id" _type="Output" id="e68b26a5-5154-4eaa-b9d8-2fdc4aec9950">
+<Record fieldDelimiter="," name="E1KNB5M" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="304" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/MSGFN" containerType="SINGLE" label="MSGFN" name="MSGFN" type="string"/>
+<Field __index="305" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/MABER" containerType="SINGLE" label="MABER" name="MABER" type="string"/>
+<Field __index="306" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/MAHNA" containerType="SINGLE" label="MAHNA" name="MAHNA" type="string"/>
+<Field __index="307" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/MANSP" containerType="SINGLE" label="MANSP" name="MANSP" type="string"/>
+<Field __index="308" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/MADAT" containerType="SINGLE" label="MADAT" name="MADAT" type="string"/>
+<Field __index="309" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/MAHNS" containerType="SINGLE" label="MAHNS" name="MAHNS" type="string"/>
+<Field __index="310" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/KNRMA" containerType="SINGLE" label="KNRMA" name="KNRMA" type="string"/>
+<Field __index="311" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/GMVDT" containerType="SINGLE" label="GMVDT" name="GMVDT" type="string"/>
+<Field __index="312" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/BUSAB" containerType="SINGLE" label="BUSAB" name="BUSAB" type="string"/>
+<Field __index="313" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNB1M/E1KNB5M/@SEGMENT" containerType="SINGLE" label="SEGMENT" name="SEGMENT" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="213" __referenceCounter="0" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="16e42681-a73c-445d-a79f-bd5bcc8762af" _parent_id="__parent_id" _type="Output" id="fc863e18-cd33-468a-a278-dae3ada305ee">
+<Record fieldDelimiter="," name="E1KNVDM" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __index="213" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM/MSGFN" containerType="SINGLE" label="MSGFN" name="MSGFN" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="214" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM/DOCTP" containerType="SINGLE" label="DOCTP" name="DOCTP" type="string"/>
+<Field __index="215" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM/SPRAS" containerType="SINGLE" label="SPRAS" name="SPRAS" type="string"/>
+<Field __index="216" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM/DOANZ" containerType="SINGLE" label="DOANZ" name="DOANZ" type="string"/>
+<Field __index="217" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM/DOVER" containerType="SINGLE" label="DOVER" name="DOVER" type="string"/>
+<Field __index="218" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM/NACHA" containerType="SINGLE" label="NACHA" name="NACHA" type="string"/>
+<Field __index="219" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM/SPRAS_ISO" containerType="SINGLE" label="SPRAS_ISO" name="SPRAS_ISO" type="string"/>
+<Field __index="220" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVDM/@SEGMENT" containerType="SINGLE" label="SEGMENT" name="SEGMENT" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="221" __referenceCounter="0" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVIM" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="16e42681-a73c-445d-a79f-bd5bcc8762af" _parent_id="__parent_id" _type="Output" id="b926a113-0d32-4116-bce2-77ce3eb1de8d">
+<Record fieldDelimiter="," name="E1KNVIM" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="221" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVIM/MSGFN" containerType="SINGLE" label="MSGFN" name="MSGFN" type="string"/>
+<Field __index="222" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVIM/ALAND" containerType="SINGLE" label="ALAND" name="ALAND" type="string"/>
+<Field __index="223" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVIM/TATYP" containerType="SINGLE" label="TATYP" name="TATYP" type="string"/>
+<Field __index="224" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVIM/TAXKD" containerType="SINGLE" label="TAXKD" name="TAXKD" type="string"/>
+<Field __index="225" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVIM/@SEGMENT" containerType="SINGLE" label="SEGMENT" name="SEGMENT" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="226" __referenceCounter="0" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="16e42681-a73c-445d-a79f-bd5bcc8762af" _parent_id="__parent_id" _type="Output" id="8e20124b-72d0-4d9c-9e0e-e99040041345">
+<Record fieldDelimiter="," name="E1KNVLM" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="226" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM/MSGFN" containerType="SINGLE" label="MSGFN" name="MSGFN" type="string"/>
+<Field __index="227" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM/ALAND" containerType="SINGLE" label="ALAND" name="ALAND" type="string"/>
+<Field __index="228" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM/TATYP" containerType="SINGLE" label="TATYP" name="TATYP" type="string"/>
+<Field __index="229" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM/LICNR" containerType="SINGLE" label="LICNR" name="LICNR" type="string"/>
+<Field __index="230" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM/DATAB" containerType="SINGLE" label="DATAB" name="DATAB" type="string"/>
+<Field __index="231" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM/DATBI" containerType="SINGLE" label="DATBI" name="DATBI" type="string"/>
+<Field __index="232" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM/BELIC" containerType="SINGLE" label="BELIC" name="BELIC" type="string"/>
+<Field __index="233" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVLM/@SEGMENT" containerType="SINGLE" label="SEGMENT" name="SEGMENT" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="206" __referenceCounter="0" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVPM" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="16e42681-a73c-445d-a79f-bd5bcc8762af" _parent_id="__parent_id" _type="Output" id="fdb1fcc0-954e-4fd8-b941-ca3eccf06c4b">
+<Record fieldDelimiter="," name="E1KNVPM" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="206" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVPM/MSGFN" containerType="SINGLE" label="MSGFN" name="MSGFN" type="string"/>
+<Field __index="207" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVPM/PARVW" containerType="SINGLE" label="PARVW" name="PARVW" type="string"/>
+<Field __index="208" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVPM/KUNN2" containerType="SINGLE" label="KUNN2" name="KUNN2" type="string"/>
+<Field __index="209" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVPM/DEFPA" containerType="SINGLE" label="DEFPA" name="DEFPA" type="string"/>
+<Field __index="210" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVPM/KNREF" containerType="SINGLE" label="KNREF" name="KNREF" type="string"/>
+<Field __index="211" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVPM/PARZA" containerType="SINGLE" label="PARZA" name="PARZA" type="string"/>
+<Field __index="212" __sourcePath="{}/DEBMAS01/IDOC/E1KNA1M/E1KNVVM/E1KNVPM/@SEGMENT" containerType="SINGLE" label="SEGMENT" name="SEGMENT" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/Salesforce_x0020Account" _dataStructure="OBJECT" _id="__id" _type="Input" id="ba1f668a-cfe4-41a6-bc04-71fc077e36d5">
+<Record fieldDelimiter="," name="Salesforce_Account" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{}/Salesforce_x0020Account/CustomerNumber" containerType="SINGLE" label="CustomerNumber" name="CustomerNumber" type="string"/>
+<Field __sourcePath="{}/Salesforce_x0020Account/Name" containerType="SINGLE" label="Name" name="Name" type="string"/>
+<Field __sourcePath="{}/Salesforce_x0020Account/BillingCity" containerType="SINGLE" label="BillingCity" name="BillingCity" type="string"/>
+<Field __sourcePath="{}/Salesforce_x0020Account/AccountGroup" containerType="SINGLE" label="AccountGroup" name="AccountGroup" type="string"/>
+<Field __sourcePath="{}/Salesforce_x0020Account/MSGFN" containerType="SINGLE" label="MSGFN" name="MSGFN" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiName="Map&lt;k,v&gt; READER" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath=".">
+  <Mapping cloverField="CustomerNumber" trim="true" xpath="CustomerNumber"/>
+  <Mapping cloverField="Name" trim="true" xpath="Name"/>
+  <Mapping cloverField="BillingCity" trim="true" xpath="BillingCity"/>
+  <Mapping cloverField="AccountGroup" trim="true" xpath="AccountGroup"/>
+  <Mapping cloverField="MSGFN" trim="true" xpath="MSGFN"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER" xmlSchemaURL="./src/main/resources/DEBMAS01.xsd">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<DEBMAS01 xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <IDOC BEGIN="$0.BEGIN">
+    <clover:element clover:name="EDI_DC40" SEGMENT="$0.SEGMENT">
+      <TABNAM>$0.TABNAM</TABNAM>
+      <MANDT>$0.MANDT</MANDT>
+      <DOCNUM>$0.DOCNUM</DOCNUM>
+      <DOCREL>$0.DOCREL</DOCREL>
+      <STATUS>$0.STATUS</STATUS>
+      <DIRECT>$0.DIRECT</DIRECT>
+      <OUTMOD>$0.OUTMOD</OUTMOD>
+      <EXPRSS>$0.EXPRSS</EXPRSS>
+      <TEST>$0.TEST</TEST>
+      <IDOCTYP>$0.IDOCTYP</IDOCTYP>
+      <CIMTYP>$0.CIMTYP</CIMTYP>
+      <MESTYP>$0.MESTYP</MESTYP>
+      <MESCOD>$0.MESCOD</MESCOD>
+      <MESFCT>$0.MESFCT</MESFCT>
+      <STD>$0.STD</STD>
+      <STDVRS>$0.STDVRS</STDVRS>
+      <STDMES>$0.STDMES</STDMES>
+      <SNDPOR>$0.SNDPOR</SNDPOR>
+      <SNDPRT>$0.SNDPRT</SNDPRT>
+      <SNDPFC>$0.SNDPFC</SNDPFC>
+      <SNDPRN>$0.SNDPRN</SNDPRN>
+      <SNDSAD>$0.SNDSAD</SNDSAD>
+      <SNDLAD>$0.SNDLAD</SNDLAD>
+      <RCVPOR>$0.RCVPOR</RCVPOR>
+      <RCVPRT>$0.RCVPRT</RCVPRT>
+      <RCVPFC>$0.RCVPFC</RCVPFC>
+      <RCVPRN>$0.RCVPRN</RCVPRN>
+      <RCVSAD>$0.RCVSAD</RCVSAD>
+      <RCVLAD>$0.RCVLAD</RCVLAD>
+      <CREDAT>$0.CREDAT</CREDAT>
+      <CRETIM>$0.CRETIM</CRETIM>
+      <REFINT>$0.REFINT</REFINT>
+      <REFGRP>$0.REFGRP</REFGRP>
+      <REFMES>$0.REFMES</REFMES>
+      <ARCKEY>$0.ARCKEY</ARCKEY>
+      <SERIAL>$0.SERIAL</SERIAL>
+    </clover:element>
+    <E1KNA1M SEGMENT="$0.SEGMENT_2">
+      <MSGFN>$0.MSGFN</MSGFN>
+      <KUNNR>$0.KUNNR</KUNNR>
+      <ANRED>$0.ANRED</ANRED>
+      <AUFSD>$0.AUFSD</AUFSD>
+      <BAHNE>$0.BAHNE</BAHNE>
+      <BAHNS>$0.BAHNS</BAHNS>
+      <BBBNR>$0.BBBNR</BBBNR>
+      <BBSNR>$0.BBSNR</BBSNR>
+      <BEGRU>$0.BEGRU</BEGRU>
+      <BRSCH>$0.BRSCH</BRSCH>
+      <BUBKZ>$0.BUBKZ</BUBKZ>
+      <DATLT>$0.DATLT</DATLT>
+      <FAKSD>$0.FAKSD</FAKSD>
+      <FISKN>$0.FISKN</FISKN>
+      <KNRZA>$0.KNRZA</KNRZA>
+      <KONZS>$0.KONZS</KONZS>
+      <KTOKD>$0.KTOKD</KTOKD>
+      <KUKLA>$0.KUKLA</KUKLA>
+      <LAND1>$0.LAND1</LAND1>
+      <LIFNR>$0.LIFNR</LIFNR>
+      <LIFSD>$0.LIFSD</LIFSD>
+      <LOCCO>$0.LOCCO</LOCCO>
+      <LOEVM>$0.LOEVM</LOEVM>
+      <NAME1>$0.NAME1</NAME1>
+      <NAME2>$0.NAME2</NAME2>
+      <NAME3>$0.NAME3</NAME3>
+      <NAME4>$0.NAME4</NAME4>
+      <NIELS>$0.NIELS</NIELS>
+      <ORT01>$0.ORT01</ORT01>
+      <ORT02>$0.ORT02</ORT02>
+      <PFACH>$0.PFACH</PFACH>
+      <PSTL2>$0.PSTL2</PSTL2>
+      <PSTLZ>$0.PSTLZ</PSTLZ>
+      <REGIO>$0.REGIO</REGIO>
+      <COUNC>$0.COUNC</COUNC>
+      <CITYC>$0.CITYC</CITYC>
+      <RPMKR>$0.RPMKR</RPMKR>
+      <SORTL>$0.SORTL</SORTL>
+      <SPERR>$0.SPERR</SPERR>
+      <SPRAS>$0.SPRAS</SPRAS>
+      <STCD1>$0.STCD1</STCD1>
+      <STCD2>$0.STCD2</STCD2>
+      <STKZA>$0.STKZA</STKZA>
+      <STKZU>$0.STKZU</STKZU>
+      <STRAS>$0.STRAS</STRAS>
+      <TELBX>$0.TELBX</TELBX>
+      <TELF1>$0.TELF1</TELF1>
+      <TELF2>$0.TELF2</TELF2>
+      <TELFX>$0.TELFX</TELFX>
+      <TELTX>$0.TELTX</TELTX>
+      <TELX1>$0.TELX1</TELX1>
+      <LZONE>$0.LZONE</LZONE>
+      <XZEMP>$0.XZEMP</XZEMP>
+      <VBUND>$0.VBUND</VBUND>
+      <STCEG>$0.STCEG</STCEG>
+      <GFORM>$0.GFORM</GFORM>
+      <BRAN1>$0.BRAN1</BRAN1>
+      <BRAN2>$0.BRAN2</BRAN2>
+      <BRAN3>$0.BRAN3</BRAN3>
+      <BRAN4>$0.BRAN4</BRAN4>
+      <BRAN5>$0.BRAN5</BRAN5>
+      <UMJAH>$0.UMJAH</UMJAH>
+      <UWAER>$0.UWAER</UWAER>
+      <JMZAH>$0.JMZAH</JMZAH>
+      <JMJAH>$0.JMJAH</JMJAH>
+      <KATR1>$0.KATR1</KATR1>
+      <KATR2>$0.KATR2</KATR2>
+      <KATR3>$0.KATR3</KATR3>
+      <KATR4>$0.KATR4</KATR4>
+      <KATR5>$0.KATR5</KATR5>
+      <KATR6>$0.KATR6</KATR6>
+      <KATR7>$0.KATR7</KATR7>
+      <KATR8>$0.KATR8</KATR8>
+      <KATR9>$0.KATR9</KATR9>
+      <KATR10>$0.KATR10</KATR10>
+      <STKZN>$0.STKZN</STKZN>
+      <UMSA1>$0.UMSA1</UMSA1>
+      <TXJCD>$0.TXJCD</TXJCD>
+      <PERIV>$0.PERIV</PERIV>
+      <KTOCD>$0.KTOCD</KTOCD>
+      <PFORT>$0.PFORT</PFORT>
+      <DTAMS>$0.DTAMS</DTAMS>
+      <DTAWS>$0.DTAWS</DTAWS>
+      <HZUOR>$0.HZUOR</HZUOR>
+      <CIVVE>$0.CIVVE</CIVVE>
+      <MILVE>$0.MILVE</MILVE>
+      <clover:element clover:name="SPRAS_ISO">$0.SPRAS_ISO</clover:element>
+      <FITYP>$0.FITYP</FITYP>
+      <STCDT>$0.STCDT</STCDT>
+      <STCD3>$0.STCD3</STCD3>
+      <STCD4>$0.STCD4</STCD4>
+      <XICMS>$0.XICMS</XICMS>
+      <XXIPI>$0.XXIPI</XXIPI>
+      <XSUBT>$0.XSUBT</XSUBT>
+      <CFOPC>$0.CFOPC</CFOPC>
+      <TXLW1>$0.TXLW1</TXLW1>
+      <TXLW2>$0.TXLW2</TXLW2>
+      <CCC01>$0.CCC01</CCC01>
+      <CCC02>$0.CCC02</CCC02>
+      <CCC03>$0.CCC03</CCC03>
+      <CCC04>$0.CCC04</CCC04>
+      <CASSD>$0.CASSD</CASSD>
+      <KDKG1>$0.KDKG1</KDKG1>
+      <KDKG2>$0.KDKG2</KDKG2>
+      <KDKG3>$0.KDKG3</KDKG3>
+      <KDKG4>$0.KDKG4</KDKG4>
+      <KDKG5>$0.KDKG5</KDKG5>
+      <NODEL>$0.NODEL</NODEL>
+      <XSUB2>$0.XSUB2</XSUB2>
+      <WERKS>$0.WERKS</WERKS>
+    </E1KNA1M>
+  </IDOC>
+</DEBMAS01>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__rootGlobalElementName"><![CDATA[DEBMAS01]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'Salesforce Account' -&gt; 'DEBMAS01'" guiX="460" guiY="20" id="FOREACH_SALESFORCE_X0020ACCOUNT_DEBMAS01" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.NAME1 = input.Name;;
+output.BEGIN = "1";;
+output.SEGMENT_2 = "1";;
+output.TABNAM = "EDI_DC40";;
+
+output.DIRECT = "2";;
+output.IDOCTYP = "DEBMAS01";;
+output.MESTYP = "DEBMAS";;
+output.SNDPRT = "LS";;
+output.SNDPOR = "MULESOFT";;
+output.SNDPRN = "MULESOFT";;
+output.RCVPOR = "MULESOFT";;
+output.RCVPRT = "LS";;
+output.RCVPRN = "MULESOFT";;
+output.SEGMENT = "1";;
+output.KUNNR = input.CustomerNumber;;
+output.LAND1 = "SK";;
+
+output.SPRAS = "E";;
+output.SPRAS_ISO = "EN";;
+output.KTOKD = input.AccountGroup;;
+output.MSGFN = input.MSGFN;;
+
+output.ORT01 = input.BillingCity;;]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Duplicate Salesforce_Account" guiX="240" guiY="20" id="SIMPLE_COPY0" type="SIMPLE_COPY"/>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="ba1f668a-cfe4-41a6-bc04-71fc077e36d5" outPort="Port 0 (out)" toNode="SIMPLE_COPY0:0"/>
+<Edge debugMode="true" fromNode="FOREACH_SALESFORCE_X0020ACCOUNT_DEBMAS01:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="09f474e3-3fde-463f-974b-bd78133174e0" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="ba1f668a-cfe4-41a6-bc04-71fc077e36d5" outPort="Port 0 (out)" toNode="FOREACH_SALESFORCE_X0020ACCOUNT_DEBMAS01:0"/>
+</Phase>
+</Graph>

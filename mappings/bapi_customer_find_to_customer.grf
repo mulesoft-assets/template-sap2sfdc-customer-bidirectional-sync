@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="martin" created="Thu Jun 26 11:45:24 CEST 2014" description="BAPI_CUSTOMER_FIND to Customer" guiVersion="3.4.3.P" id="1403776542335" licenseCode="Unlicensed" licenseType="Unknown" modified="Thu Jun 26 11:45:24 CEST 2014" modifiedBy="martin" name="BAPI_CUSTOMER_FIND_to_Customer" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/BAPI_CUSTOMER_FIND" _dataStructure="OBJECT" _id="__id" _type="Input" id="f82b7cc1-b70b-4369-9751-06054006b5cc">
+<Record fieldDelimiter="," name="BAPI_CUSTOMER_FIND" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/BAPI_CUSTOMER_FIND/import/MAX_CNT" containerType="SINGLE" label="MAX_CNT" name="MAX_CNT" type="string"/>
+<Field __index="1" __sourcePath="{}/BAPI_CUSTOMER_FIND/import/PL_HOLD" containerType="SINGLE" label="PL_HOLD" name="PL_HOLD" type="string"/>
+<Field __index="2" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/TYPE" containerType="SINGLE" label="TYPE" name="TYPE" type="string"/>
+<Field __index="3" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/ID" containerType="SINGLE" label="ID" name="ID" type="string"/>
+<Field __index="4" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/NUMBER" containerType="SINGLE" label="NUMBER" name="NUMBER" type="string"/>
+<Field __index="5" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/MESSAGE" containerType="SINGLE" label="MESSAGE" name="MESSAGE" type="string"/>
+<Field __index="6" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/LOG_NO" containerType="SINGLE" label="LOG_NO" name="LOG_NO" type="string"/>
+<Field __index="7" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/LOG_MSG_NO" containerType="SINGLE" label="LOG_MSG_NO" name="LOG_MSG_NO" type="string"/>
+<Field __index="8" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/MESSAGE_V1" containerType="SINGLE" label="MESSAGE_V1" name="MESSAGE_V1" type="string"/>
+<Field __index="9" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/MESSAGE_V2" containerType="SINGLE" label="MESSAGE_V2" name="MESSAGE_V2" type="string"/>
+<Field __index="10" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/MESSAGE_V3" containerType="SINGLE" label="MESSAGE_V3" name="MESSAGE_V3" type="string"/>
+<Field __index="11" __sourcePath="{}/BAPI_CUSTOMER_FIND/export/RETURN/MESSAGE_V4" containerType="SINGLE" label="MESSAGE_V4" name="MESSAGE_V4" type="string"/>
+<Field __artificialType="XPATH" __xpath="{=}/tables/RESULT_TAB/row[0]/CUSTOMER" containerType="SINGLE" label="Rule1" name="Rule1" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="2" __sourcePath="{}/Customers" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _type="Output" id="9f1f6b1f-ad1b-4cc5-8888-2be3407119cd">
+<Record fieldDelimiter="," name="Customers" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{}/Customers/CustomerNumber" containerType="SINGLE" label="CustomerNumber" name="CustomerNumber" type="string"/>
+<Field __sourcePath="{}/Customers/Name" containerType="SINGLE" label="Name" name="Name" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="12" __referenceCounter="1" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="f82b7cc1-b70b-4369-9751-06054006b5cc" _parent_id="__parent_id" _type="Input" id="02304a98-7129-4a40-933e-f64404216fed">
+<Record fieldDelimiter="," name="row" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="12" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/COMP_CODE" containerType="SINGLE" label="COMP_CODE" name="COMP_CODE" type="string"/>
+<Field __index="13" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/TABNAME" containerType="SINGLE" label="TABNAME" name="TABNAME" type="string"/>
+<Field __index="14" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/FIELDNAME" containerType="SINGLE" label="FIELDNAME" name="FIELDNAME" type="string"/>
+<Field __index="15" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/FIELDVALUE" containerType="SINGLE" label="FIELDVALUE" name="FIELDVALUE" type="string"/>
+<Field __index="16" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/CUSTOMER" containerType="SINGLE" label="CUSTOMER" name="CUSTOMER" type="string"/>
+<Field __index="17" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/PSTG_BLK_G" containerType="SINGLE" label="PSTG_BLK_G" name="PSTG_BLK_G" type="string"/>
+<Field __index="18" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/PSTG_BLK_C" containerType="SINGLE" label="PSTG_BLK_C" name="PSTG_BLK_C" type="string"/>
+<Field __index="19" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/DEL_FLAG_G" containerType="SINGLE" label="DEL_FLAG_G" name="DEL_FLAG_G" type="string"/>
+<Field __index="20" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/DEL_FLAG_C" containerType="SINGLE" label="DEL_FLAG_C" name="DEL_FLAG_C" type="string"/>
+<Field __index="21" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/TYPE" containerType="SINGLE" label="TYPE" name="TYPE" type="string"/>
+<Field __index="22" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/ID" containerType="SINGLE" label="ID" name="ID" type="string"/>
+<Field __index="23" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/NUMBER" containerType="SINGLE" label="NUMBER" name="NUMBER" type="string"/>
+<Field __index="24" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/MESSAGE" containerType="SINGLE" label="MESSAGE" name="MESSAGE" type="string"/>
+<Field __index="25" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/LOG_NO" containerType="SINGLE" label="LOG_NO" name="LOG_NO" type="string"/>
+<Field __index="26" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/LOG_MSG_NO" containerType="SINGLE" label="LOG_MSG_NO" name="LOG_MSG_NO" type="string"/>
+<Field __index="27" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/MESSAGE_V1" containerType="SINGLE" label="MESSAGE_V1" name="MESSAGE_V1" type="string"/>
+<Field __index="28" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/MESSAGE_V2" containerType="SINGLE" label="MESSAGE_V2" name="MESSAGE_V2" type="string"/>
+<Field __index="29" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/MESSAGE_V3" containerType="SINGLE" label="MESSAGE_V3" name="MESSAGE_V3" type="string"/>
+<Field __index="30" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/MESSAGE_V4" containerType="SINGLE" label="MESSAGE_V4" name="MESSAGE_V4" type="string"/>
+<Field __index="31" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/RESULT_TAB/row/@id" containerType="SINGLE" label="id" name="id" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __index="32" __referenceCounter="0" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/SELOPT_TAB/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="f82b7cc1-b70b-4369-9751-06054006b5cc" _parent_id="__parent_id" _type="Input" id="bd8f5981-15b2-4a7b-af2c-9d389a63c83f">
+<Record fieldDelimiter="," name="row" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="32" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/SELOPT_TAB/row/COMP_CODE" containerType="SINGLE" label="COMP_CODE" name="COMP_CODE" type="string"/>
+<Field __index="33" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/SELOPT_TAB/row/TABNAME" containerType="SINGLE" label="TABNAME" name="TABNAME" type="string"/>
+<Field __index="34" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/SELOPT_TAB/row/FIELDNAME" containerType="SINGLE" label="FIELDNAME" name="FIELDNAME" type="string"/>
+<Field __index="35" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/SELOPT_TAB/row/FIELDVALUE" containerType="SINGLE" label="FIELDVALUE" name="FIELDVALUE" type="string"/>
+<Field __index="36" __sourcePath="{}/BAPI_CUSTOMER_FIND/tables/SELOPT_TAB/row/@id" containerType="SINGLE" label="id" name="id" type="integer"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'BAPI_CUSTOMER_FIND' -&gt; 'Customers'" guiX="460" guiY="20" id="FOREACH_BAPI_CUSTOMER_FIND_CUSTOMERS" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'row' -&gt; 'Customers'" guiX="460" guiY="120" id="FOREACH_ROW_CUSTOMERS" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.CustomerNumber = input.CUSTOMER;
+]]>
+</attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:collection clover:name="Customers" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping">
+  <item clover:inPort="0">
+    <CustomerNumber>$0.CustomerNumber</CustomerNumber>
+    <Name>$0.Name</Name>
+  </item>
+  <item clover:inPort="1">
+    <CustomerNumber>$1.CustomerNumber</CustomerNumber>
+    <Name>$1.Name</Name>
+  </item>
+</clover:collection>]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/BAPI_CUSTOMER_FIND.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath="/BAPI_CUSTOMER_FIND">
+  <Mapping cloverField="MAX_CNT" trim="true" xpath="import/MAX_CNT"/>
+  <Mapping cloverField="PL_HOLD" trim="true" xpath="import/PL_HOLD"/>
+  <Mapping cloverField="TYPE" trim="true" xpath="export/RETURN/TYPE"/>
+  <Mapping cloverField="ID" trim="true" xpath="export/RETURN/ID"/>
+  <Mapping cloverField="NUMBER" trim="true" xpath="export/RETURN/NUMBER"/>
+  <Mapping cloverField="MESSAGE" trim="true" xpath="export/RETURN/MESSAGE"/>
+  <Mapping cloverField="LOG_NO" trim="true" xpath="export/RETURN/LOG_NO"/>
+  <Mapping cloverField="LOG_MSG_NO" trim="true" xpath="export/RETURN/LOG_MSG_NO"/>
+  <Mapping cloverField="MESSAGE_V1" trim="true" xpath="export/RETURN/MESSAGE_V1"/>
+  <Mapping cloverField="MESSAGE_V2" trim="true" xpath="export/RETURN/MESSAGE_V2"/>
+  <Mapping cloverField="MESSAGE_V3" trim="true" xpath="export/RETURN/MESSAGE_V3"/>
+  <Mapping cloverField="MESSAGE_V4" trim="true" xpath="export/RETURN/MESSAGE_V4"/>
+  <Mapping cloverField="Rule1" trim="true" xpath="tables/RESULT_TAB/row[0]/CUSTOMER"/>
+  <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="tables/RESULT_TAB/row">
+    <Mapping cloverField="COMP_CODE" trim="true" xpath="COMP_CODE"/>
+    <Mapping cloverField="TABNAME" trim="true" xpath="TABNAME"/>
+    <Mapping cloverField="FIELDNAME" trim="true" xpath="FIELDNAME"/>
+    <Mapping cloverField="FIELDVALUE" trim="true" xpath="FIELDVALUE"/>
+    <Mapping cloverField="CUSTOMER" trim="true" xpath="CUSTOMER"/>
+    <Mapping cloverField="PSTG_BLK_G" trim="true" xpath="PSTG_BLK_G"/>
+    <Mapping cloverField="PSTG_BLK_C" trim="true" xpath="PSTG_BLK_C"/>
+    <Mapping cloverField="DEL_FLAG_G" trim="true" xpath="DEL_FLAG_G"/>
+    <Mapping cloverField="DEL_FLAG_C" trim="true" xpath="DEL_FLAG_C"/>
+    <Mapping cloverField="TYPE" trim="true" xpath="TYPE"/>
+    <Mapping cloverField="ID" trim="true" xpath="ID"/>
+    <Mapping cloverField="NUMBER" trim="true" xpath="NUMBER"/>
+    <Mapping cloverField="MESSAGE" trim="true" xpath="MESSAGE"/>
+    <Mapping cloverField="LOG_NO" trim="true" xpath="LOG_NO"/>
+    <Mapping cloverField="LOG_MSG_NO" trim="true" xpath="LOG_MSG_NO"/>
+    <Mapping cloverField="MESSAGE_V1" trim="true" xpath="MESSAGE_V1"/>
+    <Mapping cloverField="MESSAGE_V2" trim="true" xpath="MESSAGE_V2"/>
+    <Mapping cloverField="MESSAGE_V3" trim="true" xpath="MESSAGE_V3"/>
+    <Mapping cloverField="MESSAGE_V4" trim="true" xpath="MESSAGE_V4"/>
+    <Mapping cloverField="id" trim="true" xpath="@id"/>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__rootGlobalElementName"><![CDATA[BAPI_CUSTOMER_FIND]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_BAPI_CUSTOMER_FIND_CUSTOMERS:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="9f1f6b1f-ad1b-4cc5-8888-2be3407119cd" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+<Edge debugMode="true" fromNode="FOREACH_ROW_CUSTOMERS:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="9f1f6b1f-ad1b-4cc5-8888-2be3407119cd" outPort="Port 0 (out)" toNode="MAP_WRITER0:1"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="f82b7cc1-b70b-4369-9751-06054006b5cc" outPort="Port 0 (out)" toNode="FOREACH_BAPI_CUSTOMER_FIND_CUSTOMERS:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="02304a98-7129-4a40-933e-f64404216fed" outPort="Port 1 (out)" toNode="FOREACH_ROW_CUSTOMERS:0"/>
+</Phase>
+</Graph>
