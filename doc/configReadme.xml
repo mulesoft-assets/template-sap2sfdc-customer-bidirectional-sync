@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <configuration>
 	<placeholders>
-		<placeholder id="template_name">SAP2SFDC-customer-bidirectiona-sync</placeholder>
+		<placeholder id="template_name">SAP2SFDC-customer-bidirectional-sync</placeholder>
 	</placeholders>
 	<sections>
 		<section id="use_case">
-			Use this template if would like to sync Customers from SAP to Salesforce Accounts in manner one time synchronization hitting the Http endpoint 
-			Inboud SAP endpoint retrieves all Accounts in SAP using standard BAPI  **BAPI_CUSTOMER_GETLIST** and transforms them to Salesforce Accounts
+			Use this template if would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling 
+			Inboud SAP endpoint retrieves all Accounts in SAP using custom BAPI  **ZMULE_CUSTOMER_GETLIST** and transforms them to Salesforce Accounts.
+			And in other direction by Polling Salesforce for Accounts and sending it to SAP using standard IDoc DEBMAS01.
 		</section>
 		<section id="considerations">
 		<![CDATA[
@@ -68,6 +69,8 @@ Please check this Documentation Page:
 + sap.jco.client=800
 + sap.jco.lang=EN
 
+sap.default.accountGroup=ZAG2
+
 **SAP Endpoint configuration**
 
 + sap.jco.connectioncount=2
@@ -81,17 +84,7 @@ Please check this Documentation Page:
 + sfdc.password=DylanPassword123
 + sfdc.securityToken=avsfwCUl7apQs56Xq2AKi3X
 + sfdc.url=https://test.salesforce.com/services/Soap/u/28.0
-
-# SMPT Services configuration
-+ smtp.host=smtp.gmail.com
-+ smtp.port=587
-+ smtp.user=gmailuser
-+ smtp.password=gmailpassword
-
-# Mail details
-+ mail.from=your.email@gmail.com
-+ mail.to=your.email@gmail.com
-+ mail.subject=Mail subject
++ sfdc.integration.user.id=00520000003LtvG
 
 ]]>
 		</section>

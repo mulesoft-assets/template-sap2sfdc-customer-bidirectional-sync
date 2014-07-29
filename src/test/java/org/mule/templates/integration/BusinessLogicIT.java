@@ -28,7 +28,7 @@ import com.mulesoft.module.batch.BatchTestHelper;
  * 
  */
 public class BusinessLogicIT extends AbstractTemplateTestCase {
-	protected static final String TEMPLATE_NAME = "customer-migration";
+	protected static final String TEMPLATE_NAME = "customer-bidirectional-sync";
 	protected static final int TIMEOUT_SEC = 120;
 	private BatchTestHelper helper;
 	

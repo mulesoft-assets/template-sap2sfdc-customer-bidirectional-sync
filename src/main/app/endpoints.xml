@@ -22,7 +22,7 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
 
     
     
-    <flow name="triggerSyncFromSapFlow" doc:name="triggerSyncFromSapFlow" processingStrategy="synchronous" initialState="stopped">
+    <flow name="triggerSyncFromSapFlow" doc:name="triggerSyncFromSapFlow" processingStrategy="synchronous" >
 		<poll doc:name="Poll">
 			<fixed-frequency-scheduler frequency="${polling.frequency}" startDelay="1000" />
 			<watermark variable="sapLastQueryDate" default-expression="${watermark.default.expression}" selector="MAX" selector-expression="#[payload.LastModifiedDate]" />
@@ -37,11 +37,11 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
 ]]></sap:definition>
                 </sap:outbound-endpoint>
                 <data-mapper:transform config-ref="customer_to_account" doc:name="customer to account"/>
-                <logger message="00000000000 aaaa #[payload.size()]" level="INFO" doc:name="Logger"/>
             </processor-chain>
 
 		</poll>
-        <batch:execute name="fromSapToSalesforceBatch" doc:name="Batch Execute"/>
+        <logger message="sapLastQueryDate #[flowVars['sapLastQueryDate']] #[payload.size()]" level="INFO" doc:name="Logger"/>
+        <batch:execute name="fromSapToSalesforceBatch" doc:name="execute fromSapToSalesforceBatch"/>
         <exception-strategy ref="defaultChoiceExceptionStrategy" doc:name="Reference Exception Strategy"/>
 
     </flow>
@@ -49,15 +49,15 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
     <flow name="triggerSyncFromSalesforceFlow" doc:name="triggerSyncFromSalesforceFlow" processingStrategy="synchronous" >
 		<poll doc:name="Poll">
 			<fixed-frequency-scheduler frequency="${polling.frequency}" startDelay="1000" />
-			<watermark variable="SalesforceLastQueryDate" default-expression="${watermark.default.expression}" selector="MAX" selector-expression="#[payload.LastModifiedDate]" />
+			<watermark variable="salesforceLastQueryDate" default-expression="${watermark.default.expression}" selector="MAX" selector-expression="#[payload.LastModifiedDate]" />
             <processor-chain doc:name="Processor Chain">
                 <expression-component doc:name="Acquire lock"><![CDATA[app.registry['PollSynchronizer'].lock();]]></expression-component>
                 <sfdc:query config-ref="Salesforce" query="dsql:SELECT AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; #[flowVars['SalesforceLastQueryDate']] ORDER BY LastModifiedDate ASC LIMIT 200" doc:name="query accounts from Salesforce"/>
             </processor-chain>
 
 		</poll>
-        <logger message="000000000 lllllllllastmodif #[flowVars['SalesforceLastQueryDate']] #[payload.size()]" level="INFO" doc:name="Logger"/>
-        <batch:execute name="fromSalesforceToSapBatch" doc:name="Batch Execute"/>
+        <logger message="SalesforceLastQueryDate #[flowVars['salesforceLastQueryDate']] #[payload.size()]" level="INFO" doc:name="Logger"/>
+        <batch:execute name="fromSalesforceToSapBatch" doc:name="execute fromSalesforceToSapBatch"/>
         <exception-strategy ref="defaultChoiceExceptionStrategy" doc:name="Reference Exception Strategy"/>
 
     </flow>

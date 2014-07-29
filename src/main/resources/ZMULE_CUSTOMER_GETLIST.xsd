@@ -1,4 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Mule Anypoint Template
+
+    Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+-->
+
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
 <xsd:element name="ZMULE_CUSTOMER_GETLIST">
 <xsd:complexType>

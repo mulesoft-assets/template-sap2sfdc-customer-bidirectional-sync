@@ -1,5 +1,5 @@
 
-# Anypoint Template: SAP2SFDC-customer-migration
+# Anypoint Template: SAP2SFDC-customer-bidirectional-sync
 
 + [License Agreement](#licenseagreement)
 + [Use Case](#usecase)
@@ -26,8 +26,9 @@ Note that using this template is subject to the conditions of this [License Agre
 Please review the terms of the license before downloading and using this template. In short, you are allowed to use the template for free with Mule ESB Enterprise Edition, CloudHub, or as a trial in Anypoint Studio.
 
 # Use Case <a name="usecase"/>
-Use this template if would like to sync Customers from SAP to Salesforce Accounts in manner one time synchronization hitting the Http endpoint 
-			Inboud SAP endpoint retrieves all Accounts in SAP using standard BAPI  **BAPI_CUSTOMER_GETLIST** and transforms them to Salesforce Accounts
+Use this template if would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling 
+			Inboud SAP endpoint retrieves all Accounts in SAP using custom BAPI  **ZMULE_CUSTOMER_GETLIST** and transforms them to Salesforce Accounts.
+			And in other direction by Polling Salesforce for Accounts and sending it to SAP using standard IDoc DEBMAS01.
 
 # Considerations <a name="considerations"/>
 
@@ -66,7 +67,9 @@ Partner port needs to be defined type of Idoc of SAP release 4.x as its version.
 
 4. Partner profile
 Partner profile needs to be customized type of logical system as partner type. Outbound parameter of message type MATMAS is defined in the partner profile. As receiver port an RFC destination created earlier is used. Idoc Type MATMAS01 is defined.
+### As destination of data
 
+There are no particular considerations for this Anypoint Template regarding Sap as data destination.
 ## Salesforce Considerations <a name="salesforceconsiderations"/>
 
 There may be a few things that you need to know regarding Salesforce, in order for this template to work.
@@ -87,6 +90,23 @@ In order to have this template working as expected, you should be aware of your 
 [1]: https://help.salesforce.com/HTViewHelpDoc?id=checking_field_accessibility_for_a_particular_field.htm&language=en_US
 [2]: https://help.salesforce.com/HTViewHelpDoc?id=modifying_field_access_settings.htm&language=en_US
 
+### As source of data
+
+If the user configured in the template for the source system does not have at least *read only* permissions for the fields that are fetched, then a *InvalidFieldFault* API fault will show up.
+
+```
+java.lang.RuntimeException: [InvalidFieldFault [ApiQueryFault [ApiFault  exceptionCode='INVALID_FIELD'
+exceptionMessage='
+Account.Phone, Account.Rating, Account.RecordTypeId, Account.ShippingCity
+^
+ERROR at Row:1:Column:486
+No such column 'RecordTypeId' on entity 'Account'. If you are attempting to use a custom field, be sure to append the '__c' after the custom field name. Please reference your WSDL or the describe call for the appropriate names.'
+]
+row='1'
+column='486'
+]
+]
+```
 
 ### As destination of data
 
@@ -107,7 +127,7 @@ For instructions on how to create a custom field in SFDC plase check this link:
 
 
 # Run it! <a name="runit"/>
-Simple steps to get SAP2SFDC-customer-migration running.
+Simple steps to get SAP2SFDC-customer-bidirectional-sync running.
 
 
 ## Running on premise <a name="runonopremise"/>
@@ -169,6 +189,8 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 + sap.jco.client=800
 + sap.jco.lang=EN
 
+sap.default.accountGroup=ZAG2
+
 **SAP Endpoint configuration**
 
 + sap.jco.connectioncount=2
@@ -182,17 +204,7 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 + sfdc.password=DylanPassword123
 + sfdc.securityToken=avsfwCUl7apQs56Xq2AKi3X
 + sfdc.url=https://test.salesforce.com/services/Soap/u/28.0
-
-# SMPT Services configuration
-+ smtp.host=smtp.gmail.com
-+ smtp.port=587
-+ smtp.user=gmailuser
-+ smtp.password=gmailpassword
-
-# Mail details
-+ mail.from=your.email@gmail.com
-+ mail.to=your.email@gmail.com
-+ mail.subject=Mail subject
++ sfdc.integration.user.id=00520000003LtvG
 
 # API Calls <a name="apicalls"/>
 SalesForce imposes limits on the number of API Calls that can be made.

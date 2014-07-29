@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Mule Anypoint Template
+
+    Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+-->
+
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="ZMULE_CUSTOMER_GETLIST" type="ZMULE_CUSTOMER_GETLISTType"/>
   <xs:complexType name="importType">
