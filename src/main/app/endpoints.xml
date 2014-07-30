@@ -52,11 +52,11 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
 			<watermark variable="salesforceLastQueryDate" default-expression="${watermark.default.expression}" selector="MAX" selector-expression="#[payload.LastModifiedDate]" />
             <processor-chain doc:name="Processor Chain">
                 <expression-component doc:name="Acquire lock"><![CDATA[app.registry['PollSynchronizer'].lock();]]></expression-component>
-                <sfdc:query config-ref="Salesforce" query="dsql:SELECT AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; #[flowVars['SalesforceLastQueryDate']] ORDER BY LastModifiedDate ASC LIMIT 200" doc:name="query accounts from Salesforce"/>
+                <sfdc:query config-ref="Salesforce" query="dsql:SELECT AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; #[flowVars['salesforceLastQueryDate']] ORDER BY LastModifiedDate ASC LIMIT 200" doc:name="query accounts from Salesforce"/>
             </processor-chain>
 
 		</poll>
-        <logger message="SalesforceLastQueryDate #[flowVars['salesforceLastQueryDate']] #[payload.size()]" level="INFO" doc:name="Logger"/>
+        <logger message="salesforceLastQueryDate #[flowVars['salesforceLastQueryDate']] #[payload.size()]" level="INFO" doc:name="Logger"/>
         <batch:execute name="fromSalesforceToSapBatch" doc:name="execute fromSalesforceToSapBatch"/>
         <exception-strategy ref="defaultChoiceExceptionStrategy" doc:name="Reference Exception Strategy"/>
 

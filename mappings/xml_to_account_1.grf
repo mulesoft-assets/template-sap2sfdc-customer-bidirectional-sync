@@ -273,7 +273,9 @@
 //START -> DO NOT REMOVE
 output.__id = input.__id;
 //END -> DO NOT REMOVE
-output.LastModifiedDate = input.LAST_MODIF_DATE;;]]></attr>
+output.LastModifiedDate = input.LAST_MODIF_DATE;
+output.BillingCity = input.ORT01;
+output.Name = input.NAME1;]]></attr>
 </Node>
 <Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>

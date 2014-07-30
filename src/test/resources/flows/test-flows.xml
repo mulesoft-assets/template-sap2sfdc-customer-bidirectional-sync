@@ -5,7 +5,6 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
 http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
 http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd">
-    <data-mapper:config name="BAPI_CUSTOMER_GETINTNUMBER_to_Customr_Number" transformationGraphPath="bapi_customer_getintnumber_to_customr_number.grf" doc:name="DataMapper"/>
     <data-mapper:config name="Salesfore_Account_to_DEBMAS01" transformationGraphPath="salesfore_account_to_debmas01.grf" doc:name="DataMapper"/>
     <sub-flow name="createAccountSapFlow" doc:name="createAccountSapFlow">
         <logger level="INFO" doc:name="Logger" message="#[payload]"/>
@@ -36,8 +35,53 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
         <logger message="999999999999 #[payload]" level="INFO" doc:name="Logger"/>        
         
     </sub-flow>
+    <sub-flow name="retrieveAccountFromSapFlow" doc:name="retrieveAccountFromSapFlow">
+                        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_CUSTOMER_FIND" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Customer by Name">
+            <sap:definition><![CDATA[<jco>
+	<import>
+		<field name="MAX_CNT">0</field>
+		<field name="PL_HOLD">X</field>
+	</import>
+  	<tables>
+		<table name="SELOPT_TAB">
+			<row id="0">
+				<field name="TABNAME">KNA1</field>
+				<field name="FIELDNAME">NAME1</field>
+				<field name="FIELDVALUE">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload['Name'])]</field>
+			</row>
+		</table>
+	</tables>
+</jco>
+]]></sap:definition>
+
+
+                        </sap:outbound-endpoint>
+        <logger message="000000000 #[payload]" level="INFO" doc:name="Logger"/>
+
+                        <data-mapper:transform config-ref="BAPI_CUSTOMER_FIND_to_Customer" doc:name="BAPI_CUSTOMER_FIND to Customer"/>
+        <logger message="3333333 #[payload]" level="INFO" doc:name="Logger"/>
+        
+               <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="query customer detail from SAP">
+            <sap:definition><![CDATA[<jco>
+  	<import>
+    	<field name="I_CUST_ID">#[payload[0]['CustomerNumber']]</field>
+	</import>
+</jco>
+]]></sap:definition>
+
+                </sap:outbound-endpoint>
+        <logger message="1111111111111 #[payload]" level="INFO" doc:name="Logger"/>
+                        <data-mapper:transform config-ref="XML_To_Account" doc:name="ZMULE_CUSTOMER_GETLIST to LastModifiedDate"/>
+        <logger message="response from sap #[payload]" level="INFO" doc:name="Logger"/>        
+    </sub-flow>
     <sub-flow name="deleteAccountFromSapFlow" doc:name="deleteAccountFromSapFlow">
         <logger level="INFO" doc:name="Logger"/>
+    </sub-flow>
+    <sub-flow name="createAccountSalesforceFlow" doc:name="createAccountSalesforceFlow">
+        <sfdc:create config-ref="Salesforce" type="Account" doc:name="Salesforce">
+            <sfdc:objects ref="#[payload]"/>
+        </sfdc:create>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
     </sub-flow>
     <sub-flow name="retrieveAccountFromSalesforceFlow" doc:name="retrieveAccountFromSalesforceFlow">
         <sfdc:query-single config-ref="Salesforce" query="SELECT Id, AccountNumber, Description, Fax, Industry, Name,NumberOfEmployees, ParentId, Phone FROM Account WHERE Name = '#[payload[&quot;Name&quot;]]'" doc:name="Salesforce" />
