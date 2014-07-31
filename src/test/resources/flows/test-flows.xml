@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
 http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
-http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd">
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
     <data-mapper:config name="Salesfore_Account_to_DEBMAS01" transformationGraphPath="salesfore_account_to_debmas01.grf" doc:name="DataMapper"/>
     <sub-flow name="createAccountSapFlow" doc:name="createAccountSapFlow">
-        <logger level="INFO" doc:name="Logger" message="#[payload]"/>
+        <logger level="INFO" doc:name="Logger" message="pppppppppppp #[payload]"/>
+        <set-variable variableName="customer" value="#[payload[0]]" doc:name="Variable"/>
         
 		<processor-chain doc:name="Processor Chain">
 			<sap:outbound-endpoint exchange-pattern="request-response"
@@ -24,7 +26,10 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
 			</sap:outbound-endpoint>
 			<data-mapper:transform config-ref="BAPI_CUSTOMER_GETINTNUMBER_to_Customr_Number"
 				doc:name="BAPI_CUSTOMER_GETINTNUMBER to Customr Number" />
-			<expression-component doc:name="Expression"><![CDATA[payload['AccountGroup'] = '${sap.default.accountGroup}';]]></expression-component>
+			<expression-component doc:name="Expression"><![CDATA[payload['AccountGroup'] = '${sap.default.accountGroup}';
+payload['Name'] = flowVars['customer']['Name'];
+payload['BillingCity'] = flowVars['customer']['BillingCity'];
+]]></expression-component>
 			<data-mapper:transform config-ref="Salesfore_Account_to_DEBMAS01"
 				doc:name="Salesfore Account to DEBMAS01" />
 			<sap:outbound-endpoint exchange-pattern="request-response"
@@ -32,7 +37,7 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
 				outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000"
 				doc:name="Create Customer in SAP" />
 		</processor-chain>
-        <logger message="999999999999 #[payload]" level="INFO" doc:name="Logger"/>        
+        <logger message="response from sap #[payload]" level="INFO" doc:name="Logger"/>        
         
     </sub-flow>
     <sub-flow name="retrieveAccountFromSapFlow" doc:name="retrieveAccountFromSapFlow">
@@ -56,10 +61,8 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
 
 
                         </sap:outbound-endpoint>
-        <logger message="000000000 #[payload]" level="INFO" doc:name="Logger"/>
 
                         <data-mapper:transform config-ref="BAPI_CUSTOMER_FIND_to_Customer" doc:name="BAPI_CUSTOMER_FIND to Customer"/>
-        <logger message="3333333 #[payload]" level="INFO" doc:name="Logger"/>
         
                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="query customer detail from SAP">
             <sap:definition><![CDATA[<jco>
@@ -70,7 +73,6 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
 ]]></sap:definition>
 
                 </sap:outbound-endpoint>
-        <logger message="1111111111111 #[payload]" level="INFO" doc:name="Logger"/>
                         <data-mapper:transform config-ref="XML_To_Account" doc:name="ZMULE_CUSTOMER_GETLIST to LastModifiedDate"/>
         <logger message="response from sap #[payload]" level="INFO" doc:name="Logger"/>        
     </sub-flow>
@@ -85,7 +87,7 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
     </sub-flow>
     <sub-flow name="retrieveAccountFromSalesforceFlow" doc:name="retrieveAccountFromSalesforceFlow">
         <sfdc:query-single config-ref="Salesforce" query="SELECT Id, AccountNumber, Description, Fax, Industry, Name,NumberOfEmployees, ParentId, Phone FROM Account WHERE Name = '#[payload[&quot;Name&quot;]]'" doc:name="Salesforce" />
-        <logger level="INFO" doc:name="Logger"/>
+        <logger level="INFO" doc:name="Logger" message="#[payload]"/>
     </sub-flow>
     <sub-flow name="deleteAccountFromSalesforceFlow" doc:name="deleteAccountFromSalesforceFlow">
         <logger message="#[payload]" level="INFO" doc:name="Logger"/>

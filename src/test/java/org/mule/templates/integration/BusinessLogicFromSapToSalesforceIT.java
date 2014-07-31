@@ -32,7 +32,7 @@ import com.sforce.soap.partner.SaveResult;
  * for this Anypoint Tempalte that make calls to external systems.
  * 
  */
-public class BusinessLogicIT extends AbstractTemplateTestCase {
+public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase {
 	protected static final String TEMPLATE_NAME = "customer-bidirectional-sync";
 	protected static final int TIMEOUT_SEC = 120;
 	private BatchTestHelper helper;
@@ -46,7 +46,6 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	protected SubflowInterceptingChainLifecycleWrapper retrieveAccountFromSapFlow;
 	protected SubflowInterceptingChainLifecycleWrapper deleteAccountFromSalesforceFlow;
 	
-	private String existingCustomerNameInSap = "Nelson Tax & Associates";
 	Map<String, Object> sfAccount;
 	Map<String, Object> sapAccount;
 	
@@ -80,8 +79,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		deleteAccountFromSalesforceFlow = getSubFlow("deleteAccountFromSalesforceFlow");
 		deleteAccountFromSalesforceFlow.initialise();
 		
-		//createSapTestData();
-		createSalesforceTestData();
+		createSapTestData();
 	}
 
 	@After
@@ -93,17 +91,20 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	@Test
 	public void testMainFlow() throws Exception {
 		System.err.println("running flow");
-		executeWaitAndAssertBatchJob(B_INBOUND_FLOW_NAME);
-		
-		Map<String, Object> sapResponse = (Map<String, Object>) retrieveAccountFromSapFlow.process(getTestEvent(sfAccount, MessageExchangePattern.REQUEST_RESPONSE)).getMessage().getPayload();
-		System.err.println(sapResponse.getClass());
+		executeWaitAndAssertBatchJob(A_INBOUND_FLOW_NAME);
+		System.err.println("finished");
+
+		Map<String, Object> sapResponse = (Map<String, Object>) retrieveAccountFromSalesforceFlow.process(getTestEvent(sapAccount, MessageExchangePattern.REQUEST_RESPONSE)).getMessage().getPayload();
 		System.err.println(sapResponse);
-		Assert.assertEquals(sfAccount.get("Name"), sapResponse.get("Name"));
+		sfAccount = sapResponse;
+		
+		Assert.assertNotNull(sfAccount);
+		Assert.assertEquals(sfAccount.get("Name"), sapAccount.get("Name"));
 	}
 	
 	private void stopAutomaticPollTriggering() throws MuleException {
-		stopFlowSchedulers(B_INBOUND_FLOW_NAME);
 		stopFlowSchedulers(A_INBOUND_FLOW_NAME);
+		stopFlowSchedulers(B_INBOUND_FLOW_NAME);
 	}
 	
 	private void executeWaitAndAssertBatchJob(String flowConstructName)
@@ -117,19 +118,6 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		helper.assertJobWasSuccessful();
 	}
 	
-	private void createSalesforceTestData() throws MuleException, Exception{
-		String uniqueSuffix = ""+System.currentTimeMillis();
-		sfAccount = new HashMap<String, Object>();
-		sfAccount.put("Name", "Bidi_" + uniqueSuffix);
-		sfAccount.put("BillingCity", "San francesco");
-		List<Map<String, Object>> createdAccountInSalesforce = new ArrayList<Map<String, Object>>();
-		createdAccountInSalesforce.add(sfAccount);
-		MuleEvent event = createAccountSalesforceFlow.process(getTestEvent(createdAccountInSalesforce, MessageExchangePattern.REQUEST_RESPONSE));
-		List<SaveResult> payloadAfterExecution = (List<SaveResult>)event.getMessage().getPayload();
-		sfAccount.put("Id", payloadAfterExecution.get(0).getId());
-		System.err.println("saved sf account " + payloadAfterExecution.get(0).getId());
-	}
-	
 	private void createSapTestData() throws MuleException, Exception{
 		String uniqueSuffix = ""+System.currentTimeMillis();
 		
@@ -140,8 +128,6 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		createdAccountInSap.add(sapAccount);
 	
 		MuleEvent event = createAccountSapFlow.process(getTestEvent(createdAccountInSap, MessageExchangePattern.REQUEST_RESPONSE));
-		System.err.println("SAP RESPONSE");
-		System.err.println(event.getMessage().getPayload());
 	}
 
 	private void deleteSapTestData(){
@@ -150,7 +136,8 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 
 	private void deleteSalesforceTestData() throws MuleException, Exception{
 		List<String> idList = new ArrayList<String>();
-		idList.add((String)sfAccount.get("Id"));
+		if(sfAccount != null && sfAccount.get("Id") != null)
+			idList.add((String)sfAccount.get("Id"));
 		MuleEvent event = deleteAccountFromSalesforceFlow.process(getTestEvent(idList, MessageExchangePattern.REQUEST_RESPONSE));
 	}
 
