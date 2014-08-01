@@ -279,6 +279,7 @@ output.Name = input.NAME1;
 output.Phone = input.TELF1;
 output.Fax = input.TELFX;
 output.LastModifiedDate = (isnull(input.LAST_MODIF_DATE) ? null : input.LAST_MODIF_DATE);
+output.BillingCity = input.ORT01;
 output.LastModifiedById = input.AENAM;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="Foreach 'ZMULE_CUSTOMER_GETLIST' -&gt; 'Account'" guiX="460" guiY="20" id="FOREACH_ZMULE_CUSTOMER_GETLIST_ACCOUNT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
