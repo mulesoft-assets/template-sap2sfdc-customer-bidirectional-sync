@@ -54,19 +54,22 @@ There may be a few things that you need to know regarding SAP, in order for this
 
 ### As source of data
 
-In order for this Anypoint Template to work, there are a few things that needs to be done in SAP first.
+SAP backend system is used as source of data. SAP Connector is used to send and receive the data from the SAP backend. 
+The connector can either use RFC calls of BAPI functions and/or IDoc messages for data exchange and needs to be properly customized as per chapter: [Properties to be configured](#propertiestobeconfigured)
 
-1. RFC destination
-RFC destination of type "TCP/IP Connection" pointing to program ID on gateway needs to be created. The destination uses Unicode communication type with target system.
+In order for this Anypoint Template to work, there are a few things that need to be done in SAP first.
 
-2. Program ID registration
-RFC SDK is used to register program ID on gateway. Same program ID name is used here as in the RFC destination.
+1. RFC destination of type "T = TCP/IP Connection" pointing to Program ID on gateway host needs to be created. The destination uses Unicode communication type with target system.
 
-3. Partner port
-Partner port needs to be defined type of Idoc of SAP release 4.x as its version. As RFC destination same RFC destination created earlier is used.
+2. Program ID registration RFC SDK is used to register Program ID on gateway host. Same Program ID name is used here as in the RFC destination.
 
-4. Partner profile
-Partner profile needs to be customized type of logical system as partner type. Outbound parameter of message type MATMAS is defined in the partner profile. As receiver port an RFC destination created earlier is used. Idoc Type MATMAS01 is defined.
+3. Partner Profile needs to be customized; type of Logical System as partner type. Message type DEBMAS is defined as Outbound and Inbound parameter.
+
+For Outbound parameter: As receiver port an RFC destination created earlier is used. IDoc Type DEBMAS01 is defined.
+
+For Inbound parameter: Process Code DEBM is used. IDoc Type DEBMAS01 is defined.
+
+4. Partner Port needs to be defined for type of IDoc record type of SAP release 4.x as its version. As RFC destination same RFC destination created earlier is used.
 ### As destination of data
 
 There are no particular considerations for this Anypoint Template regarding Sap as data destination.
