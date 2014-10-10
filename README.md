@@ -59,20 +59,20 @@ The connector can either use RFC calls of BAPI functions and/or IDoc messages fo
 
 In order for this Anypoint Template to work, there are a few things that need to be done in SAP first.
 
-1. RFC destination of type "T = TCP/IP Connection" pointing to Program ID on gateway host needs to be created. The destination uses Unicode communication type with target system.
+1. RFC destination
+of type "T = TCP/IP Connection" pointing to Program ID on gateway host needs to be created. The destination uses Unicode communication type with target system.
 
-2. Program ID registration RFC SDK is used to register Program ID on gateway host. Same Program ID name is used here as in the RFC destination.
+2. Program ID registration
+RFC SDK is used to register Program ID on gateway host. Same Program ID name is used here as in the RFC destination.
 
-3. Partner Profile needs to be customized; type of Logical System as partner type. Message type DEBMAS is defined as Outbound and Inbound parameter.
+3. Partner Profile
+needs to be customized; type of Logical System as partner type. Message type DEBMAS is defined as Outbound and Inbound parameter. For Outbound parameter: As receiver port an RFC destination created earlier is used. IDoc Type DEBMAS01 is defined. For Inbound parameter: Process Code DEBM is used. IDoc Type DEBMAS01 is defined.
 
-For Outbound parameter: As receiver port an RFC destination created earlier is used. IDoc Type DEBMAS01 is defined.
+3. Partner Port
+needs to be defined for type of IDoc record type of SAP release 4.x as its version. As RFC destination same RFC destination created earlier is used.
 
-For Inbound parameter: Process Code DEBM is used. IDoc Type DEBMAS01 is defined.
-
-4. Partner Port needs to be defined for type of IDoc record type of SAP release 4.x as its version. As RFC destination same RFC destination created earlier is used.
-### As destination of data
-
-There are no particular considerations for this Anypoint Template regarding Sap as data destination.
+&nbsp;
+&nbsp;
 ## Salesforce Considerations <a name="salesforceconsiderations"/>
 
 There may be a few things that you need to know regarding Salesforce, in order for this template to work.

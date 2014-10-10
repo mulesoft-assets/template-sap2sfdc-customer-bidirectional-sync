@@ -27,21 +27,30 @@ You will find that there are three dependencies in the pom.xml file that begin w
 These dependencies are private for Mulesoft and will cause you application not to build from a Maven command line. You need to replace them with "provided" scope and copy the libraries into the build path.
 ]]>
 		</section>
-		<section id="sap_src">
+			<section id="sap_src">
 <![CDATA[
+
 In order for this Anypoint Template to work, there are a few things that need to be done in SAP first.
 
-1. RFC destination of type "T = TCP/IP Connection" pointing to Program ID on gateway host needs to be created. The destination uses Unicode communication type with target system.
+1. RFC destination
+of type "T = TCP/IP Connection" pointing to Program ID on gateway host needs to be created. The destination uses Unicode communication type with target system.
 
-2. Program ID registration RFC SDK is used to register Program ID on gateway host. Same Program ID name is used here as in the RFC destination.
+2. Program ID registration
+RFC SDK is used to register Program ID on gateway host. Same Program ID name is used here as in the RFC destination.
 
-3. Partner Profile needs to be customized; type of Logical System as partner type. Message type DEBMAS is defined as Outbound and Inbound parameter.
+3. Partner Profile
+needs to be customized; type of Logical System as partner type. Message type DEBMAS is defined as Outbound and Inbound parameter. For Outbound parameter: As receiver port an RFC destination created earlier is used. IDoc Type DEBMAS01 is defined. For Inbound parameter: Process Code DEBM is used. IDoc Type DEBMAS01 is defined.
 
-For Outbound parameter: As receiver port an RFC destination created earlier is used. IDoc Type DEBMAS01 is defined.
+3. Partner Port
+needs to be defined for type of IDoc record type of SAP release 4.x as its version. As RFC destination same RFC destination created earlier is used.
 
-For Inbound parameter: Process Code DEBM is used. IDoc Type DEBMAS01 is defined.
-
-4. Partner Port needs to be defined for type of IDoc record type of SAP release 4.x as its version. As RFC destination same RFC destination created earlier is used.
+&nbsp;
+]]>
+		</section>
+		
+		<section id="default_sap_dst">
+<![CDATA[
+&nbsp;
 ]]>
 		</section>
 		<section id="sfdc_dst">
