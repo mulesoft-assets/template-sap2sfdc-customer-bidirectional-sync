@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
 http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
@@ -16,12 +16,13 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
 				connector-ref="SAP" type="function" functionName="BAPI_CUSTOMER_GETINTNUMBER"
 				xmlVersion="2" outputXml="true" evaluateFunctionResponse="true"
 				responseTimeout="10000" doc:name="Get Next Customer Number from SAP">
-                <sap:definition><![CDATA[<jco>
+                <sap:definition><![CDATA[<BAPI_CUSTOMER_GETINTNUMBER>
 	<import>
-		<field name="ACCOUNTGROUP">ZAG2</field>
+		<ACCOUNTGROUP>ZAG2</ACCOUNTGROUP>
 	</import>
-</jco>
+</BAPI_CUSTOMER_GETINTNUMBER>
 ]]></sap:definition>
+
 
 			</sap:outbound-endpoint>
 			<data-mapper:transform config-ref="BAPI_CUSTOMER_GETINTNUMBER_to_Customr_Number"
@@ -42,22 +43,23 @@ payload['BillingCity'] = flowVars['customer']['BillingCity'];
     </sub-flow>
     <sub-flow name="retrieveAccountFromSapFlow" doc:name="retrieveAccountFromSapFlow">
                         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_CUSTOMER_FIND" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Customer by Name">
-            <sap:definition><![CDATA[<jco>
+            <sap:definition><![CDATA[<BAPI_CUSTOMER_FIND>
 	<import>
-		<field name="MAX_CNT">0</field>
-		<field name="PL_HOLD">X</field>
+		<MAX_CNT>0</MAX_CNT>
+		<PL_HOLD>X</PL_HOLD>
 	</import>
   	<tables>
-		<table name="SELOPT_TAB">
+		<SELOPT_TAB>
 			<row id="0">
-				<field name="TABNAME">KNA1</field>
-				<field name="FIELDNAME">NAME1</field>
-				<field name="FIELDVALUE">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload['Name'])]</field>
+				<TABNAME>KNA1</TABNAME>
+				<FIELDNAME>NAME1</FIELDNAME>
+				<FIELDVALUE>#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload['Name'])]</FIELDVALUE>
 			</row>
-		</table>
+		</SELOPT_TAB>
 	</tables>
-</jco>
+</BAPI_CUSTOMER_FIND>
 ]]></sap:definition>
+
 
 
                         </sap:outbound-endpoint>
@@ -65,12 +67,13 @@ payload['BillingCity'] = flowVars['customer']['BillingCity'];
                         <data-mapper:transform config-ref="BAPI_CUSTOMER_FIND_to_Customer" doc:name="BAPI_CUSTOMER_FIND to Customer"/>
         
                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="query customer detail from SAP">
-            <sap:definition><![CDATA[<jco>
+            <sap:definition><![CDATA[<ZMULE_CUSTOMER_GETLIST>
   	<import>
-    	<field name="I_CUST_ID">#[payload[0]['CustomerNumber']]</field>
+    	<I_CUST_ID>#[payload[0]['CustomerNumber']]</I_CUST_ID>
 	</import>
-</jco>
+</ZMULE_CUSTOMER_GETLIST>
 ]]></sap:definition>
+
 
                 </sap:outbound-endpoint>
                         <data-mapper:transform config-ref="XML_To_Account" doc:name="ZMULE_CUSTOMER_GETLIST to LastModifiedDate"/>

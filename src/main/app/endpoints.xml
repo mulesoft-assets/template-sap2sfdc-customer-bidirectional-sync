@@ -4,7 +4,7 @@
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
       xmlns:spring="http://www.springframework.org/schema/beans"
-      version="EE-3.5.1"
+      version="EE-3.5.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -29,12 +29,13 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
             <processor-chain doc:name="Processor Chain">
                 <expression-component doc:name="Acquire lock"><![CDATA[app.registry['PollSynchronizer'].lock();]]></expression-component>
                 <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="query customers from SAP">
-                    <sap:definition><![CDATA[<jco>
+                    <sap:definition><![CDATA[<ZMULE_CUSTOMER_GETLIST>
   	<import>
-  		<field name="I_FROM_DATE">#[flowVars['sapLastQueryDate']]</field>
-	</import>
-</jco>
+  		<I_FROM_DATE>#[flowVars['sapLastQueryDate']]</I_FROM_DATE>
+  	</import>
+	</ZMULE_CUSTOMER_GETLIST>
 ]]></sap:definition>
+
                 </sap:outbound-endpoint>
                 <data-mapper:transform config-ref="customer_to_account" doc:name="customer to account"/>
             </processor-chain>

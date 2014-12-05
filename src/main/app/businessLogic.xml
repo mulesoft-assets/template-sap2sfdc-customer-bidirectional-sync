@@ -6,7 +6,7 @@
       xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
       xmlns:spring="http://www.springframework.org/schema/beans"
-      version="EE-3.5.1"
+      version="EE-3.5.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
@@ -79,22 +79,23 @@ payload.remove('OwnerId');
 					doc:name="store result in record var 'sapCustomer'">
                     <processor-chain doc:name="Processor Chain">
                         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_CUSTOMER_FIND" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Customer by Name">
-                            <sap:definition><![CDATA[<jco>
+                            <sap:definition><![CDATA[<BAPI_CUSTOMER_FIND>
 	<import>
-		<field name="MAX_CNT">0</field>
-		<field name="PL_HOLD">X</field>
+		<MAX_CNT>0</MAX_CNT>
+		<PL_HOLD>X</PL_HOLD>
 	</import>
   	<tables>
-		<table name="SELOPT_TAB">
+		<SELOPT_TAB>
 			<row id="0">
-				<field name="TABNAME">KNA1</field>
-				<field name="FIELDNAME">NAME1</field>
-				<field name="FIELDVALUE">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload['Name'])]</field>
+				<TABNAME>KNA1</TABNAME>
+				<FIELDNAME>NAME1</FIELDNAME>
+				<FIELDVALUE>#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload['Name'])]</FIELDVALUE>
 			</row>
-		</table>
+		</SELOPT_TAB>
 	</tables>
-</jco>
+</BAPI_CUSTOMER_FIND>
 ]]></sap:definition>
+
 
 
                         </sap:outbound-endpoint>
@@ -108,12 +109,13 @@ payload.remove('OwnerId');
                 <enricher source="#[payload['LastModifiedDate']]" target="#[recordVars['lastModDate']]" doc:name="store result in record var 'lastModDate'">
                     <processor-chain doc:name="Processor Chain">
                 <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="query customer detail from SAP">
-                            <sap:definition><![CDATA[<jco>
+                            <sap:definition><![CDATA[<ZMULE_CUSTOMER_GETLIST>
   	<import>
-    	<field name="I_CUST_ID">#[recordVars['sapCustomer']['CustomerNumber']]</field>
+    	<I_CUST_ID>#[recordVars['sapCustomer']['CustomerNumber']]</I_CUST_ID>
 	</import>
-</jco>
+</ZMULE_CUSTOMER_GETLIST>
 ]]></sap:definition>
+
 
                 </sap:outbound-endpoint>
                         <data-mapper:transform config-ref="XML_To_Account" doc:name="ZMULE_CUSTOMER_GETLIST to LastModifiedDate"/>
@@ -127,12 +129,13 @@ payload.remove('OwnerId');
                 <enricher source="#[payload['AccountGroup']]" target="#[payload['AccountGroup']]" doc:name="store 'AccountGroup' to payload">
                     <processor-chain doc:name="Processor Chain">
                         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="CUSTOMER_GET_KTOKD" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Account Group from SAP">
-                            <sap:definition><![CDATA[<jco>
+                            <sap:definition><![CDATA[<CUSTOMER_GET_KTOKD>
 	<import>
-		<field name="IV_KUNNR">#[recordVars['sapCustomer']['Id']]</field>
+		<IV_KUNNR>#[recordVars['sapCustomer']['Id']]</IV_KUNNR>
 	</import>
-</jco>
+</CUSTOMER_GET_KTOKD>
 ]]></sap:definition>
+
 
 
 
@@ -148,12 +151,13 @@ payload.put('CustomerNumber', recordVars['sapCustomer']['CustomerNumber']);
                 <enricher source="#[payload['CustomerNumber']]" target="#[payload['CustomerNumber']]" doc:name="store 'CustomerNumber' to payload">
                     <processor-chain doc:name="Processor Chain">
                         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_CUSTOMER_GETINTNUMBER" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Next Customer Number from SAP">
-                            <sap:definition><![CDATA[<jco>
+                            <sap:definition><![CDATA[<BAPI_CUSTOMER_GETINTNUMBER>
 	<import>
-		<field name="ACCOUNTGROUP">ZAG2</field>
+		<ACCOUNTGROUP>ZAG2</ACCOUNTGROUP>
 	</import>
-</jco>
+</BAPI_CUSTOMER_GETINTNUMBER>
 ]]></sap:definition>
+
 
 
 
