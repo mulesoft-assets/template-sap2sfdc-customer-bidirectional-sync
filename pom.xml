@@ -15,8 +15,8 @@
 	<name>template-sap2sfdc-customer-bidirectional-sync Anypoint Template Project</name>
 
 	<properties>
-		<sap.jco.version>3.0.9</sap.jco.version>
-		<sap.idoc.version>3.0.11</sap.idoc.version>
+		<sap.jco.version>3.0.10</sap.jco.version>
+		<sap.idoc.version>3.0.10</sap.idoc.version>
 		<sap.build.type>mac64</sap.build.type>
 	</properties>
 
@@ -31,11 +31,7 @@
 						<inclusion>
 							<groupId>org.mule.modules</groupId>
 							<artifactId>mule-module-sfdc</artifactId>
-						</inclusion>
-						<inclusion>
-							<groupId>com.mulesoft.munit.modules</groupId>
-							<artifactId>mule-module-synchronize</artifactId>
-						</inclusion>
+						</inclusion>						
 					</inclusions>
 				</configuration>
 			</plugin>
@@ -113,7 +109,7 @@
 		<!-- SAP Dependencies -->
 		<dependency>
 			<groupId>com.sap.conn.jco</groupId>
-			<artifactId>sapjco</artifactId>
+			<artifactId>sapjco3</artifactId>
 			<version>${sap.jco.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -126,7 +122,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.sap.conn.idoc</groupId>
-			<artifactId>sapidoc</artifactId>
+			<artifactId>sapidoc3</artifactId>
 			<version>${sap.idoc.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -161,6 +157,12 @@
 			<id>mule-ee-dependencies</id>
 			<name>Mule EE Dependencies</name>
 			<url>http://repository-master.mulesoft.org/nexus/content/repositories/mule-ee-dependencies/</url>
+		</repository>
+		<repository>
+			<id>mule-ee-thirdparty</id>
+			<name>MuleSoft Thirdparty Repository</name>
+			<url>https://repository.mulesoft.org/nexus/content/repositories/thirdparty/</url>
+			<layout>default</layout>
 		</repository>
 	</repositories>
 	<scm>

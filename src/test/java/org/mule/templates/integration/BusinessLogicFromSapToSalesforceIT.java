@@ -25,7 +25,6 @@ import org.mule.api.MuleException;
 import org.mule.processor.chain.SubflowInterceptingChainLifecycleWrapper;
 
 import com.mulesoft.module.batch.BatchTestHelper;
-import com.sforce.soap.partner.SaveResult;
 
 /**
  * The objective of this class is to validate the correct behavior of the flows
@@ -93,7 +92,7 @@ public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase
 		System.err.println("running flow");
 		executeWaitAndAssertBatchJob(A_INBOUND_FLOW_NAME);
 		System.err.println("finished");
-
+		Thread.sleep(5000);
 		Map<String, Object> sapResponse = (Map<String, Object>) retrieveAccountFromSalesforceFlow.process(getTestEvent(sapAccount, MessageExchangePattern.REQUEST_RESPONSE)).getMessage().getPayload();
 		System.err.println(sapResponse);
 		sfAccount = sapResponse;
