@@ -1,5 +1,5 @@
 
-# Anypoint Template: SAP2SFDC-customer-bidirectional-sync
+# Anypoint Template: SAP and Salesforce Customer/Account Bi-Directional Sync
 
 + [License Agreement](#licenseagreement)
 + [Use Case](#usecase)
@@ -26,14 +26,14 @@ Note that using this template is subject to the conditions of this [License Agre
 Please review the terms of the license before downloading and using this template. In short, you are allowed to use the template for free with Mule ESB Enterprise Edition, CloudHub, or as a trial in Anypoint Studio.
 
 # Use Case <a name="usecase"/>
-Use this template if would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling 
-			Inboud SAP endpoint retrieves all Accounts in SAP using custom BAPI  **ZMULE_CUSTOMER_GETLIST** and transforms them to Salesforce Accounts.
-			And in other direction by Polling Salesforce for Accounts and sending it to SAP using standard IDoc DEBMAS01.
+Use this template if you would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling.
+The inbound SAP endpoint retrieves all Accounts in SAP using the custom BAPI **ZMULE_CUSTOMER_GETLIST** and transforms them to Salesforce Accounts.
+In other direction, the synchronization is completed by Polling Salesforce for Accounts and sending them to SAP using the standard IDoc DEBMAS01.
 
 # Considerations <a name="considerations"/>
 
 To make this Anypoint Template run, there are certain preconditions that must be considered.
-All of them deal with the preparations in both source (SAP) and destination (SFDC) systems, that must be made in order for all to run smoothly.
+All of them deal with the preparations in both SAP and SFDC systems, that must be made in order for all to run smoothly.
 **Failling to do so could lead to unexpected behavior of the template.**
 
 Before continue with the use of this Anypoint Template, you may want to check out this [Documentation Page](http://www.mulesoft.org/documentation/display/current/SAP+Connector#SAPConnector-EnablingYourStudioProjectforSAP), that will teach you how to work 
@@ -131,7 +131,7 @@ For instructions on how to create a custom field in SFDC plase check this link:
 
 
 # Run it! <a name="runit"/>
-Simple steps to get SAP2SFDC-customer-bidirectional-sync running.
+Simple steps to get SAP and Salesforce Customer/Account Bi-Directional Sync running.
 
 
 ## Running on premise <a name="runonopremise"/>
