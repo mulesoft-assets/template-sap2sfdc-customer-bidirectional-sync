@@ -28,7 +28,7 @@ Please review the terms of the license before downloading and using this templat
 # Use Case <a name="usecase"/>
 Use this template if you would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling.
 The inbound SAP endpoint retrieves all Accounts in SAP using the custom BAPI **ZMULE_CUSTOMER_GETLIST** and transforms them to Salesforce Accounts.
-In other direction, the synchronization is completed by Polling Salesforce for Accounts and sending them to SAP using the standard IDoc DEBMAS01.
+In the other direction, the synchronization is completed by polling Salesforce for Accounts and sending them to SAP using the standard IDoc DEBMAS01.
 
 # Considerations <a name="considerations"/>
 
@@ -193,7 +193,7 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 + sap.jco.client=800
 + sap.jco.lang=EN
 
-sap.default.accountGroup=ZAG2
++ sap.default.accountGroup=ZAG2
 
 **SAP Endpoint configuration**
 
@@ -248,12 +248,12 @@ In the visual editor they can be found on the *Global Element* tab.
 
 
 ## businessLogic.xml<a name="businesslogicxml"/>
-Functional aspect of the Anypoint Template is implemented on this XML, directed by a batch job that will be responsible for creations/updates. The several message processors constitute four high level actions that fully implement the logic of this Anypoint Template:
+The functional aspect of the Anypoint Template is implemented on this XML, directed by two batch jobs that will be responsible for creations/updates of Customers and Accounts in both ways. The several message processors constitute four high level actions that fully implement the logic of this Anypoint Template:
 
-1. Job execution is invoked from triggerFlow (endpoints.xml) everytime there is a new query executed asking for created/updated Contacts.
-2. During the Process stage, each SFDC User will be filtered depending on, if it has an existing matching user in the SFDC Org B.
-3. The last step of the Process stage will group the users and create/update them in SFDC Org B.
-Finally during the On Complete stage the Anypoint Template will logoutput statistics data into the console.
+1. Job executions are invoked from the trigger flows (endpoints.xml) everytime there is a new query executed asking for created/updated Contacts or Accounts.
+2. From SAP to SFDC: during the Process stage, each SAP Customer will be mapped into an SFDC Account and matched by name with the existent ones in the SFDC instance. After that, the Account will be upserted to the SFDC instance. 
+3. From SFDC to SAP: during the Process stage, all the information needed to upsert the Customer will be retrieved from the SAP instance, and then the original Account will be mapped into a SAP Customer to proceed with the upsert.
+4. Finally during the On Complete stage, the Anypoint Template will unlock the processing for allowing the other direction to be executed.
 
 
 
