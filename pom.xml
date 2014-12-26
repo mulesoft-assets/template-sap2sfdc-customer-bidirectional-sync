@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.mule.templates</groupId>
 		<artifactId>templates-tooling-parent-pom</artifactId>
-		<version>1.0.8</version>
+		<version>1.0.12</version>
 	</parent>
 
 	<artifactId>template-sap2sfdc-customer-bidirectional-sync</artifactId>
@@ -166,8 +166,9 @@
 		</repository>
 	</repositories>
 	<scm>
-		<connection>scm:git:https://github.com/mulesoft/template-sap2sfdc-customer-migration.git</connection>
-		<developerConnection>scm:git:https://github.com/mulesoft/mulesoft/template-sap2sfdc-customer-migration.git</developerConnection>
-		<url>http://github.com/mulesoft/mulesoft/template-sap2sfdc-customer-migration.git</url>
+		<connection>scm:git:https://github.com/mulesoft/template-sap2sfdc-customer-bidirectional-sync.git</connection>
+		<developerConnection>scm:git:https://github.com/mulesoft/mulesoft/template-sap2sfdc-customer-bidirectional-sync.git</developerConnection>
+		<url>http://github.com/mulesoft/mulesoft/template-sap2sfdc-customer-bidirectional-sync.git</url>
+		<tag>HEAD</tag>
 	</scm>
 </project>
