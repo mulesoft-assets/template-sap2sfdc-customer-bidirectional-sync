@@ -43,7 +43,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 
 			</batch:step>
 			<batch:step name="foreachaccountInSapUpsertaccountInSalesforceStep" accept-expression="payload['Name'] != null &amp;&amp; ( recordVars['accountInSalesforce'] is NullPayload || recordVars['accountInSalesforce'] == null || (org.mule.templates.date.DateUtils.stringToDateTimeWithProvidedOffset(payload['LastModifiedDate'], &quot;yyyy-MM-dd'T'HH:mm:ss'Z'&quot;, &quot;${sapOffset}&quot;).compareTo(org.mule.templates.date.DateUtils.stringToDateTimeWithProvidedOffset(recordVars['accountInSalesforce']['LastModifiedDate'], &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;, &quot;${salesforceOffset}&quot;)) &gt; 0 &amp;&amp; ('${sap.jco.user}' != payload['LastModifiedById']) ))">
-                <expression-component doc:name="Expression"><![CDATA[if(recordVars['accountInSalesforce'] == null || recordVars['accountInSalesforce'] is NullPayload) {
+                <expression-component doc:name="prepare for Upsert"><![CDATA[if(recordVars['accountInSalesforce'] == null || recordVars['accountInSalesforce'] is NullPayload) {
 	payload.remove('Id');
 } else {
 	payload.put('Id',recordVars['accountInSalesforce']['Id']);
@@ -183,7 +183,7 @@ payload.put('AccountGroup', '${sap.default.accountGroup}');
 	//when doing insert set MSGFN to 009
 	payload.put("MSGFN", "009");
 } else {
-    //when doing insert set MSGFN to 004
+    //when doing update set MSGFN to 004
 	payload.put("MSGFN", "004");
 }]]></expression-component>
         <logger message="BBBBBBBBBBBBBBBB sfdc2sap accounts before upsert #[payload]" level="INFO" doc:name="log before upsert"/>
