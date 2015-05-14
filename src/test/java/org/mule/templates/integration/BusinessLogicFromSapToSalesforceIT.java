@@ -26,6 +26,8 @@ import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.processor.chain.SubflowInterceptingChainLifecycleWrapper;
 
+import com.mulesoft.module.batch.BatchTestHelper;
+
 /**
  * The objective of this class is to validate the correct behavior of the flows
  * for this Anypoint Tempalte that make calls to external systems.
@@ -37,6 +39,7 @@ public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase
 
 	protected static final String TEMPLATE_NAME = "customer-bidirectional-sync";
 	protected static final int TIMEOUT_SEC = 120;
+	private BatchTestHelper helper;
 	private static final String A_INBOUND_FLOW_NAME = "triggerSyncFromSapFlow";
 	private static final String B_INBOUND_FLOW_NAME = "triggerSyncFromSalesforceFlow";
 	
@@ -60,6 +63,7 @@ public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase
 	@Before
 	public void setUp() throws Exception {
 		stopAutomaticPollTriggering();
+		helper = new BatchTestHelper(muleContext);
 		
 		createAccountSapFlow = getSubFlow("createAccountSapFlow");
 		createAccountSapFlow.initialise();
@@ -114,7 +118,8 @@ public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase
 		runSchedulersOnce(flowConstructName);
 
 		// Wait for the batch job execution to finish
-		Thread.sleep(TIMEOUT_SEC * 1000);
+		helper.awaitJobTermination(TIMEOUT_SEC * 1000, 500);
+		helper.assertJobWasSuccessful();
 	}
 	
 	private void createSapTestData() throws MuleException, Exception{
