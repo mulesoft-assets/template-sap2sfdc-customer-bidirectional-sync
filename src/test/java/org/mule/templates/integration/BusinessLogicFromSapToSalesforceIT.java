@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -30,6 +32,9 @@ import org.mule.processor.chain.SubflowInterceptingChainLifecycleWrapper;
  * 
  */
 public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase {
+	
+	private static final Logger log = LogManager.getLogger(BusinessLogicFromSapToSalesforceIT.class);
+
 	protected static final String TEMPLATE_NAME = "customer-bidirectional-sync";
 	protected static final int TIMEOUT_SEC = 120;
 	private static final String A_INBOUND_FLOW_NAME = "triggerSyncFromSapFlow";
@@ -85,12 +90,12 @@ public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase
 
 	@Test
 	public void testMainFlow() throws Exception {
-		System.err.println("running flow");
+		log.info("running flow");
 		executeWaitAndAssertBatchJob(A_INBOUND_FLOW_NAME);
-		System.err.println("finished");
+		log.info("finished");
 		Thread.sleep(5000);
 		Map<String, Object> sapResponse = (Map<String, Object>) retrieveAccountFromSalesforceFlow.process(getTestEvent(sapAccount, MessageExchangePattern.REQUEST_RESPONSE)).getMessage().getPayload();
-		System.err.println(sapResponse);
+		log.info("SAP response: " + sapResponse);
 		sfAccount = sapResponse;
 		
 		Assert.assertNotNull(sfAccount);

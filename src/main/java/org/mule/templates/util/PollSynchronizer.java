@@ -7,7 +7,9 @@
 package org.mule.templates.util;
 
 import java.util.concurrent.Semaphore;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class objective is to create a critical area around the application in
@@ -26,7 +28,7 @@ import org.apache.log4j.Logger;
 public class PollSynchronizer {
 
 	private static final int MAX_PERMITS_NUMBER = 1;
-	private static final Logger log = Logger.getLogger(PollSynchronizer.class);
+	private static final Logger log = LogManager.getLogger(PollSynchronizer.class);
 	
 	private Semaphore semaphore;
 

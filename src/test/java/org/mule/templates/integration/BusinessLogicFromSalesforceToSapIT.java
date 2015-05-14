@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -32,6 +34,9 @@ import com.sforce.soap.partner.SaveResult;
  * 
  */
 public class BusinessLogicFromSalesforceToSapIT extends AbstractTemplateTestCase {
+	
+	private static final Logger log = LogManager.getLogger(BusinessLogicFromSalesforceToSapIT.class);
+	
 	protected static final String TEMPLATE_NAME = "customer-bidirectional-sync";
 	protected static final int TIMEOUT_SEC = 120;
 	private static final String A_INBOUND_FLOW_NAME = "triggerSyncFromSapFlow";
@@ -89,12 +94,11 @@ public class BusinessLogicFromSalesforceToSapIT extends AbstractTemplateTestCase
 
 	@Test
 	public void testMainFlow() throws Exception {
-		System.err.println("running flow");
+		log.info("running flow");
 		executeWaitAndAssertBatchJob(B_INBOUND_FLOW_NAME);
 		
 		Map<String, Object> sapResponse = (Map<String, Object>) retrieveAccountFromSapFlow.process(getTestEvent(sfAccount, MessageExchangePattern.REQUEST_RESPONSE)).getMessage().getPayload();
-		System.err.println(sapResponse.getClass());
-		System.err.println(sapResponse);
+		log.info("SAP response: " + sapResponse);
 		Assert.assertEquals(sfAccount.get("Name"), sapResponse.get("Name"));
 	}
 	
@@ -123,7 +127,7 @@ public class BusinessLogicFromSalesforceToSapIT extends AbstractTemplateTestCase
 		MuleEvent event = createAccountSalesforceFlow.process(getTestEvent(createdAccountInSalesforce, MessageExchangePattern.REQUEST_RESPONSE));
 		List<SaveResult> payloadAfterExecution = (List<SaveResult>)event.getMessage().getPayload();
 		sfAccount.put("Id", payloadAfterExecution.get(0).getId());
-		System.err.println("saved sf account " + payloadAfterExecution.get(0).getId());
+		log.info("saved sf account " + payloadAfterExecution.get(0).getId());
 	}
 	
 	private void createSapTestData() throws MuleException, Exception{
@@ -136,8 +140,7 @@ public class BusinessLogicFromSalesforceToSapIT extends AbstractTemplateTestCase
 		createdAccountInSap.add(sapAccount);
 	
 		MuleEvent event = createAccountSapFlow.process(getTestEvent(createdAccountInSap, MessageExchangePattern.REQUEST_RESPONSE));
-		System.err.println("SAP RESPONSE");
-		System.err.println(event.getMessage().getPayload());
+		log.info("SAP response: " + event.getMessage().getPayload());
 	}
 
 	private void deleteSapTestData(){
