@@ -29,7 +29,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 		<batch:threading-profile poolExhaustedAction="WAIT" />
 		<batch:process-records>
             <batch:step name="Batch_Step">
-                <logger message="AAAAAA sap payload  #[payload]" level="INFO" doc:name="Logger"/>
+                <logger message="sap payload  #[payload]" level="INFO" doc:name="Logger"/>
             </batch:step>
 
 			<batch:step name="foreachaccountInSapGetAccountInSalesforceStep" accept-expression="payload['Name'] != null">
@@ -39,7 +39,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
                     <sfdc:query-single config-ref="Salesforce" query="SELECT Id, Name, LastModifiedDate FROM Account WHERE Name = '#[payload.Name]'" doc:name="query Salesforce for current Account"/>
 
 				</enricher>
-                <logger message="3333333333 #[recordVars['accountInSalesforce']]" level="INFO" doc:name="Logger"/>
+                <logger message="#[recordVars['accountInSalesforce']]" level="INFO" doc:name="Logger"/>
 
 			</batch:step>
 			<batch:step name="foreachaccountInSapUpsertaccountInSalesforceStep" accept-expression="payload['Name'] != null &amp;&amp; ( recordVars['accountInSalesforce'] is NullPayload || recordVars['accountInSalesforce'] == null || (org.mule.templates.date.DateUtils.stringToDateTimeWithProvidedOffset(payload['LastModifiedDate'], &quot;yyyy-MM-dd'T'HH:mm:ss'Z'&quot;, &quot;${sapOffset}&quot;).compareTo(org.mule.templates.date.DateUtils.stringToDateTimeWithProvidedOffset(recordVars['accountInSalesforce']['LastModifiedDate'], &quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;, &quot;${salesforceOffset}&quot;)) &gt; 0 &amp;&amp; ('${sap.jco.user}' != payload['LastModifiedById']) ))">
@@ -53,7 +53,7 @@ payload.remove('LastModifiedById');
 payload.remove('LastModifiedDate');
 payload.remove('OwnerId');
 		]]></expression-component>
-                <logger message="AAAAAAAAAAAAAAAAAA sap2sfdc before upsert #[payload]" level="INFO" doc:name="log before upsert"/>
+                <logger message="sap2sfdc before upsert #[payload]" level="INFO" doc:name="log before upsert"/>
 
 				<batch:commit doc:name="Batch Commit" size="200">
                     <sfdc:upsert config-ref="Salesforce" externalIdFieldName="Id" type="Account" doc:name="upsert accounts in Salesforce">
@@ -186,7 +186,7 @@ payload.put('AccountGroup', '${sap.default.accountGroup}');
     //when doing update set MSGFN to 004
 	payload.put("MSGFN", "004");
 }]]></expression-component>
-        <logger message="BBBBBBBBBBBBBBBB sfdc2sap accounts before upsert #[payload]" level="INFO" doc:name="log before upsert"/>
+        <logger message="sfdc2sap accounts before upsert #[payload]" level="INFO" doc:name="log before upsert"/>
 
         <data-mapper:transform config-ref="salesfore_account_to_debmas01" doc:name="account to DEBMAS01"/>
         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="idoc" functionName="DEBMAS01" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Upsert Customer in SAP"/>

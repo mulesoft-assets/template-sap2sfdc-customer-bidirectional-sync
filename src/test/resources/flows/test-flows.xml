@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
     <data-mapper:config name="Salesfore_Account_to_DEBMAS01" transformationGraphPath="salesfore_account_to_debmas01.grf" doc:name="DataMapper"/>
     <sub-flow name="createAccountSapFlow" doc:name="createAccountSapFlow">
-        <logger level="INFO" doc:name="Logger" message="pppppppppppp #[payload]"/>
+        <logger level="INFO" doc:name="Logger" message="#[payload]"/>
         <set-variable variableName="customer" value="#[payload[0]]" doc:name="Variable"/>
         
 		<processor-chain doc:name="Processor Chain">
