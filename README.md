@@ -27,7 +27,7 @@ Please review the terms of the license before downloading and using this templat
 
 # Use Case <a name="usecase"/>
 Use this template if you would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling.
-The inbound SAP endpoint retrieves all Accounts in SAP using the custom BAPI **ZMULE_CUSTOMER_GETLIST** and transforms them to Salesforce Accounts.
+The inbound SAP endpoint retrieves all Accounts in SAP using the custom BAPI **ZMULE\_CUSTOMER\_GETLIST** and transforms them to Salesforce Accounts.
 In the other direction, the synchronization is completed by polling Salesforce for Accounts and sending them to SAP using the standard IDoc DEBMAS01.
 
 # Considerations <a name="considerations"/>
@@ -130,6 +130,10 @@ For instructions on how to create a custom field in SFDC plase check this link:
 
 
 
+
+
+
+
 # Run it! <a name="runit"/>
 Simple steps to get SAP and Salesforce Customer/Account Bi-Directional Sync running.
 
@@ -207,7 +211,7 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 + sfdc.username=bob.dylan@sfdc
 + sfdc.password=DylanPassword123
 + sfdc.securityToken=avsfwCUl7apQs56Xq2AKi3X
-+ sfdc.url=https://test.salesforce.com/services/Soap/u/28.0
++ sfdc.url=https://test.salesforce.com/services/Soap/u/32.0
 + sfdc.integration.user.id=00520000003LtvG
 
 # API Calls <a name="apicalls"/>
