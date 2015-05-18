@@ -188,31 +188,40 @@ Mule Studio provides you with really easy way to deploy your Template directly t
 ## Properties to be configured (With examples) <a name="propertiestobeconfigured"/>
 In order to use this Mule Anypoint Template you need to configure properties (Credentials, configurations, etc.) either in properties file or in CloudHub as Environment Variables. Detail list with examples:
 ### Application configuration
++ polling.frequency `20000`
++ polling.start.delay `1000`
++ watermark.default.expression `2014-08-01T10:46:00.000Z`
++ watermark.default.expression.sap `2014-08-01T12:29:44Z`
+
++ page.size `100`
++ sapOffset `+00:00:00`
++ salesforceOffset `+00:00:00`
+
 **SAP Connector configuration**
 
-+ sap.jco.ashost=your.sap.address.com
-+ sap.jco.user=SAP_USER
-+ sap.jco.passwd=SAP_PASS
-+ sap.jco.sysnr=14
-+ sap.jco.client=800
-+ sap.jco.lang=EN
++ sap.jco.ashost `your.sap.address.com`
++ sap.jco.user `SAP_USER`
++ sap.jco.passwd `SAP_PASS`
++ sap.jco.sysnr `14`
++ sap.jco.client `800`
++ sap.jco.lang `EN`
 
-+ sap.default.accountGroup=ZAG2
++ sap.default.accountGroup `ZAG2`
 
 **SAP Endpoint configuration**
 
-+ sap.jco.connectioncount=2
-+ sap.jco.gwhost=your.sap.addres.com
-+ sap.jco.gwservice=sapgw14
-+ sap.jco.idoc.programid=PROGRAM_ID
++ sap.jco.connectioncount `2`
++ sap.jco.gwhost `your.sap.addres.com`
++ sap.jco.gwservice `sapgw14`
++ sap.jco.idoc.programid `PROGRAM_ID`
 
 **SalesForce Connector configuration**
 
-+ sfdc.username=bob.dylan@sfdc
-+ sfdc.password=DylanPassword123
-+ sfdc.securityToken=avsfwCUl7apQs56Xq2AKi3X
-+ sfdc.url=https://test.salesforce.com/services/Soap/u/32.0
-+ sfdc.integration.user.id=00520000003LtvG
++ sfdc.username `bob.dylan@sfdc`
++ sfdc.password `DylanPassword123`
++ sfdc.securityToken `avsfwCUl7apQs56Xq2AKi3X`
++ sfdc.url `https://test.salesforce.com/services/Soap/u/32.0`
++ sfdc.integration.user.id `00520000003LtvG`
 
 # API Calls <a name="apicalls"/>
 SalesForce imposes limits on the number of API Calls that can be made.
