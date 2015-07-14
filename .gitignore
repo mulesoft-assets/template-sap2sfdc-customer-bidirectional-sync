@@ -47,17 +47,14 @@ local.properties
 target/
 **/*.mflow
 
-# ------------- #
+# --------------- #
 # Mule-specific #
-# ------------- #
+# --------------- #
 .mule/
 
-# --------------------------------------- #
-# Test credentials to be use locally only #
-# --------------------------------------- #
+# ------------------------------------------------- #
+# Test credentials and libraries to be used locally #
+# ------------------------------------------------- #
 src/test/resources/mule.test.properties
-
-# ------------- #
-# SAP libraries #
-# ------------- #
-src/main/app/lib
+libraries/*
+src/main/app/lib/*

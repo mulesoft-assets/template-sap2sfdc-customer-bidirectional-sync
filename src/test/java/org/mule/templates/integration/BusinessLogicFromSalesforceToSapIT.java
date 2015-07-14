@@ -100,6 +100,8 @@ public class BusinessLogicFromSalesforceToSapIT extends AbstractTemplateTestCase
 		log.info("running flow");
 		executeWaitAndAssertBatchJob(B_INBOUND_FLOW_NAME);
 		
+		Thread.sleep(5000);
+		
 		Map<String, Object> sapResponse = (Map<String, Object>) retrieveAccountFromSapFlow.process(getTestEvent(sfAccount, MessageExchangePattern.REQUEST_RESPONSE)).getMessage().getPayload();
 		log.info("SAP response: " + sapResponse);
 		Assert.assertEquals(sfAccount.get("Name"), sapResponse.get("Name"));
