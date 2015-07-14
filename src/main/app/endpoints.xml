@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
-	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper"
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
 	xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
 	xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.2"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.7.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
-http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
 http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
-http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
-    <data-mapper:config name="XML_To_Accountd" transformationGraphPath="xml_to_account.grf" doc:name="XML_To_Account"/>
-    <data-mapper:config name="customer_to_account" transformationGraphPath="customer_to_account.grf" doc:name="customer_to_account"/>
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+
 
 
 	<!-- In this file you should declare all your inbound endpoints and from here control the access to your application -->
 
     
     
-    <flow name="triggerSyncFromSapFlow" doc:name="triggerSyncFromSapFlow" processingStrategy="synchronous" >
+    <flow name="triggerSyncFromSapFlow"  processingStrategy="synchronous" >
 		<poll doc:name="Poll">
 			<fixed-frequency-scheduler frequency="${polling.frequency}" startDelay="1000" />
 			<watermark variable="sapLastQueryDate" default-expression="${watermark.default.expression.sap}" selector="MAX" selector-expression="#[payload.LastModifiedDate]" />
             <processor-chain doc:name="Processor Chain">
                 <expression-component doc:name="Acquire lock"><![CDATA[app.registry['PollSynchronizer'].lock();]]></expression-component>
-                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="query customers from SAP">
+                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Query customers from SAP">
                     <sap:definition><![CDATA[<ZMULE_CUSTOMER_GETLIST>
   	<import>
   		<I_FROM_DATE>#[flowVars['sapLastQueryDate']]</I_FROM_DATE>
@@ -37,28 +35,45 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
 ]]></sap:definition>
 
                 </sap:outbound-endpoint>
-                <data-mapper:transform config-ref="customer_to_account" doc:name="customer to account"/>
+                <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+                <dw:transform-message doc:name="Transform Customer to Account">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%input payload application/xml
+%output application/java
+---
+payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.*row map {
+	AccountNumber : $.KUNNR,
+	//removed single quote as the Salesforce query will then crash
+	Name : $.NAME1 replace /(\')/ with " ",
+	Phone : $.TELF1,
+	Fax : $.TELFX,
+	LastModifiedDate : $.LAST_MODIF_DATE,
+	BillingCity : $.ORT01,
+	LastModifiedById : $.AENAM
+}]]></dw:set-payload>
+                </dw:transform-message>
+
             </processor-chain>
 
 		</poll>
         <logger message="sapLastQueryDate #[flowVars['sapLastQueryDate']] #[payload.size()]" level="INFO" doc:name="Logger"/>
-        <batch:execute name="fromSapToSalesforceBatch" doc:name="execute fromSapToSalesforceBatch"/>
+        <batch:execute name="fromSapToSalesforceBatch" doc:name="Execute fromSapToSalesforceBatch"/>
         <exception-strategy ref="defaultChoiceExceptionStrategy" doc:name="Reference Exception Strategy"/>
 
     </flow>
 
-    <flow name="triggerSyncFromSalesforceFlow" doc:name="triggerSyncFromSalesforceFlow" processingStrategy="synchronous" >
+    <flow name="triggerSyncFromSalesforceFlow"  processingStrategy="synchronous" >
 		<poll doc:name="Poll">
-			<fixed-frequency-scheduler frequency="${polling.frequency}" startDelay="1000" />
+			<fixed-frequency-scheduler frequency="${polling.frequency}" startDelay="10000000" />
 			<watermark variable="salesforceLastQueryDate" default-expression="${watermark.default.expression}" selector="MAX" selector-expression="#[payload.LastModifiedDate]" />
             <processor-chain doc:name="Processor Chain">
                 <expression-component doc:name="Acquire lock"><![CDATA[app.registry['PollSynchronizer'].lock();]]></expression-component>
-                <sfdc:query config-ref="Salesforce" query="dsql:SELECT AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; #[flowVars['salesforceLastQueryDate']] ORDER BY LastModifiedDate ASC LIMIT 200" doc:name="query accounts from Salesforce"/>
+                <sfdc:query config-ref="Salesforce" query="dsql:SELECT AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; #[flowVars['salesforceLastQueryDate']] ORDER BY LastModifiedDate ASC LIMIT 200" doc:name="Query accounts from Salesforce"/>
             </processor-chain>
 
 		</poll>
         <logger message="salesforceLastQueryDate #[flowVars['salesforceLastQueryDate']] #[payload.size()]" level="INFO" doc:name="Logger"/>
-        <batch:execute name="fromSalesforceToSapBatch" doc:name="execute fromSalesforceToSapBatch"/>
+        <batch:execute name="fromSalesforceToSapBatch" doc:name="Execute fromSalesforceToSapBatch"/>
         <exception-strategy ref="defaultChoiceExceptionStrategy" doc:name="Reference Exception Strategy"/>
 
     </flow>

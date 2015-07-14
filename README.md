@@ -43,8 +43,8 @@ with SAP and Anypoint Studio-
 
 This Anypoint template uses a few private Maven dependencies in oder to work. If you intend to run this template with Maven support, please continue reading.
 
-You will find that there are three dependencies in the pom.xml file that begin with the following group id: 
-	**com.sap.conn.jco** 
+You will find that there are two dependencies in the pom.xml file that begin with the group id - com.sap.conn:
+	**com.sap.conn.jco** and  **com.sap.conn.idoc**
 These dependencies are private for Mulesoft and will cause you application not to build from a Maven command line. You need to replace them with "provided" scope and copy the libraries into the build path.
 
 
@@ -113,19 +113,7 @@ column='486'
 
 ### As destination of data
 
-This template makes use of the `External ID` field offered by Salesforce. Here is a short description on how SFDC define external ID's 
-
-+ [What is an external ID?](http://help.salesforce.com/apex/HTViewHelpDoc?id=faq_import_general_what_is_an_external.htm)
-
-The templates uses the External ID in order to do xRef between the entities in both systems. The idea is, once an entity is created in SFDC it's decorated with an ID from the source system which will be used afteward for the template to reference it.
-
-You will need to create a new custom field in your **Product** entity in SFDC with the following name: 
-
-+ `sap_external_id`
-
-For instructions on how to create a custom field in SFDC plase check this link:
-
-+ [Create Custom Fields](https://help.salesforce.com/HTViewHelpDoc?id=adding_fields.htm)
+&nbsp;
 
 
 
@@ -194,8 +182,6 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 + watermark.default.expression.sap `2014-08-01T12:29:44Z`
 
 + page.size `100`
-+ sapOffset `+00:00:00`
-+ salesforceOffset `+00:00:00`
 
 **SAP Connector configuration**
 
@@ -263,7 +249,7 @@ In the visual editor they can be found on the *Global Element* tab.
 ## businessLogic.xml<a name="businesslogicxml"/>
 The functional aspect of the Anypoint Template is implemented on this XML, directed by two batch jobs that will be responsible for creations/updates of Customers and Accounts in both ways. The several message processors constitute four high level actions that fully implement the logic of this Anypoint Template:
 
-1. Job executions are invoked from the trigger flows (endpoints.xml) everytime there is a new query executed asking for created/updated Contacts or Accounts.
+1. Job executions are invoked from the trigger flows (endpoints.xml) everytime there is a new query executed asking for created/updated Customers or Accounts.
 2. From SAP to SFDC: during the Process stage, each SAP Customer will be mapped into an SFDC Account and matched by name with the existent ones in the SFDC instance. After that, the Account will be upserted to the SFDC instance. 
 3. From SFDC to SAP: during the Process stage, all the information needed to upsert the Customer will be retrieved from the SAP instance, and then the original Account will be mapped into a SAP Customer to proceed with the upsert.
 4. Finally during the On Complete stage, the Anypoint Template will unlock the processing for allowing the other direction to be executed.
