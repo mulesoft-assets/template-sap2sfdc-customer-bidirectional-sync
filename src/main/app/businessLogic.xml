@@ -200,7 +200,7 @@ CustomerNumber : payload.BAPI_CUSTOMER_GETINTNUMBER.export.CUSTOMERID]]></dw:set
                 </enricher>
 
             </batch:step>
-			<batch:step name="foreachAccountInSalesForceUpsertAccountInSapStep" accept-expression="payload['LastModifiedDateFromSAP'] == null || (new org.joda.time.DateTime(payload['LastModifiedDate']).isAfter(new org.joda.time.DateTime(payload['LastModifiedDateFromSAP'])) &amp;&amp; '${sfdc.integration.user.id}' != payload['LastModifiedById']">
+			<batch:step name="foreachAccountInSalesForceUpsertAccountInSapStep" accept-expression="payload['LastModifiedDateFromSAP'] == null || new org.joda.time.DateTime(payload['LastModifiedDate']).isAfter(new org.joda.time.DateTime(payload['LastModifiedDateFromSAP'])) &amp;&amp; '${sfdc.integration.user.id}' != payload['LastModifiedById']">
                 <flow-ref name="commitAccountsFlow" doc:name="Flow Reference"/>
 			</batch:step>
 		</batch:process-records>
