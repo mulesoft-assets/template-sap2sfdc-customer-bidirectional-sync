@@ -24,9 +24,7 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
 	<batch:job name="fromSapToSalesforceBatch">
 		<batch:threading-profile poolExhaustedAction="WAIT" />
 		<batch:process-records>
-            <batch:step name="Batch_Step">
-                <logger message="sap payload  #[payload]" level="INFO" doc:name="Logger"/>
-            </batch:step>
+
 
 			<batch:step name="foreachaccountInSapGetAccountInSalesforceStep" accept-expression="payload['Name'] != null">
 
@@ -46,7 +44,6 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
 				<batch:commit doc:name="Batch Commit" size="200">
                     <dw:transform-message doc:name="Prepare Salesforce Accounts for upsert">
                         <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/java
 %output application/java
 ---
 payload map {
@@ -104,7 +101,6 @@ payload map {
                         </sap:outbound-endpoint>
                         <dw:transform-message doc:name="Transform BAPI_CUSTOMER_FIND to CustomerNumber">
                             <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/xml
 %output application/java
 ---
 CustomerNumber : payload.BAPI_CUSTOMER_FIND.TABLES.CUSTOMER.tables.RESULT_TAB.row.CUSTOMER 
@@ -130,7 +126,6 @@ CustomerNumber : payload.BAPI_CUSTOMER_FIND.TABLES.CUSTOMER.tables.RESULT_TAB.ro
                 </sap:outbound-endpoint>
                         <dw:transform-message doc:name="Transform ZMULE_CUSTOMER_GETLIST to LastModifiedDate">
                             <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/xml
 %output application/java
 ---
 {

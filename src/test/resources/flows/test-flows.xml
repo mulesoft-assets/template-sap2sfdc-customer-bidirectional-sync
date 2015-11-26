@@ -27,7 +27,6 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
 			</sap:outbound-endpoint>
 			<dw:transform-message doc:name="Transform BAPI_CUSTOMER_GETINTNUMBER to Customer Number">
                             <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/xml
 %output application/xml
 ---
 DEBMAS01:{
@@ -92,7 +91,6 @@ DEBMAS01:{
 
                        <dw:transform-message doc:name="Transform BAPI_CUSTOMER_FIND to CustomerNumber">
                             <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/xml
 %output application/java
 ---
 CustomerNumber : payload.BAPI_CUSTOMER_FIND.tables.RESULT_TAB.row.CUSTOMER 

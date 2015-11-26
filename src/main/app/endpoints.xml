@@ -38,7 +38,6 @@ http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee
                 <logger message="#[payload]" level="INFO" doc:name="Logger"/>
                 <dw:transform-message doc:name="Transform Customer to Account">
                     <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/xml
 %output application/java
 ---
 payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.*row map {
