@@ -63,7 +63,7 @@ payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.*row map {
 
     <flow name="triggerSyncFromSalesforceFlow"  processingStrategy="synchronous" >
 		<poll doc:name="Poll">
-			<fixed-frequency-scheduler frequency="${polling.frequency}" startDelay="10000000" />
+			<fixed-frequency-scheduler frequency="${polling.frequency}" startDelay="1000" />
 			<watermark variable="salesforceLastQueryDate" default-expression="${watermark.default.expression}" selector="MAX" selector-expression="#[payload.LastModifiedDate]" />
             <processor-chain doc:name="Processor Chain">
                 <expression-component doc:name="Acquire lock"><![CDATA[app.registry['PollSynchronizer'].lock();]]></expression-component>

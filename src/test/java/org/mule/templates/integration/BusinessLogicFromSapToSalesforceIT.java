@@ -35,10 +35,10 @@ import com.mulesoft.module.batch.BatchTestHelper;
  */
 public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase {
 	
-	private static final Logger log = LogManager.getLogger(BusinessLogicFromSapToSalesforceIT.class);
+	private static final Logger LOGGER = LogManager.getLogger(BusinessLogicFromSapToSalesforceIT.class);
 
 	protected static final String TEMPLATE_NAME = "customer-bidirectional-sync";
-	protected static final int TIMEOUT_SEC = 120;
+	protected static final int TIMEOUT_SEC = 180;
 	private BatchTestHelper helper;
 	private static final String A_INBOUND_FLOW_NAME = "triggerSyncFromSapFlow";
 	private static final String B_INBOUND_FLOW_NAME = "triggerSyncFromSalesforceFlow";
@@ -94,12 +94,12 @@ public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase
 
 	@Test
 	public void testMainFlow() throws Exception {
-		log.info("running flow");
+		LOGGER.info("running flow");
 		executeWaitAndAssertBatchJob(A_INBOUND_FLOW_NAME);
-		log.info("finished");
-		Thread.sleep(5000);
+		LOGGER.info("finished");
+		Thread.sleep(15000);
 		Map<String, Object> sapResponse = (Map<String, Object>) retrieveAccountFromSalesforceFlow.process(getTestEvent(sapAccount, MessageExchangePattern.REQUEST_RESPONSE)).getMessage().getPayload();
-		log.info("SAP response: " + sapResponse);
+		LOGGER.info("SAP response: " + sapResponse);
 		sfAccount = sapResponse;
 		
 		Assert.assertNotNull(sfAccount);
