@@ -38,7 +38,7 @@ public class BusinessLogicFromSapToSalesforceIT extends AbstractTemplateTestCase
 	private static final Logger LOGGER = LogManager.getLogger(BusinessLogicFromSapToSalesforceIT.class);
 
 	protected static final String TEMPLATE_NAME = "customer-bidirectional-sync";
-	protected static final int TIMEOUT_SEC = 180;
+	protected static final int TIMEOUT_SEC = 300;
 	private BatchTestHelper helper;
 	private static final String A_INBOUND_FLOW_NAME = "triggerSyncFromSapFlow";
 	private static final String B_INBOUND_FLOW_NAME = "triggerSyncFromSalesforceFlow";
