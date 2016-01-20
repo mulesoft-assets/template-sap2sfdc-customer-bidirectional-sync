@@ -104,6 +104,8 @@ Please check this Documentation Page:
 + sfdc.url `https://test.salesforce.com/services/Soap/u/32.0`
 + sfdc.integration.user.id `00520000003LtvG`
 
+	**Note:** To find out the correct *sfdc.integration.user.id* value, please, refer to example project **Salesforce Data Retrieval** in [Anypoint Exchange](http://www.mulesoft.org/documentation/display/current/Anypoint+Exchange).
+
 ]]>
 		</section>
 		<section id="api_calls">
