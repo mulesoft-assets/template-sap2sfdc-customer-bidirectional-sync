@@ -114,24 +114,24 @@ CustomerNumber : payload.BAPI_CUSTOMER_FIND.TABLES.CUSTOMER.tables.RESULT_TAB.ro
             <batch:step name="forEachAccountInSapGetLastModifiedDate" accept-expression="payload['CustomerNumber'] != null ">
                 <enricher source="#[payload.LastModifiedDate]" target="#[payload.LastModifiedDateFromSAP]" doc:name="store result in 'payloadLastModifiedDateFromSAP'">
                     <processor-chain doc:name="Processor Chain">
-                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Query customer detail from SAP">
-                            <sap:definition><![CDATA[<ZMULE_CUSTOMER_GETLIST>
+                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZSDFM_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Query customer detail from SAP">
+                            <sap:definition><![CDATA[<ZSDFM_CUSTOMER_GETLIST>
   	<import>
-    	<I_CUST_ID>#[recordVars['sapCustomer']['CustomerNumber']]</I_CUST_ID>
+    	<IV_CUST_ID>#[recordVars['sapCustomer']['CustomerNumber']]</IV_CUST_ID>
 	</import>
-</ZMULE_CUSTOMER_GETLIST>
+</ZSDFM_CUSTOMER_GETLIST>
 ]]></sap:definition>
 
 
                 </sap:outbound-endpoint>
-                        <dw:transform-message doc:name="Transform ZMULE_CUSTOMER_GETLIST to LastModifiedDate">
+                        <dw:transform-message doc:name="Transform ZSDFM_CUSTOMER_GETLIST to LastModifiedDate">
                             <dw:set-payload><![CDATA[%dw 1.0
 %output application/java
 ---
 {
-	LastModifiedDate : payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.row.LAST_MODIF_DATE,
-	BillingCity : payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.row.ORT01,
-	Name : payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.row.NAME1
+	LastModifiedDate : payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.row.LAST_MODIF_DATE,
+	BillingCity : payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.row.ORT01,
+	Name : payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.row.NAME1
 }]]></dw:set-payload>
                         </dw:transform-message>
 
@@ -156,7 +156,6 @@ CustomerNumber : payload.BAPI_CUSTOMER_FIND.TABLES.CUSTOMER.tables.RESULT_TAB.ro
                         </sap:outbound-endpoint>
                         <dw:transform-message doc:name="Transform CUSTOMER_GET_KTOKD to AccountGroup">
                             <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/xml
 %output application/java
 ---
 AccountGroup : payload.CUSTOMER_GET_KTOKD.export.EV_KTOKD]]></dw:set-payload>
@@ -175,7 +174,7 @@ AccountGroup : payload.CUSTOMER_GET_KTOKD.export.EV_KTOKD]]></dw:set-payload>
                         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_CUSTOMER_GETINTNUMBER" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Get Next Customer Number from SAP">
                             <sap:definition><![CDATA[<BAPI_CUSTOMER_GETINTNUMBER>
 	<import>
-		<ACCOUNTGROUP>ZAG2</ACCOUNTGROUP>
+		<ACCOUNTGROUP>${sap.default.accountGroup}</ACCOUNTGROUP>
 	</import>
 </BAPI_CUSTOMER_GETINTNUMBER>
 ]]></sap:definition>
@@ -212,22 +211,21 @@ CustomerNumber : payload.BAPI_CUSTOMER_GETINTNUMBER.export.CUSTOMERID]]></dw:set
     <flow name="commitAccountsFlow">
         <dw:transform-message doc:name="Transform BAPI_CUSTOMER_GETINTNUMBER to Customer Number">
             <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/java
 %output application/xml
 ---
 DEBMAS01:{
 	IDOC @(BEGIN: "1"): {
-		EDI_DC40 @(SEGMENT: "1"):  {
+		EDI_DC40 @(SEGMENT: "1"): {
 			TABNAM: "EDI_DC40",
 			DIRECT: "2",
 			IDOCTYP: "DEBMAS01",
 			MESTYP: "DEBMAS",
-			SNDPOR: "MULESOFT",
+			SNDPOR: "MULE01_LS",
 			SNDPRT: "LS",
-			SNDPRN: "MULESOFT",
-			RCVPOR: "MULESOFT",
+			SNDPRN: "MULE01_LS",
+			RCVPOR: "T90CLNT090",
 			RCVPRT: "LS",
-			RCVPRN: "MULESOFT"
+			RCVPRN: "T90CLNT090"
 		},
 		E1KNA1M @(SEGMENT: "1"):{
 			//when doing insert set MSGFN to 009, when doing update set MSGFN to 004
