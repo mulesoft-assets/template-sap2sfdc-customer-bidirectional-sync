@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
-	xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+<mule xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
 				responseTimeout="10000" doc:name="Get Next Customer Number from SAP">
                 <sap:definition><![CDATA[<BAPI_CUSTOMER_GETINTNUMBER>
 	<import>
-		<ACCOUNTGROUP>ZAG2</ACCOUNTGROUP>
+		<ACCOUNTGROUP>${sap.default.accountGroup}</ACCOUNTGROUP>
 	</import>
 </BAPI_CUSTOMER_GETINTNUMBER>
 ]]></sap:definition>
@@ -36,12 +36,12 @@ DEBMAS01:{
 			DIRECT: "2",
 			IDOCTYP: "DEBMAS01",
 			MESTYP: "DEBMAS",
-			SNDPOR: "MULESOFT",
+			SNDPOR: "MULE01_LS",
 			SNDPRT: "LS",
-			SNDPRN: "MULESOFT",
-			RCVPOR: "MULESOFT",
+			SNDPRN: "MULE01_LS",
+			RCVPOR: "T90CLNT090",
 			RCVPRT: "LS",
-			RCVPRN: "MULESOFT"
+			RCVPRN: "T90CLNT090"
 		},
 		E1KNA1M @(SEGMENT: "1"):{
 			//when doing insert set MSGFN to 009
@@ -60,7 +60,7 @@ DEBMAS01:{
 
 			<sap:outbound-endpoint exchange-pattern="request-response"
 				connector-ref="SAP" type="idoc" functionName="DEBMAS01" xmlVersion="2"
-				outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000"
+				outputXml="true"  responseTimeout="10000"
 				doc:name="Create Customer in SAP" />
 		</processor-chain>
         <logger message="response from sap #[payload]" level="INFO" doc:name="Logger"/>        
@@ -96,26 +96,23 @@ DEBMAS01:{
 CustomerNumber : payload.BAPI_CUSTOMER_FIND.tables.RESULT_TAB.row.CUSTOMER 
 	when (payload.BAPI_CUSTOMER_FIND.tables.RESULT_TAB.row != null) otherwise null]]></dw:set-payload>
                         </dw:transform-message>
-                        
-               <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Query customer detail from SAP">
-            <sap:definition><![CDATA[<ZMULE_CUSTOMER_GETLIST>
+        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZSDFM_CUSTOMER_GETLIST" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" responseTimeout="10000" doc:name="Query customer detail from SAP">
+            <sap:definition><![CDATA[<ZSDFM_CUSTOMER_GETLIST>
   	<import>
-    	<I_CUST_ID>#[payload['CustomerNumber']]</I_CUST_ID>
+    	<IV_CUST_ID>#[payload['CustomerNumber']]</IV_CUST_ID>
 	</import>
-</ZMULE_CUSTOMER_GETLIST>
+</ZSDFM_CUSTOMER_GETLIST>
 ]]></sap:definition>
+        </sap:outbound-endpoint>
 
-
-                </sap:outbound-endpoint>
-                         <dw:transform-message doc:name="Transform ZMULE_CUSTOMER_GETLIST to LastModifiedDate">
+                         <dw:transform-message doc:name="Transform ZSDFM_CUSTOMER_GETLIST to LastModifiedDate">
                             <dw:set-payload><![CDATA[%dw 1.0
-%input payload application/xml
 %output application/java
 ---
 {
-	LastModifiedDate : payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.row.LAST_MODIF_DATE,
-	BillingCity : payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.row.ORT01,
-	Name : payload.ZMULE_CUSTOMER_GETLIST.tables.T_KNA1.row.NAME1
+	LastModifiedDate : payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.row.LAST_MODIF_DATE,
+	BillingCity : payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.row.ORT01,
+	Name : payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.row.NAME1
 }]]></dw:set-payload>
                         </dw:transform-message>
         <logger message="response from sap #[payload]" level="INFO" doc:name="Logger"/>        

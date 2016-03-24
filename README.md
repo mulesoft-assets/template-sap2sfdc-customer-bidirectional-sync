@@ -27,7 +27,7 @@ Please review the terms of the license before downloading and using this templat
 
 # Use Case <a name="usecase"/>
 Use this template if you would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling.
-The inbound SAP endpoint retrieves all Accounts in SAP using the custom BAPI **ZMULE\_CUSTOMER\_GETLIST** and transforms them to Salesforce Accounts.
+The inbound SAP endpoint retrieves all Accounts in SAP using the custom BAPI **ZSDFM\_CUSTOMER\_GETLIST** and transforms them to Salesforce Accounts.
 In the other direction, the synchronization is completed by polling Salesforce for Accounts and sending them to SAP using the standard IDoc DEBMAS01.
 
 # Considerations <a name="considerations"/>
