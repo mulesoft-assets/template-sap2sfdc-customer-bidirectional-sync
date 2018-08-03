@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></mule>
+<mule xmlns:os="http://www.mulesoft.org/schema/mule/os"
+      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+      xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+
+<flow name="fromInstanceAtoInstanceB" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
+    <batch:job jobName="fromInstanceAtoInstanceBBatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6">
+        <batch:process-records>
+            <batch:step name="forEachCustomerInSAPGetCustomerFromSalesforceStep" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
+                <logger level="INFO" doc:name="Query Customer in Salesforce" doc:id="a25e1781-64a2-4cfd-86d9-f7776e31eaa8" />
+            </batch:step>
+            <batch:step name="forEachCustomerToBeUpsertedInSalesforce" doc:id="78a74ab4-9b91-416d-985a-acda2ac377eb" acceptExpression="#[payload.Id == null  or (payload.LastModifiedDateB &lt; payload.LastModifiedDate)]">
+                <batch:aggregator doc:name="Batch Aggregator" doc:id="1ad86a98-643e-494a-a90a-32daab0b03cc" size="${page.size}">
+                    <logger level="INFO" doc:name="Upsert bulk - Customers in Salesforce" doc:id="c87fc1ff-8c84-4608-a723-ce8b2b6bec5f" />
+                </batch:aggregator>
+            </batch:step>
+        </batch:process-records>
+        <batch:on-complete >
+            <os:store key="syncState" doc:name="Set sync state to fromB" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
+                <os:value><![CDATA[fromB]]></os:value>
+            </os:store>
+        </batch:on-complete>
+
+    </batch:job>
+</flow>
+<flow name="fromInstanceBtoInstanceA" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
+    <batch:job jobName="fromInstanceBtoInstanceABatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6">
+        <batch:process-records>
+            <batch:step name="forEachCustomerInSalesforceGetCustomerFromSAPStep" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
+                <logger level="INFO" doc:name="Query Customer in instance A" doc:id="6a2f70da-5a46-4908-83e6-6a94dcf6d5db" />
+            </batch:step>
+            <batch:step name="forEachCustomerToBeUpsertedInSAP" doc:id="78a74ab4-9b91-416d-985a-acda2ac377eb" acceptExpression="#[payload.Id == null  or (payload.LastModifiedDateA &lt; payload.LastModifiedDate)]">
+                <batch:aggregator doc:name="Batch Aggregator" doc:id="1ad86a98-643e-494a-a90a-32daab0b03cc" size="${page.size}">
+                    <logger level="INFO" doc:name="Upsert bulk - Customers in SAP" doc:id="303c06e8-430e-46ca-93b8-30e63f0c18fe" />
+                </batch:aggregator>
+            </batch:step>
+        </batch:process-records>
+        <batch:on-complete >
+            <os:store key="syncState" doc:name="Set sync state to fromA" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
+                <os:value><![CDATA[fromA]]></os:value>
+            </os:store>
+        </batch:on-complete>
+
+    </batch:job>
+</flow>
+</mule>
+
+        

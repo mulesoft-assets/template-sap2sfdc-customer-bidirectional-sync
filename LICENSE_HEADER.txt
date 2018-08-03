@@ -1,3 +1,3 @@
 Mule Anypoint Template
-
-Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+Copyright (c) MuleSoft, Inc.
+All rights reserved.  http://www.mulesoft.com
