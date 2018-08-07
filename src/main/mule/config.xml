@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+      xmlns:sap="http://www.mulesoft.org/schema/mule/sap"
+      xmlns:os="http://www.mulesoft.org/schema/mule/os" 
+      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" 
+      xmlns:batch="http://www.mulesoft.org/schema/mule/batch" 
+      xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+
+<configuration-properties file="mule.${mule.env}.properties" doc:name="Configuration properties" doc:id="46877740-aac5-4812-8728-4718689aa9ec" />
+<configuration-properties file="common.properties" doc:name="Configuration properties" doc:id="dffa4da7-cc5c-4ecb-922e-1115b4387354" />
+<configuration-properties doc:name="Configuration properties" doc:id="d185e6c2-8ca4-4217-928b-a845563af693" file="mule-artifact.properties" />
+<os:object-store name="SchedulerStatus" doc:name="Object store" doc:id="e9862648-2cb3-47db-a763-9275db0a1854" persistent="false"/>
+<os:object-store name="watermarkStoreA" doc:name="Object store"/>
+<os:object-store name="watermarkStoreB" doc:name="Object store"/>
+	<sap:outbound-config name="SAP_Outbound" doc:name="SAP Outbound" doc:id="f2be09b0-af56-4df5-9fe3-033678c1e40e" >
+		<sap:simple-connection-provider-connection applicationServerHost="${sap.jco.ashost}" username="${sap.jco.user}" password="${sap.jco.passwd}" systemNumber="${sap.jco.sysnr}" client="${sap.jco.client}" language="${sap.jco.lang}" />
+	</sap:outbound-config>	
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="8b1b3d7b-d282-44c1-815a-54ac521e3226" >
+		<salesforce:basic-connection username="${sfdc.username}" password="${sfdc.password}" securityToken="${sfdc.securityToken}"/>
+	</salesforce:sfdc-config>	
+
+</mule>
+
+        

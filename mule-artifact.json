@@ -2,7 +2,7 @@
   "configs": [
     "businessLogic.xml",
     "errorhandling.xml",
-    "global.xml",
+    "config.xml",
     "endpoints.xml"
   ],
   "secureProperties": [],
