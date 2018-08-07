@@ -1,25 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:os="http://www.mulesoft.org/schema/mule/os"
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+      xmlns:os="http://www.mulesoft.org/schema/mule/os"
       xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
-      xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
-      xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+      xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
-http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
 
 <flow name="fromInstanceAtoInstanceB" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
-    <batch:job jobName="fromInstanceAtoInstanceBBatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6">
+    <batch:job jobName="fromInstanceAtoInstanceBBatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6" blockSize="2">
         <batch:process-records>
-            <batch:step name="forEachCustomerInSAPGetCustomerFromSalesforceStep" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
-                <logger level="INFO" doc:name="Query Customer in Salesforce" doc:id="a25e1781-64a2-4cfd-86d9-f7776e31eaa8" />
+				<batch:step name="forEachCustomerInSAPGetCustomerFromSalesforceStep" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
+					<logger level="INFO" doc:name="Logger" doc:id="7be898e3-f80c-446b-a218-40fa1bdc9178" message="SELECT Id, Name, LastModifiedDate FROM Account WHERE Name = '#[payload.Name]'"/>
+					<salesforce:query-single doc:name="Query single" doc:id="f022798d-3126-43c3-bc9c-fe5d4b11f919" config-ref="Salesforce_Config" target="SFDCId">
+						<salesforce:salesforce-query >SELECT Id, Name, LastModifiedDate FROM Account WHERE Name = ':name'</salesforce:salesforce-query>
+						<salesforce:parameters ><![CDATA[#[output applicaton/java
+---
+{
+	"name" : payload.Name
+}]]]></salesforce:parameters>
+					</salesforce:query-single>
+					<logger level="INFO" doc:name="Logger" doc:id="39b0e81e-9e1a-4608-bc8e-18f0dca6f996" message="payload from SFDC=#[vars.SFDCId]"/>
+					<ee:transform doc:name="Transform Message" doc:id="195f67b1-3878-48e4-81ca-ef74cdbe6781" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload ++ {"id": vars.SFDCId.Id}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+					<logger level="INFO" doc:name="Logger" doc:id="f33f81e3-f9bc-4a13-9f06-4a21000411f6" message="Enriched payload=#[payload]"/>
             </batch:step>
             <batch:step name="forEachCustomerToBeUpsertedInSalesforce" doc:id="78a74ab4-9b91-416d-985a-acda2ac377eb" acceptExpression="#[payload.Id == null  or (payload.LastModifiedDateB &lt; payload.LastModifiedDate)]">
                 <batch:aggregator doc:name="Batch Aggregator" doc:id="1ad86a98-643e-494a-a90a-32daab0b03cc" size="${page.size}">
-                    <logger level="INFO" doc:name="Upsert bulk - Customers in Salesforce" doc:id="c87fc1ff-8c84-4608-a723-ce8b2b6bec5f" />
+						<salesforce:upsert-bulk type="Account" doc:name="Upsert bulk" doc:id="022a166b-1e2a-4ac3-9c8f-8a226aae41e1" config-ref="Salesforce_Config" externalIdFieldName="Id"/>
+						<logger level="INFO" doc:name="Logger" doc:id="89af6758-2aa5-43e8-96fa-e6ce508b8f78" message="upsert retVal=#[output application/json --- payload]"/>
                 </batch:aggregator>
+					<logger level="INFO" doc:name="Logger" doc:id="1fce74ce-e62e-4a0d-9ed4-fd71aa673293" message="before SFDC upsert before trans payload=#[payload]"/>
+					<ee:transform doc:name="Transform Message" doc:id="45970cca-a735-43da-9da7-f833c2b02950" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	AccountNumber : payload.AccountNumber,
+	Name : payload.Name,
+	Phone : payload.Phone,
+	Fax : payload.Fax,
+	BillingCity : payload.BillingCity,
+	(Id: payload.id) if (payload.id != null) 
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+					<logger level="INFO" doc:name="Logger" doc:id="07268cc0-030c-4a1b-901d-349ecf1a02f6" message="before SFDC upsert after trans payload=#[payload]"/>
             </batch:step>
         </batch:process-records>
         <batch:on-complete >

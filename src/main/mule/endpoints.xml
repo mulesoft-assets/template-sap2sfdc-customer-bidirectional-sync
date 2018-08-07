@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:os="http://www.mulesoft.org/schema/mule/os"
-      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
-      xmlns:http="http://www.mulesoft.org/schema/mule/http"
-      xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+      xmlns:sap="http://www.mulesoft.org/schema/mule/sap"
+      xmlns:os="http://www.mulesoft.org/schema/mule/os"
+      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
 <flow name="schedulerFlow" doc:id="aff4106d-d2f6-4366-940a-a380dcb1cf73" >
     <scheduler doc:name="Scheduler" doc:id="58b7c776-fbee-4753-9bea-f6cc3e037efd" >
         <scheduling-strategy >
@@ -16,7 +18,8 @@ http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/cu
     <os:retrieve key="syncState" doc:name="Retrieve sync state" objectStore="SchedulerStatus" target="syncState">
         <os:default-value><![CDATA[fromA]]></os:default-value>
     </os:retrieve>
-    <choice doc:id="b4703d83-780b-4e2d-bf5d-51b1566d66e2" doc:name="SyncState?">
+    <logger level="INFO" doc:name="Logger" doc:id="bd2674ca-94e4-41ea-a365-7a26f7552fb2" message="syncState=#[vars.syncState]"/>
+		<choice doc:id="b4703d83-780b-4e2d-bf5d-51b1566d66e2" doc:name="SyncState?">
         <when expression="#[(vars.syncState != 'running' and vars.syncState == 'fromA') or vars.syncState == null]">
             <logger level="INFO" doc:name="running from A" doc:id="c9cd1c27-5978-4ad8-b87f-99da49944447" message="running from A" />
             <os:store key="syncState" doc:name="Set sync state to running" doc:id="340ac5e0-764f-4164-aeaa-14e616987553" objectStore="SchedulerStatus">
@@ -51,16 +54,53 @@ http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/cu
     <os:retrieve key="watermark" objectStore="watermarkStoreA" target="lastQueryDateA" doc:name="Retrieve lastQueryDateA">
         <os:default-value><![CDATA[${watermark.default.expression}]]></os:default-value>
     </os:retrieve>
-    <logger level="INFO" doc:name="Query Customer with filtering criteria from SAP" doc:id="6b2f8f74-396e-4cd7-baa4-535444b0d502" />
-    <os:store key="watermark" failOnNullValue="false" objectStore="watermarkStoreA" doc:name="Store lastQueryDateA">
+    <ee:transform doc:name="Transform Message" doc:id="5679c5d6-7a58-4f46-aa68-e5ee513cc271" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+    "ZSDFM_CUSTOMER_GETLIST": 
+    "import":
+    "IV_FROM_DATE" : vars.lastQueryDateA
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="9290bb9c-966a-40ce-9724-6cb4b1c7ef7e" message="SAP params=#[payload]"/>
+		<sap:execute-synchronous-remote-function-call key="ZSDFM_CUSTOMER_GETLIST" doc:name="Query customers from SAP" doc:id="aec89a52-a638-440f-877a-2e37a5f4fed2" config-ref="SAP_Outbound">
+			<ee:repeatable-file-store-stream />
+		</sap:execute-synchronous-remote-function-call>
+		<ee:transform doc:name="Transform Message" doc:id="1236a17c-ccd6-4b90-95de-0bc85dd76844" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.*row map {
+	AccountNumber : $.KUNNR,
+	//removed single quote as the Salesforce query will then crash
+	Name : $.NAME1 replace /(\')/ with " ",
+	Phone : $.TELF1,
+	Fax : $.TELFX,
+	LastModifiedDate : $.LAST_MODIF_DATE,
+	BillingCity : $.ORT01,
+	LastModifiedById : $.AENAM
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Query Customer with filtering criteria from SAP" doc:id="6b2f8f74-396e-4cd7-baa4-535444b0d502" message="#[output application/json --- payload]"/>
+<!--     <os:store key="watermark" failOnNullValue="false" objectStore="watermarkStoreA" doc:name="Store lastQueryDateA">
         <os:value><![CDATA[#[max(payload map $.LastModifiedDate)]]]></os:value>
-    </os:store>
+    </os:store> -->
 </flow>
 <flow name="queryFlowB">
     <os:retrieve key="watermark" objectStore="watermarkStoreB" target="lastQueryDateB" doc:name="Retrieve lastQueryDateB">
         <os:default-value><![CDATA[${watermark.default.expression}]]></os:default-value>
     </os:retrieve>
-    <logger level="INFO" doc:name="Query Customer with filtering criteria from Salesforce" doc:id="bdaa005e-a184-4fdd-aeb9-787fd3762a29" />
+    <salesforce:query doc:name="Query customers from SFDC" doc:id="2e51dc43-6ffa-471a-a8dc-15f01e3e968d" config-ref="Salesforce_Config">
+			<ee:repeatable-file-store-iterable />
+			<salesforce:salesforce-query >SELECT AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; #[flowVars['salesforceLastQueryDate']] ORDER BY LastModifiedDate ASC LIMIT 200</salesforce:salesforce-query>
+		</salesforce:query>
+		<logger level="INFO" doc:name="Query Customer with filtering criteria from Salesforce" doc:id="bdaa005e-a184-4fdd-aeb9-787fd3762a29" />
     <os:store key="watermark" failOnNullValue="false" objectStore="watermarkStoreB" doc:name="Store lastQueryDateB">
         <os:value><![CDATA[#[max(payload map $.LastModifiedDate)]]]></os:value>
     </os:store>
