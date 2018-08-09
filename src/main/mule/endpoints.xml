@@ -16,9 +16,9 @@ http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mu
         </scheduling-strategy>
     </scheduler>
     <os:retrieve key="syncState" doc:name="Retrieve sync state" objectStore="SchedulerStatus" target="syncState">
-        <os:default-value><![CDATA[fromA]]></os:default-value>
+        <os:default-value><![CDATA[fromB]]></os:default-value>
     </os:retrieve>
-    <logger level="INFO" doc:name="Logger" doc:id="bd2674ca-94e4-41ea-a365-7a26f7552fb2" message="syncState=#[vars.syncState]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="bd2674ca-94e4-41ea-a365-7a26f7552fb2" message="syncState=#[vars.syncState]"/>
 		<choice doc:id="b4703d83-780b-4e2d-bf5d-51b1566d66e2" doc:name="SyncState?">
         <when expression="#[(vars.syncState != 'running' and vars.syncState == 'fromA') or vars.syncState == null]">
             <logger level="INFO" doc:name="running from A" doc:id="c9cd1c27-5978-4ad8-b87f-99da49944447" message="running from A" />
@@ -70,6 +70,7 @@ output application/xml
 		<sap:execute-synchronous-remote-function-call key="ZSDFM_CUSTOMER_GETLIST" doc:name="Query customers from SAP" doc:id="aec89a52-a638-440f-877a-2e37a5f4fed2" config-ref="SAP_Outbound">
 			<ee:repeatable-file-store-stream />
 		</sap:execute-synchronous-remote-function-call>
+		<logger level="INFO" doc:name="Logger" doc:id="0f63e435-16e3-4461-8e9f-e9e23fa1e95e" message="Starting data from SAP, payload=#[output application/json --- payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="1236a17c-ccd6-4b90-95de-0bc85dd76844" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -87,7 +88,15 @@ payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.*row map {
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Query Customer with filtering criteria from SAP" doc:id="6b2f8f74-396e-4cd7-baa4-535444b0d502" message="#[output application/json --- payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="9fccdc12-5a34-402e-8167-f3433db25d67" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+if (payload==null) {} else payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Query Customer with filtering criteria from SAP" doc:id="6b2f8f74-396e-4cd7-baa4-535444b0d502" message="payload from SAP for sync to SFDC, payload=#[output application/json --- payload]"/>
 <!--     <os:store key="watermark" failOnNullValue="false" objectStore="watermarkStoreA" doc:name="Store lastQueryDateA">
         <os:value><![CDATA[#[max(payload map $.LastModifiedDate)]]]></os:value>
     </os:store> -->
@@ -96,14 +105,16 @@ payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.*row map {
     <os:retrieve key="watermark" objectStore="watermarkStoreB" target="lastQueryDateB" doc:name="Retrieve lastQueryDateB">
         <os:default-value><![CDATA[${watermark.default.expression}]]></os:default-value>
     </os:retrieve>
-    <salesforce:query doc:name="Query customers from SFDC" doc:id="2e51dc43-6ffa-471a-a8dc-15f01e3e968d" config-ref="Salesforce_Config">
+    <salesforce:query doc:name="Query accounts from SFDC" doc:id="2e51dc43-6ffa-471a-a8dc-15f01e3e968d" config-ref="Salesforce_Config">
 			<ee:repeatable-file-store-iterable />
-			<salesforce:salesforce-query >SELECT AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; #[flowVars['salesforceLastQueryDate']] ORDER BY LastModifiedDate ASC LIMIT 200</salesforce:salesforce-query>
+			<salesforce:salesforce-query >SELECT AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; :lastQueryDateB ORDER BY LastModifiedDate ASC LIMIT 200</salesforce:salesforce-query>
+			<salesforce:parameters ><![CDATA[#[output applicaton/java
+---
+{
+	"lastQueryDateB" : vars.lastQueryDateB
+}]]]></salesforce:parameters>
 		</salesforce:query>
-		<logger level="INFO" doc:name="Query Customer with filtering criteria from Salesforce" doc:id="bdaa005e-a184-4fdd-aeb9-787fd3762a29" />
-    <os:store key="watermark" failOnNullValue="false" objectStore="watermarkStoreB" doc:name="Store lastQueryDateB">
-        <os:value><![CDATA[#[max(payload map $.LastModifiedDate)]]]></os:value>
-    </os:store>
+		<logger level="INFO" doc:name="Query Customer with filtering criteria from Salesforce" doc:id="bdaa005e-a184-4fdd-aeb9-787fd3762a29" message="Start data from SFDC in payload=#[output application/json --- payload]"/>
 </flow>
 </mule>
 
