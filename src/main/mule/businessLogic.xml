@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
     <batch:job jobName="fromInstanceAtoInstanceBBatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6" blockSize="2">
         <batch:process-records>
 				<batch:step name="forEachCustomerInSAPGetCustomerFromSalesforceStep" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
-					<salesforce:query-single doc:name="Query single" doc:id="f022798d-3126-43c3-bc9c-fe5d4b11f919" config-ref="Salesforce_Config" target="SFDCId">
+					<salesforce:query-single doc:name="Query single" doc:id="f022798d-3126-43c3-bc9c-fe5d4b11f919" config-ref="Salesforce_Config" target="retValSFDC">
 						<salesforce:salesforce-query >SELECT Id, Name, LastModifiedDate FROM Account WHERE Name = ':name'</salesforce:salesforce-query>
 						<salesforce:parameters ><![CDATA[#[output applicaton/java
 ---
@@ -29,7 +29,9 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 							<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
 ---
-payload ++ {"id": vars.SFDCId.Id}]]></ee:set-payload>
+payload ++ {"id": vars.retValSFDC.Id,
+			"LastModifiedDateFromSalesforce": vars.retValSFDC.LastModifiedDate
+}]]></ee:set-payload>
 						</ee:message>
 					</ee:transform>
             </batch:step>

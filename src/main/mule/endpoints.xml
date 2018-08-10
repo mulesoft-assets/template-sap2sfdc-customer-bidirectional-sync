@@ -69,7 +69,7 @@ output application/xml
 		<sap:execute-synchronous-remote-function-call key="ZSDFM_CUSTOMER_GETLIST" doc:name="Query customers from SAP" doc:id="aec89a52-a638-440f-877a-2e37a5f4fed2" config-ref="SAP_Outbound">
 			<ee:repeatable-file-store-stream />
 		</sap:execute-synchronous-remote-function-call>
-		<ee:transform doc:name="Transform Message" doc:id="1236a17c-ccd6-4b90-95de-0bc85dd76844" >
+		<ee:transform doc:name="Extract data from SAP" doc:id="1236a17c-ccd6-4b90-95de-0bc85dd76844" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
@@ -89,9 +89,9 @@ payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.*row map {
 		<os:store doc:name="Update watermark value" doc:id="6aa5548c-0460-44ea-afb8-9d8921d15cfa" key="watermark" objectStore="watermarkStoreA" failOnNullValue="false">
 			<os:value><![CDATA[#[if(payload==null) vars.lastQueryDateA as String else max(payload map $.LastModifiedDate) as String]]]></os:value>
 		</os:store>
-		<ee:transform doc:name="Transform Message" doc:id="9fccdc12-5a34-402e-8167-f3433db25d67" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+		<ee:transform doc:name="Ensure not null payload" doc:id="9fccdc12-5a34-402e-8167-f3433db25d67">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/java
 ---
 if (payload==null) {} else payload]]></ee:set-payload>
