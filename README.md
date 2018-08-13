@@ -26,7 +26,7 @@ Note that using this template is subject to the conditions of this [License Agre
 Please review the terms of the license before downloading and using this template. In short, you are allowed to use the template for free with Mule ESB Enterprise Edition, CloudHub, or as a trial in Anypoint Studio.
 
 # Use Case <a name="usecase"/>
-Use this template if you would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling.
+Use this template if you would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using scheduler.
 The inbound SAP endpoint retrieves all Accounts in SAP using the custom BAPI **ZSDFM\_CUSTOMER\_GETLIST** and transforms them to Salesforce Accounts.
 In the other direction, the synchronization is completed by polling Salesforce for Accounts and sending them to SAP using the standard IDoc DEBMAS01.
 
@@ -34,19 +34,14 @@ In the other direction, the synchronization is completed by polling Salesforce f
 
 To make this Anypoint Template run, there are certain preconditions that must be considered.
 All of them deal with the preparations in both SAP and SFDC systems, that must be made in order for all to run smoothly.
-**Failling to do so could lead to unexpected behavior of the template.**
+**Failing to do so could lead to unexpected behavior of the template.**
 
 Before continue with the use of this Anypoint Template, you may want to check out this [Documentation Page](http://www.mulesoft.org/documentation/display/current/SAP+Connector#SAPConnector-EnablingYourStudioProjectforSAP), that will teach you how to work 
 with SAP and Anypoint Studio-
 
 ## Disclaimer
 
-This Anypoint template uses a few private Maven dependencies in oder to work. If you intend to run this template with Maven support, please continue reading.
-
-You will find that there are two dependencies in the pom.xml file that begin with the group id - com.sap.conn:
-	**com.sap.conn.jco** and  **com.sap.conn.idoc**
-These dependencies are private for Mulesoft and will cause you application not to build from a Maven command line. You need to replace them with "provided" scope and copy the libraries into the build path.
-
+This Anypoint template uses a few private Maven dependencies from Mulesoft in order to work. If you intend to run this template with Maven support, you need to add three extra dependencies for SAP to the pom.xml file.
 
 ## SAP Considerations <a name="sapconsiderations"/>
 
@@ -174,8 +169,8 @@ Mule Studio provides you with really easy way to deploy your Template directly t
 ## Properties to be configured (With examples) <a name="propertiestobeconfigured"/>
 In order to use this Mule Anypoint Template you need to configure properties (Credentials, configurations, etc.) either in properties file or in CloudHub as Environment Variables. Detail list with examples:
 ### Application configuration
-+ polling.frequency `20000`
-+ polling.start.delay `1000`
++ scheduler.frequency `20000`
++ scheduler.startDelay `1000`
 + watermark.default.expression `2014-08-01T10:46:00.000Z`
 
 + page.size `100`

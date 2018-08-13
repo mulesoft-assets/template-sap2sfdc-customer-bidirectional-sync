@@ -94,9 +94,6 @@ output application/java
 if (payload==null) {} else payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-<!--     <os:store key="watermark" failOnNullValue="false" objectStore="watermarkStoreA" doc:name="Store lastQueryDateA">
-        <os:value><![CDATA[#[max(payload map $.LastModifiedDate)]]]></os:value>
-    </os:store> -->
 </flow>
 <flow name="queryFlowSFDC">
     <os:retrieve key="watermark" objectStore="watermarkStoreB" target="lastQueryDateB" doc:name="Retrieve lastQueryDateSFDC">
