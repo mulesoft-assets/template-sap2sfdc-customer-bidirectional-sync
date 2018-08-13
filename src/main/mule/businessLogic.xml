@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/cu
 http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
 http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
 
-<flow name="fromInstanceAtoInstanceB" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
+<flow name="fromSAPtoSFDC" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
     <batch:job jobName="fromInstanceAtoInstanceBBatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6" blockSize="2">
         <batch:process-records>
 				<batch:step name="forEachCustomerInSAPGetCustomerFromSalesforceStep" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
@@ -57,18 +57,18 @@ output application/java
             </batch:step>
         </batch:process-records>
         <batch:on-complete >
-            <os:store key="syncState" doc:name="Set sync state to fromB" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
+            <os:store key="syncState" doc:name="Set sync state to SFDC" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
                 <os:value><![CDATA[fromB]]></os:value>
             </os:store>
         </batch:on-complete>
 
     </batch:job>
 </flow>
-<flow name="fromInstanceBtoInstanceA" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
+<flow name="fromSFDCtoSAP" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
     <batch:job jobName="fromInstanceBtoInstanceABatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6">
         <batch:process-records>
             <batch:step name="foreachAccountInSalesforceGetCustomerNumbertInSap" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
-					<ee:transform doc:name="Transform Message" doc:id="cb013171-79ac-44cd-90be-9661f15d6376">
+					<ee:transform doc:name="Prepare query params" doc:id="cb013171-79ac-44cd-90be-9661f15d6376">
 						<ee:message>
 						</ee:message>
 						<ee:variables >
@@ -98,7 +98,7 @@ output application/xml
 						<ee:repeatable-file-store-stream />
 						<sap:content ><![CDATA[#[vars.XMLforSAP]]]></sap:content>
 					</sap:execute-synchronous-remote-function-call>
-					<ee:transform doc:name="Transform Message" doc:id="3792c370-5e67-4367-8e89-f9d24d1a4a5a" >
+					<ee:transform doc:name="Process returned data" doc:id="3792c370-5e67-4367-8e89-f9d24d1a4a5a" >
 						<ee:message >
 							<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
@@ -112,7 +112,7 @@ output application/java
 					</ee:transform>
             </batch:step>
             <batch:step name="forEachCustomerInSapGetLastModifiedDate" doc:id="170eadd1-bb09-4586-9c9a-818ce3ab1c85" acceptExpression="payload.CustomerNumber != null ">
-					<ee:transform doc:name="Transform Message" doc:id="58e3db27-49fc-4432-ac03-f81e03795975" >
+					<ee:transform doc:name="Prepare query params" doc:id="58e3db27-49fc-4432-ac03-f81e03795975" >
 						<ee:message>
 						</ee:message>
 						<ee:variables >
@@ -133,7 +133,7 @@ output application/xml
 						<ee:repeatable-file-store-stream />
 						<sap:content ><![CDATA[#[vars.XMLforSAP]]]></sap:content>
 					</sap:execute-synchronous-remote-function-call>
-					<ee:transform doc:name="Transform Message" doc:id="c34e2dee-658e-4c3a-adcf-3472059a92bf">
+					<ee:transform doc:name="Process returned data" doc:id="c34e2dee-658e-4c3a-adcf-3472059a92bf">
 						<ee:message>
 							<ee:set-payload><![CDATA[%dw 2.0
 output application/java
@@ -148,7 +148,7 @@ output application/java
 					</ee:transform>
 				</batch:step>
 				<batch:step name="forEachCustomerInSapGetAccountGroup" doc:id="056c06d7-0d1b-48a3-8372-0edd84bcab25" acceptExpression="payload.CustomerNumber != null">
-					<ee:transform doc:name="Transform Message" doc:id="89a5e81a-a002-4f5c-b974-0bf6a6e5b1c9" >
+					<ee:transform doc:name="Prepare query params" doc:id="89a5e81a-a002-4f5c-b974-0bf6a6e5b1c9" >
 						<ee:message>
 						</ee:message>
 						<ee:variables >
@@ -169,7 +169,7 @@ output application/xml
 						<ee:repeatable-file-store-stream />
 						<sap:content ><![CDATA[#[vars.XMLforSAP]]]></sap:content>
 					</sap:execute-synchronous-remote-function-call>
-					<ee:transform doc:name="Transform Message" doc:id="7d94eb45-4ec8-4993-940a-a54b54b781f9" >
+					<ee:transform doc:name="Process returned data" doc:id="7d94eb45-4ec8-4993-940a-a54b54b781f9" >
 						<ee:message >
 							<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
@@ -182,7 +182,7 @@ output application/java
 					</ee:transform>
 				</batch:step>
 				<batch:step name="forEachNewAccountGetCustomerNumber" doc:id="d280e3e2-dc41-45a7-9f4f-b034b0d0f4b9" acceptExpression="payload['CustomerNumber'] == null">
-					<ee:transform doc:name="Transform Message" doc:id="b46c2a06-f1d8-43a5-9622-c80288cc2138" >
+					<ee:transform doc:name="Prepare query params" doc:id="b46c2a06-f1d8-43a5-9622-c80288cc2138" >
 						<ee:message>
 						</ee:message>
 						<ee:variables >
@@ -204,7 +204,7 @@ output application/xml
 						<ee:repeatable-file-store-stream />
 						<sap:content ><![CDATA[#[vars.XMLforSAP]]]></sap:content>
 					</sap:execute-synchronous-remote-function-call>
-					<ee:transform doc:name="Transform Message" doc:id="6f6d0c74-7619-4b3c-a795-ad9e597e825f" >
+					<ee:transform doc:name="Process returned data" doc:id="6f6d0c74-7619-4b3c-a795-ad9e597e825f" >
 						<ee:message >
 							<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
@@ -221,7 +221,7 @@ payload ++ {
 				</batch:step>
         </batch:process-records>
         <batch:on-complete >
-            <os:store key="syncState" doc:name="Set sync state to fromA" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
+            <os:store key="syncState" doc:name="Set sync state to SAP" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
                 <os:value><![CDATA[fromA]]></os:value>
             </os:store>
         </batch:on-complete>
@@ -229,7 +229,7 @@ payload ++ {
     </batch:job>
 </flow>
 	<sub-flow name="commitAccountsFlow" doc:id="68bb0c7d-e653-4631-9257-192dc2586718" >
-		<ee:transform doc:name="Transform Message" doc:id="d05d1707-26de-494d-bd23-59f0d435d0f7" >
+		<ee:transform doc:name="Preprare data for upsert" doc:id="d05d1707-26de-494d-bd23-59f0d435d0f7" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/xml
@@ -251,7 +251,7 @@ DEBMAS01:{
 		},
 		E1KNA1M @(SEGMENT: "1"):{
 			//when doing insert set MSGFN to 009, when doing update set MSGFN to 004
-			MSGFN: if (payload.LastModifiedDateFromSAP == null) "009"  else "004",
+			MSGFN: if (payload.LastModifiedDateFromSAP == null) "009"  else "005",
 			KUNNR: payload.CustomerNumber,
 			KTOKD: payload.AccountGroup,
 			LAND1: "SK",

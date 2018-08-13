@@ -18,25 +18,22 @@ http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mu
     <os:retrieve key="syncState" doc:name="Retrieve sync state" objectStore="SchedulerStatus" target="syncState">
         <os:default-value><![CDATA[fromA]]></os:default-value>
     </os:retrieve>
-		<logger level="INFO" doc:name="Logger" doc:id="bd2674ca-94e4-41ea-a365-7a26f7552fb2" message="syncState=#[vars.syncState]"/>
 		<choice doc:id="b4703d83-780b-4e2d-bf5d-51b1566d66e2" doc:name="SyncState?">
         <when expression="#[(vars.syncState != 'running' and vars.syncState == 'fromA') or vars.syncState == null]">
-            <logger level="INFO" doc:name="running from A" doc:id="c9cd1c27-5978-4ad8-b87f-99da49944447" message="running from A" />
             <os:store key="syncState" doc:name="Set sync state to running" doc:id="340ac5e0-764f-4164-aeaa-14e616987553" objectStore="SchedulerStatus">
                 <os:value><![CDATA[running]]></os:value>
             </os:store>
-            <flow-ref doc:name="queryFlowA" doc:id="b0c87553-d459-4f12-940c-0f8f19892266" name="queryFlowA" />
-            <flow-ref doc:name="fromInstanceAtoInstanceB" doc:id="43633fd4-8ec3-4899-8a82-93b88f816122" name="fromInstanceAtoInstanceB" />
+            <flow-ref doc:name="queryFlowSAP" doc:id="b0c87553-d459-4f12-940c-0f8f19892266" name="queryFlowSAP" />
+            <flow-ref doc:name="fromSAPtoSFDC" doc:id="43633fd4-8ec3-4899-8a82-93b88f816122" name="fromSAPtoSFDC" />
 
 
         </when>
         <when expression="#[vars.syncState != 'running' and vars.syncState == 'fromB']">
-            <logger level="INFO" doc:name="running from B" doc:id="840599bf-2442-45d6-b66d-fbe11593bd60" message="running from B" />
             <os:store key="syncState" doc:name="Set sync state to running" doc:id="5059b820-0895-4454-9e50-e686d0f07758" objectStore="SchedulerStatus">
                 <os:value><![CDATA[running]]></os:value>
             </os:store>
-            <flow-ref doc:name="queryFlowB" doc:id="121efa5b-33a7-4c76-aa72-3112507c4c0b" name="queryFlowB" />
-            <flow-ref doc:name="fromInstanceBtoInstanceA" doc:id="d8baf0c3-ace8-4d57-80c5-f7ea614d3946" name="fromInstanceBtoInstanceA" />
+            <flow-ref doc:name="queryFlowSFDC" doc:id="121efa5b-33a7-4c76-aa72-3112507c4c0b" name="queryFlowSFDC" />
+            <flow-ref doc:name="fromSFDCtoSAP" doc:id="d8baf0c3-ace8-4d57-80c5-f7ea614d3946" name="fromSFDCtoSAP" />
 
 
         </when>
@@ -50,11 +47,11 @@ http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mu
         </on-error-propagate>
     </error-handler>
 </flow>
-<flow name="queryFlowA">
-    <os:retrieve key="watermark" objectStore="watermarkStoreA" target="lastQueryDateA" doc:name="Retrieve lastQueryDateA">
+<flow name="queryFlowSAP">
+    <os:retrieve key="watermark" objectStore="watermarkStoreA" target="lastQueryDateA" doc:name="Retrieve lastQueryDateSAP">
         <os:default-value><![CDATA[${watermark.default.expression}]]></os:default-value>
     </os:retrieve>
-    <ee:transform doc:name="Transform Message" doc:id="5679c5d6-7a58-4f46-aa68-e5ee513cc271" >
+		<ee:transform doc:name="Prepare query params" doc:id="5679c5d6-7a58-4f46-aa68-e5ee513cc271" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/xml
@@ -101,11 +98,11 @@ if (payload==null) {} else payload]]></ee:set-payload>
         <os:value><![CDATA[#[max(payload map $.LastModifiedDate)]]]></os:value>
     </os:store> -->
 </flow>
-<flow name="queryFlowB">
-    <os:retrieve key="watermark" objectStore="watermarkStoreB" target="lastQueryDateB" doc:name="Retrieve lastQueryDateB">
+<flow name="queryFlowSFDC">
+    <os:retrieve key="watermark" objectStore="watermarkStoreB" target="lastQueryDateB" doc:name="Retrieve lastQueryDateSFDC">
         <os:default-value><![CDATA[${watermark.default.expression}]]></os:default-value>
     </os:retrieve>
-    <salesforce:query doc:name="Query accounts from SFDC" doc:id="2e51dc43-6ffa-471a-a8dc-15f01e3e968d" config-ref="Salesforce_Config">
+		<salesforce:query doc:name="Query accounts from SFDC" doc:id="2e51dc43-6ffa-471a-a8dc-15f01e3e968d" config-ref="Salesforce_Config">
 			<ee:repeatable-file-store-iterable />
 			<salesforce:salesforce-query >SELECT Phone, AccountNumber, LastModifiedById, LastModifiedDate, Name, NumberOfEmployees, BillingCity, BillingStreet, BillingState, BillingPostalCode FROM Account WHERE LastModifiedDate &gt; :lastQueryDateB ORDER BY LastModifiedDate ASC LIMIT 200</salesforce:salesforce-query>
 			<salesforce:parameters ><![CDATA[#[output applicaton/java
@@ -115,7 +112,7 @@ if (payload==null) {} else payload]]></ee:set-payload>
 }]]]></salesforce:parameters>
 		</salesforce:query>
 		<os:store doc:name="Update watermark value" doc:id="9c253f4b-60f8-410b-9d94-02a3e39d9001" key="watermark" failOnNullValue="false" objectStore="watermarkStoreB" >
-			<os:value ><![CDATA[#[if(payload.size()==0) vars.lastQueryDateB as String else max(payload map $.LastModifiedDate) as String]]]></os:value>
+			<os:value ><![CDATA[#[if(sizeOf(payload)==0) vars.lastQueryDateB as String else (max(payload map $.LastModifiedDate) as String)]]]></os:value>
 		</os:store>
 </flow>
 </mule>
