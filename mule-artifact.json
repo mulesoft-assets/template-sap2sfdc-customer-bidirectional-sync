@@ -1,0 +1,31 @@
+{
+  "configs": [
+    "businessLogic.xml",
+    "errorhandling.xml",
+    "config.xml",
+    "endpoints.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "org.mule.templates:template-sap2sfdc-customer-bidirectional-sync:2.1.0-SNAPSHOT",
+  "minMuleVersion": "4.1.1",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "common.properties",
+        "log4j2.xml",
+        "mule-artifact.properties",
+        "mule.dev.properties",
+        "mule.prod.properties",
+        "mule.qa.properties"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

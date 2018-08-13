@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap"
+      xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+      xmlns:os="http://www.mulesoft.org/schema/mule/os"
+      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+
+<flow name="fromSAPtoSFDC" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
+    <batch:job jobName="fromInstanceAtoInstanceBBatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6" blockSize="2">
+        <batch:process-records>
+				<batch:step name="forEachCustomerInSAPGetCustomerFromSalesforceStep" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
+					<salesforce:query-single doc:name="Query single" doc:id="f022798d-3126-43c3-bc9c-fe5d4b11f919" config-ref="Salesforce_Config" target="retValSFDC">
+						<salesforce:salesforce-query >SELECT Id, Name, LastModifiedDate FROM Account WHERE Name = ':name'</salesforce:salesforce-query>
+						<salesforce:parameters ><![CDATA[#[output applicaton/java
+---
+{
+	"name" : payload.Name
+}]]]></salesforce:parameters>
+					</salesforce:query-single>
+					<ee:transform doc:name="Transform Message" doc:id="195f67b1-3878-48e4-81ca-ef74cdbe6781" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload ++ {"id": vars.retValSFDC.Id,
+			"LastModifiedDateFromSalesforce": vars.retValSFDC.LastModifiedDate
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+            </batch:step>
+            <batch:step name="forEachCustomerToBeUpsertedInSalesforce" doc:id="78a74ab4-9b91-416d-985a-acda2ac377eb" acceptExpression="#[payload.Id == null  or (payload.LastModifiedDateB &lt; payload.LastModifiedDate)]">
+                <batch:aggregator doc:name="Batch Aggregator" doc:id="1ad86a98-643e-494a-a90a-32daab0b03cc" size="${page.size}">
+						<salesforce:upsert-bulk type="Account" doc:name="Upsert bulk" doc:id="022a166b-1e2a-4ac3-9c8f-8a226aae41e1" config-ref="Salesforce_Config" externalIdFieldName="Id"/>
+                </batch:aggregator>
+					<ee:transform doc:name="Transform Message" doc:id="45970cca-a735-43da-9da7-f833c2b02950" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	AccountNumber : payload.AccountNumber,
+	Name : payload.Name,
+	Phone : payload.Phone,
+	Fax : payload.Fax,
+	BillingCity : payload.BillingCity,
+	(Id: payload.id) if (payload.id != null) 
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+            </batch:step>
+        </batch:process-records>
+        <batch:on-complete >
+            <os:store key="syncState" doc:name="Set sync state to SFDC" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
+                <os:value><![CDATA[fromB]]></os:value>
+            </os:store>
+        </batch:on-complete>
+
+    </batch:job>
+</flow>
+<flow name="fromSFDCtoSAP" doc:id="8759532e-79b7-4789-990c-dc8e162bfd67" >
+    <batch:job jobName="fromInstanceBtoInstanceABatch" doc:id="204892ae-0d97-4326-beae-310c8d52b7a6">
+        <batch:process-records>
+            <batch:step name="foreachAccountInSalesforceGetCustomerNumbertInSap" doc:id="89713774-362a-4e92-9bdc-41e31802bf38">
+					<ee:transform doc:name="Prepare query params" doc:id="cb013171-79ac-44cd-90be-9661f15d6376">
+						<ee:message>
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="XMLforSAP" ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "BAPI_CUSTOMER_FIND": {
+    "import": {
+      "MAX_CNT": "0",
+      "PL_HOLD": "X"
+    },
+    "tables": {
+      "SELOPT_TAB": {
+        "row": {
+          "TABNAME": "KNA1",
+          "FIELDNAME": "NAME1",
+          "FIELDVALUE": payload.Name
+        }
+      }
+    }
+  }
+}]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+					<sap:execute-synchronous-remote-function-call doc:name="Execute BAPI / Function over sRFC" doc:id="b1865f52-d1c1-4205-bc91-4be387d60d48" config-ref="SAP_Outbound" key="BAPI_CUSTOMER_FIND" target="retValSAP" targetValue="#[output application/java --- payload]">
+						<ee:repeatable-file-store-stream />
+						<sap:content ><![CDATA[#[vars.XMLforSAP]]]></sap:content>
+					</sap:execute-synchronous-remote-function-call>
+					<ee:transform doc:name="Process returned data" doc:id="3792c370-5e67-4367-8e89-f9d24d1a4a5a" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+	payload ++ 
+	{
+		(CustomerNumber: vars.retValSAP.BAPI_CUSTOMER_FIND.tables.RESULT_TAB.row.CUSTOMER) if (vars.retValSAP.BAPI_CUSTOMER_FIND.tables.RESULT_TAB.row?)
+	}
+]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+            </batch:step>
+            <batch:step name="forEachCustomerInSapGetLastModifiedDate" doc:id="170eadd1-bb09-4586-9c9a-818ce3ab1c85" acceptExpression="payload.CustomerNumber != null ">
+					<ee:transform doc:name="Prepare query params" doc:id="58e3db27-49fc-4432-ac03-f81e03795975" >
+						<ee:message>
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="XMLforSAP" ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "ZSDFM_CUSTOMER_GETLIST": {
+    "import": {
+      "IV_CUST_ID": payload.CustomerNumber
+    }
+  }
+}
+]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+					<sap:execute-synchronous-remote-function-call doc:name="Execute BAPI / Function over sRFC" doc:id="f3116e28-5e5f-4c67-875f-8b983145e11d" config-ref="SAP_Outbound" key="ZSDFM_CUSTOMER_GETLIST" target="retValSAP" targetValue="#[output application/java --- payload]">
+						<ee:repeatable-file-store-stream />
+						<sap:content ><![CDATA[#[vars.XMLforSAP]]]></sap:content>
+					</sap:execute-synchronous-remote-function-call>
+					<ee:transform doc:name="Process returned data" doc:id="c34e2dee-658e-4c3a-adcf-3472059a92bf">
+						<ee:message>
+							<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+	payload ++ 
+	{
+		"LastModifiedDateFromSAP": vars.retValSAP.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.row.LAST_MODIF_DATE
+	}]]></ee:set-payload>
+						</ee:message>
+						<ee:variables >
+						</ee:variables>
+					</ee:transform>
+				</batch:step>
+				<batch:step name="forEachCustomerInSapGetAccountGroup" doc:id="056c06d7-0d1b-48a3-8372-0edd84bcab25" acceptExpression="payload.CustomerNumber != null">
+					<ee:transform doc:name="Prepare query params" doc:id="89a5e81a-a002-4f5c-b974-0bf6a6e5b1c9" >
+						<ee:message>
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="XMLforSAP" ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "CUSTOMER_GET_KTOKD": {
+    "import": {
+      "IV_KUNNR": payload.CustomerNumber
+	  }
+	}
+}
+]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+					<sap:execute-synchronous-remote-function-call doc:name="Execute BAPI / Function over sRFC" doc:id="8fdaa2be-231f-4b3a-b138-0b80c327675b" config-ref="SAP_Outbound" key="CUSTOMER_GET_KTOKD" target="retValSAP">
+						<ee:repeatable-file-store-stream />
+						<sap:content ><![CDATA[#[vars.XMLforSAP]]]></sap:content>
+					</sap:execute-synchronous-remote-function-call>
+					<ee:transform doc:name="Process returned data" doc:id="7d94eb45-4ec8-4993-940a-a54b54b781f9" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+	payload ++ 
+	{
+		"AccountGroup": vars.retValSAP.CUSTOMER_GET_KTOKD.export.EV_KTOKD
+	}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				</batch:step>
+				<batch:step name="forEachNewAccountGetCustomerNumber" doc:id="d280e3e2-dc41-45a7-9f4f-b034b0d0f4b9" acceptExpression="payload['CustomerNumber'] == null">
+					<ee:transform doc:name="Prepare query params" doc:id="b46c2a06-f1d8-43a5-9622-c80288cc2138" >
+						<ee:message>
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="XMLforSAP" ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "BAPI_CUSTOMER_GETINTNUMBER": {
+    "import": {
+      "ACCOUNTGROUP": p("sap.default.accountGroup")
+    }
+  }
+}
+
+]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+					<sap:execute-synchronous-remote-function-call doc:name="Execute BAPI / Function over sRFC" doc:id="5c6466c5-44a6-4e8e-828c-f768419a0131" config-ref="SAP_Outbound" key="BAPI_CUSTOMER_GETINTNUMBER" target="retValSAP">
+						<ee:repeatable-file-store-stream />
+						<sap:content ><![CDATA[#[vars.XMLforSAP]]]></sap:content>
+					</sap:execute-synchronous-remote-function-call>
+					<ee:transform doc:name="Process returned data" doc:id="6f6d0c74-7619-4b3c-a795-ad9e597e825f" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload ++ {
+	CustomerNumber : vars.retValSAP.BAPI_CUSTOMER_GETINTNUMBER.export.CUSTOMERID,
+	AccountGroup : p("sap.default.accountGroup")
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				</batch:step>
+				<batch:step name="foreachAccountInSalesForceUpsertCustomertInSapStep" doc:id="75ced327-c8f2-4ddb-b014-56369ca12bfe">
+					<flow-ref doc:name="Flow Reference" doc:id="59060dd3-85d2-4d91-8539-2fcc129ea217" name="commitAccountsFlow"/>
+				</batch:step>
+        </batch:process-records>
+        <batch:on-complete >
+            <os:store key="syncState" doc:name="Set sync state to SAP" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
+                <os:value><![CDATA[fromA]]></os:value>
+            </os:store>
+        </batch:on-complete>
+
+    </batch:job>
+</flow>
+	<sub-flow name="commitAccountsFlow" doc:id="68bb0c7d-e653-4631-9257-192dc2586718" >
+		<ee:transform doc:name="Preprare data for upsert" doc:id="d05d1707-26de-494d-bd23-59f0d435d0f7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+DEBMAS01:{
+	IDOC @(BEGIN: "1"): {
+		EDI_DC40 @(SEGMENT: "1"): {
+			TABNAM: "EDI_DC40",
+			DIRECT: "2",
+			IDOCTYP: "DEBMAS01",
+			MESTYP: "DEBMAS",
+			SNDPOR: "MULE01_LS",
+			SNDPRT: "LS",
+			SNDPRN: "MULE01_LS",
+			RCVPOR: "T90CLNT090",
+			RCVPRT: "LS",
+			RCVPRN: "T90CLNT090"
+		},
+		E1KNA1M @(SEGMENT: "1"):{
+			//when doing insert set MSGFN to 009, when doing update set MSGFN to 004
+			MSGFN: if (payload.LastModifiedDateFromSAP == null) "009"  else "005",
+			KUNNR: payload.CustomerNumber,
+			KTOKD: payload.AccountGroup,
+			LAND1: "SK",
+			NAME1: payload.Name,
+			ORT01: payload.BillingCity,
+			TELF1: payload.Phone,
+			SPRAS: "E",
+			SPRAS_ISO: "EN"			
+		}
+	}
+}
+
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<sap:send key="DEBMAS01" doc:name="upsert Customer in SAP" doc:id="1a1f6fdf-7250-49b2-80cf-925d6a6512bc" config-ref="SAP_Outbound" />
+	</sub-flow>
+</mule>
+
+        
