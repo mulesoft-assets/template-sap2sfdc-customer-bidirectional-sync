@@ -20,11 +20,11 @@ In the other direction, the synchronization is completed by polling Salesforce f
 <!-- Default Considerations (end) -->
 
 <!-- Considerations (start) -->
-To make this Anypoint Template run, there are certain preconditions that must be considered.
-All of them deal with the preparations in both SAP and SFDC systems, that must be made in order for all to run smoothly.
-**Failling to do so could lead to unexpected behavior of the template.**
+To make this template run, there are certain preconditions that must be considered.
+All of them deal with the preparations in both SAP and Salesforce systems, that must be made for the template to run smoothly.
+**Failing to do so could lead to unexpected behavior of the template.**
 
-Before continue with the use of this Anypoint Template, you may want to check out this [Documentation Page](http://www.mulesoft.org/documentation/display/current/SAP+Connector#SAPConnector-EnablingYourStudioProjectforSAP), that will teach you how to work 
+Before continue with the use of this template, you may want to check out this [Documentation Page](http://www.mulesoft.org/documentation/display/current/SAP+Connector#SAPConnector-EnablingYourStudioProjectforSAP), that will teach you how to work 
 with SAP and Anypoint Studio-
 
 ## Disclaimer
@@ -45,7 +45,7 @@ Here's what you need to know to get this template to work with SAP.
 
 The SAP backend system is used as a source of data. The SAP connector is used to send and receive the data from the SAP backend. The connector can either use RFC calls of BAPI functions and/or IDoc messages for data exchange, and needs to be properly customized per the "Properties to Configure" section.
 
-In order for this Anypoint Template to work, there are a few things that need to be done in SAP first.
+In order for this template to work, there are a few things that need to be done in SAP first.
 
 1. RFC destination
 of type "T = TCP/IP Connection" pointing to Program ID on gateway host needs to be created. The destination uses Unicode communication type with target system.
@@ -141,7 +141,7 @@ After you import your template into Anypoint Studio, follow these steps to run i
 + Inside the dialog, select Environment and set the variable `mule.env` to the value `dev`.
 + Click `Run`.
 <!-- Running on Studio (start) -->
-In order to make this Anypoint Template run on Mule Studio there are a few extra steps that needs to be made.
+In order to make this template run on Mule Studio there are a few extra steps that needs to be made.
 Please check this Documentation Page:
 
 + [Enabling Your Studio Project for SAP](http://www.mulesoft.org/documentation/display/current/SAP+Connector#SAPConnector-EnablingYourStudioProjectforSAP)
@@ -174,7 +174,7 @@ To use this template, configure properties such as credentials, configurations, 
 
 + page.size `100`
 
-**SAP Connector configuration**
+**SAP Connector Configuration**
 
 + sap.jco.ashost `your.sap.address.com`
 + sap.jco.user `SAP_USER`
@@ -185,14 +185,14 @@ To use this template, configure properties such as credentials, configurations, 
 
 + sap.default.accountGroup `ZAG2`
 
-**SAP Endpoint configuration**
+**SAP Endpoint Configuration**
 
 + sap.jco.connectioncount `2`
 + sap.jco.gwhost `your.sap.addres.com`
 + sap.jco.gwservice `sapgw14`
 + sap.jco.idoc.programid `PROGRAM_ID`
 
-**SalesForce Connector configuration**
+**SalesForce Connector Configuration**
 
 + sfdc.username `bob.dylan@sfdc`
 + sfdc.password `DylanPassword123`
@@ -219,7 +219,7 @@ of 200 for each Upsert API Call in the commit step. Also consider
 that this calls are executed repeatedly every polling cycle.
 
 For instance if 10 records are fetched from origin instance, then 1 api
-calls to SFDC will be made ( 1).
+calls to Salesforce will be made ( 1).
 <!-- API Calls (end) -->
 
 # Customize It!
@@ -242,12 +242,12 @@ This file provides the configuration for connectors and configuration properties
 
 ## businessLogic.xml
 <!-- Default Business Logic XML (start) -->
-The functional aspect of the Anypoint Template is implemented on this XML, directed by two batch jobs that will be responsible for creations/updates of Customers and Accounts in both ways. The several message processors constitute four high level actions that fully implement the logic of this Anypoint Template:
+The functional aspect of the template is implemented on this XML, directed by two batch jobs that will be responsible for creations/updates of Customers and Accounts in both ways. The several message processors constitute four high level actions that fully implement the logic of this template:
 
 1. Job executions are invoked from the trigger flows (endpoints.xml) everytime there is a new query executed asking for created/updated Customers or Accounts.
-2. From SAP to SFDC: during the Process stage, each SAP Customer will be mapped into an SFDC Account and matched by name with the existent ones in the SFDC instance. After that, the Account will be upserted to the SFDC instance. 
-3. From SFDC to SAP: during the Process stage, all the information needed to upsert the Customer will be retrieved from the SAP instance, and then the original Account will be mapped into a SAP Customer to proceed with the upsert.
-4. Finally during the On Complete stage, the Anypoint Template will unlock the processing for allowing the other direction to be executed.<!-- Default Business Logic XML (end) -->
+2. From SAP to Salesforce: during the Process stage, each SAP Customer will be mapped into an Salesforce Account and matched by name with the existent ones in the Salesforce instance. After that, the Account will be upserted to the Salesforce instance. 
+3. From Salesforce to SAP: during the Process stage, all the information needed to upsert the Customer will be retrieved from the SAP instance, and then the original Account will be mapped into a SAP Customer to proceed with the upsert.
+4. Finally during the On Complete stage, the template will unlock the processing for allowing the other direction to be executed.<!-- Default Business Logic XML (end) -->
 
 <!-- Business Logic XML (start) -->
 

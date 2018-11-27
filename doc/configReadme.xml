@@ -1,23 +1,23 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='utf-8'?>
 <configuration>
 	<placeholders>
 		<placeholder id="template_name">SAP and Salesforce Customer/Account Bi-Directional Sync</placeholder>
 	</placeholders>
 	<sections>
 		<section id="use_case">
-		<![CDATA[
+		
 Use this template if you would like to sync Customers from SAP to Salesforce Accounts in manner real-time synchronization using Polling.
 The inbound SAP endpoint retrieves all Accounts in SAP using the custom BAPI **ZSDFM\_CUSTOMER\_GETLIST** and transforms them to Salesforce Accounts.
 In the other direction, the synchronization is completed by polling Salesforce for Accounts and sending them to SAP using the standard IDoc DEBMAS01.
-]]>
+
 		</section>
 		<section id="considerations">
-		<![CDATA[
-To make this Anypoint Template run, there are certain preconditions that must be considered.
-All of them deal with the preparations in both SAP and SFDC systems, that must be made in order for all to run smoothly.
-**Failling to do so could lead to unexpected behavior of the template.**
+		
+To make this template run, there are certain preconditions that must be considered.
+All of them deal with the preparations in both SAP and Salesforce systems, that must be made for the template to run smoothly.
+**Failing to do so could lead to unexpected behavior of the template.**
 
-Before continue with the use of this Anypoint Template, you may want to check out this [Documentation Page](http://www.mulesoft.org/documentation/display/current/SAP+Connector#SAPConnector-EnablingYourStudioProjectforSAP), that will teach you how to work 
+Before continue with the use of this template, you may want to check out this [Documentation Page](http://www.mulesoft.org/documentation/display/current/SAP+Connector#SAPConnector-EnablingYourStudioProjectforSAP), that will teach you how to work 
 with SAP and Anypoint Studio-
 
 ## Disclaimer
@@ -27,12 +27,12 @@ This Anypoint template uses a few private Maven dependencies in oder to work. If
 You will find that there are two dependencies in the pom.xml file that begin with the group id - com.sap.conn:
 	**com.sap.conn.jco** and  **com.sap.conn.idoc**
 These dependencies are private for Mulesoft and will cause you application not to build from a Maven command line. You need to replace them with "provided" scope and copy the libraries into the build path.
-]]>
+
 		</section>
 			<section id="sap_src">
-<![CDATA[
 
-In order for this Anypoint Template to work, there are a few things that need to be done in SAP first.
+
+In order for this template to work, there are a few things that need to be done in SAP first.
 
 1. RFC destination
 of type "T = TCP/IP Connection" pointing to Program ID on gateway host needs to be created. The destination uses Unicode communication type with target system.
@@ -46,30 +46,30 @@ needs to be customized; type of Logical System as partner type. Message type DEB
 3. Partner Port
 needs to be defined for type of IDoc record type of SAP release 4.x as its version. As RFC destination same RFC destination created earlier is used.
 
-&nbsp;
-]]>
+&amp;nbsp;
+
 		</section>
 		
 		<section id="default_sap_dst">
-<![CDATA[
-&nbsp;
-]]>
+
+&amp;nbsp;
+
 		</section>
 		<section id="sfdc_dst">
-		<![CDATA[
-&nbsp;
-]]>
+		
+&amp;nbsp;
+
 		</section>
 		<section id="running_on_studio">
-		<![CDATA[
-In order to make this Anypoint Template run on Mule Studio there are a few extra steps that needs to be made.
+		
+In order to make this template run on Mule Studio there are a few extra steps that needs to be made.
 Please check this Documentation Page:
 
 + [Enabling Your Studio Project for SAP](http://www.mulesoft.org/documentation/display/current/SAP+Connector#SAPConnector-EnablingYourStudioProjectforSAP)
-		]]>
+		
 		</section>
 		<section id="application_configuration">
-		<![CDATA[
+		
 
 + polling.frequency `20000`
 + polling.start.delay `1000`
@@ -78,7 +78,7 @@ Please check this Documentation Page:
 
 + page.size `100`
 
-**SAP Connector configuration**
+**SAP Connector Configuration**
 
 + sap.jco.ashost `your.sap.address.com`
 + sap.jco.user `SAP_USER`
@@ -89,14 +89,14 @@ Please check this Documentation Page:
 
 + sap.default.accountGroup `ZAG2`
 
-**SAP Endpoint configuration**
+**SAP Endpoint Configuration**
 
 + sap.jco.connectioncount `2`
 + sap.jco.gwhost `your.sap.addres.com`
 + sap.jco.gwservice `sapgw14`
 + sap.jco.idoc.programid `PROGRAM_ID`
 
-**SalesForce Connector configuration**
+**SalesForce Connector Configuration**
 
 + sfdc.username `bob.dylan@sfdc`
 + sfdc.password `DylanPassword123`
@@ -106,10 +106,10 @@ Please check this Documentation Page:
 
 	**Note:** To find out the correct *sfdc.integration.user.id* value, please, refer to example project **Salesforce Data Retrieval** in [Anypoint Exchange](http://www.mulesoft.org/documentation/display/current/Anypoint+Exchange).
 
-]]>
+
 		</section>
 		<section id="api_calls">
-		<![CDATA[
+		
 SalesForce imposes limits on the number of API Calls that can be made.
 Therefore calculating this amount may be an important factor to
 consider. Customer migration template calls to the API can be
@@ -124,19 +124,19 @@ of 200 for each Upsert API Call in the commit step. Also consider
 that this calls are executed repeatedly every polling cycle.
 
 For instance if 10 records are fetched from origin instance, then 1 api
-calls to SFDC will be made ( 1).
-]]>
+calls to Salesforce will be made ( 1).
+
 		</section>
 
 		<section id="default_business_logic_xml">
-		<![CDATA[
-The functional aspect of the Anypoint Template is implemented on this XML, directed by two batch jobs that will be responsible for creations/updates of Customers and Accounts in both ways. The several message processors constitute four high level actions that fully implement the logic of this Anypoint Template:
+		
+The functional aspect of the template is implemented on this XML, directed by two batch jobs that will be responsible for creations/updates of Customers and Accounts in both ways. The several message processors constitute four high level actions that fully implement the logic of this template:
 
 1. Job executions are invoked from the trigger flows (endpoints.xml) everytime there is a new query executed asking for created/updated Customers or Accounts.
-2. From SAP to SFDC: during the Process stage, each SAP Customer will be mapped into an SFDC Account and matched by name with the existent ones in the SFDC instance. After that, the Account will be upserted to the SFDC instance. 
-3. From SFDC to SAP: during the Process stage, all the information needed to upsert the Customer will be retrieved from the SAP instance, and then the original Account will be mapped into a SAP Customer to proceed with the upsert.
-4. Finally during the On Complete stage, the Anypoint Template will unlock the processing for allowing the other direction to be executed.
-]]>
+2. From SAP to Salesforce: during the Process stage, each SAP Customer will be mapped into an Salesforce Account and matched by name with the existent ones in the Salesforce instance. After that, the Account will be upserted to the Salesforce instance. 
+3. From Salesforce to SAP: during the Process stage, all the information needed to upsert the Customer will be retrieved from the SAP instance, and then the original Account will be mapped into a SAP Customer to proceed with the upsert.
+4. Finally during the On Complete stage, the template will unlock the processing for allowing the other direction to be executed.
+
 		</section>
 		
 	</sections>
