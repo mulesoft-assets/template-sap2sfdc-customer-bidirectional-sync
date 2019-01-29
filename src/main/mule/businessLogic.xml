@@ -217,21 +217,9 @@ payload ++ {
 					</ee:transform>
 				</batch:step>
 				<batch:step name="foreachAccountInSalesForceUpsertCustomertInSapStep" doc:id="75ced327-c8f2-4ddb-b014-56369ca12bfe">
-					<flow-ref doc:name="Flow Reference" doc:id="59060dd3-85d2-4d91-8539-2fcc129ea217" name="commitAccountsFlow"/>
-				</batch:step>
-        </batch:process-records>
-        <batch:on-complete >
-            <os:store key="syncState" doc:name="Set sync state to SAP" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
-                <os:value><![CDATA[fromA]]></os:value>
-            </os:store>
-        </batch:on-complete>
-
-    </batch:job>
-</flow>
-	<sub-flow name="commitAccountsFlow" doc:id="68bb0c7d-e653-4631-9257-192dc2586718" >
-		<ee:transform doc:name="Preprare data for upsert" doc:id="d05d1707-26de-494d-bd23-59f0d435d0f7" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+					<ee:transform doc:name="Preprare data for upsert" doc:id="d05d1707-26de-494d-bd23-59f0d435d0f7">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/xml
 ---
 {
@@ -267,8 +255,17 @@ DEBMAS01:{
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<sap:send key="DEBMAS01" doc:name="upsert Customer in SAP" doc:id="1a1f6fdf-7250-49b2-80cf-925d6a6512bc" config-ref="SAP_Outbound" />
-	</sub-flow>
+					<sap:send key="DEBMAS01" doc:name="upsert Customer in SAP" doc:id="1a1f6fdf-7250-49b2-80cf-925d6a6512bc" config-ref="SAP_Outbound" />
+				</batch:step>
+        </batch:process-records>
+        <batch:on-complete >
+            <os:store key="syncState" doc:name="Set sync state to SAP" doc:id="f08de372-2fb9-4aef-80ca-f6da2241fc75" objectStore="SchedulerStatus">
+                <os:value><![CDATA[fromA]]></os:value>
+            </os:store>
+        </batch:on-complete>
+
+    </batch:job>
+</flow>
 </mule>
 
         

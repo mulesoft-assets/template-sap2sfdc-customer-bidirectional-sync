@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd 
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+	<munit:config name="test-suite.xml" />
+
+	<configuration-properties doc:name="Configuration properties" doc:id="1485bc6a-3252-4aeb-bbec-60d92bc69dca" file="mule.test.properties" />
+	<munit:before-test name="test-suiteBefore_Test" description="Before tests actions" doc:id="eb1698c3-4653-4072-8f8f-482172b36114">
+		<ee:transform doc:name="Prepare testing data for Salesforce" doc:id="6ee9f458-8dea-4a1d-81b2-1b27098beba2">
+			<ee:message>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="customer" ><![CDATA[%dw 2.0
+output application/java
+var generateId = randomInt(100000)
+---
+[
+	{
+		Name: upper(p('sap.customer.name')),
+		BillingCity: "MUNITBILLINGCITY" ++ generateId,
+		Phone: "MUNITPHONE" ++ generateId,
+	}
+]]]></ee:set-variable>
+			</ee:variables>
+
+</ee:transform>
+		<salesforce:create doc:name="Create Customer in Salesforce" doc:id="706d3835-0790-434b-b53d-e29660b7ceec" config-ref="Salesforce_Config" type="Account">
+			<salesforce:records ><![CDATA[#[vars.customer]]]></salesforce:records>
+		</salesforce:create>
+		<set-variable value="#[payload map ($.id)]" doc:name="Store IDs to variable sfdcIds" doc:id="37023214-2156-4bbd-9267-3e420a188e77" variableName="sfdcIds"/>
+	</munit:before-test>
+	<munit:test name="test-suite-SFDCtoSAPflowTest" description="Test" doc:id="4a62d2db-86c1-4be2-8dbc-d65bc4a69201">
+		<munit:execution>
+			<flow-ref doc:name="Query Flow SFDC" doc:id="ac38da76-df0b-45a2-86bf-3557fd581466" name="queryFlowSFDC"/>
+			<ee:transform doc:name="Filter test records" doc:id="726c7097-7a9e-4566-ba17-f2e67e5342f6">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+payload filter ($.Name == vars.customer[0].Name)]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<flow-ref doc:name="Call Business Logic fromSFDCtoSAP" doc:id="64550340-2cb1-4923-b44d-9083447734a9" name="fromSFDCtoSAP" />
+			<scripting:execute doc:name="Sleep for 60s until the processing is completed" doc:id="dded2a9d-0d6f-44c7-ae61-f517380f3f94" engine="groovy">
+				<scripting:code>sleep(60000)</scripting:code>
+			</scripting:execute>
+			<flow-ref doc:name="Query Customers In Sap" doc:id="9959834b-bbab-483e-a504-64eeb48a0f5d" name="QueryRecordInSap" />
+
+</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that Customer was updated" doc:id="46ffb4a0-7137-47d7-8c2d-b753b9a3fcd3" is="#[MunitTools::equalTo(vars.customer[0].Phone)]" expression="#[payload.Phone]" message="Customer should be updated "/>
+			<munit-tools:verify-call doc:name="Verify SAP Send Call" doc:id="1e0cdb85-26e8-4b92-acc0-145df4bf35f4" processor="sap:send" times="1">
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="test-suiteSAPtoSFDCFlowTest" description="MUnit Test" doc:id="c2988c95-dd91-415f-adc4-9b5f696978b2" >
+		<munit:execution >
+			<flow-ref doc:name="Query Flow SAP" doc:id="28d721ab-2cb3-49a9-999e-87460aa7994f" name="queryFlowSAP"/>
+			<ee:transform doc:name="Filter test records and add new record" doc:id="fb069df4-12aa-45d9-a01c-99212c635ae6" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+var updateRecords = payload filter ($.Name == vars.customer[0].Name)
+var createRecord = {
+		Name: "TESTMUNITCUSTOMER" ++ randomInt(100000),
+		BillingCity: "MUNITBILLINGCITY" ++ randomInt(100000),
+		Phone: "MUNITPHONE" ++ randomInt(100000),
+	} 
+---
+updateRecords + createRecord
+
+]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<set-variable value="#[payload]" doc:name="Save migrated records" doc:id="1104850f-a9ec-457e-bc8a-2a053906fceb" variableName="migratedRecords" mimeType="application/java"/>
+			<flow-ref doc:name="Call Business Logic fromSAPtoSFDC" doc:id="65a13671-8783-48ce-88c6-30d32955c25d" name="fromSAPtoSFDC"/>
+			<scripting:execute engine="groovy" doc:name="Sleep for 30s until the processing is completed" doc:id="dbee76d9-d485-4cba-bb1e-494b02036c13" >
+				<scripting:code >sleep(30000)</scripting:code>
+			</scripting:execute>
+			<salesforce:query doc:name="Query Customers in SFDC" doc:id="4f7e2e5d-63d2-46ca-bd29-4ba50c9b50be" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query>SELECT Id, Name, Phone, BillingCity FROM Account WHERE Name IN (':name1', ':name2')</salesforce:salesforce-query>
+			<salesforce:parameters><![CDATA[#[output application/java
+---
+{
+	"name1" : vars.migratedRecords[0].Name,
+	"name2" : vars.migratedRecords[1].Name
+}]]]></salesforce:parameters>
+		</salesforce:query>
+			<ee:transform doc:name="filter records and save Ids" doc:id="a098d2a0-2282-4739-be3b-bc7029c231a4">
+				<ee:message>
+				</ee:message>
+				<ee:variables>
+					<ee:set-variable variableName="sfdcIds"><![CDATA[%dw 2.0
+output application/java
+---
+payload map ($.Id)]]></ee:set-variable>
+					<ee:set-variable variableName="updatedRecord"><![CDATA[%dw 2.0
+output application/java
+---
+payload filter ($.Name == vars.migratedRecords[0].Name)]]></ee:set-variable>
+					<ee:set-variable variableName="createdRecord"><![CDATA[%dw 2.0
+output application/java
+---
+payload filter ($.Name == vars.migratedRecords[1].Name)]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that Customer was created" doc:id="47f2c24b-f440-4497-9d68-ec07a2c3c631" expression="#[vars.createdRecord[0].Name]" is="#[MunitTools::equalTo(vars.migratedRecords[1].Name)]" message="Customer should be created"/>
+			<munit-tools:assert-that doc:name="Assert that Customer was updated" doc:id="4489aa2a-e552-47bf-a1e8-789a60eb194e" is="#[MunitTools::equalTo(vars.migratedRecords[0].Phone)]" expression="#[vars.updatedRecord[0].Phone]" message="Customer should be updated" />
+			<munit-tools:verify-call doc:name="Verify SFDC Upsert call" doc:id="9235e70d-92ca-469a-baef-594c85000367" processor="salesforce:upsert-bulk" times="1" />
+		</munit:validation>
+	</munit:test>
+	<munit:after-test name="test-suiteAfter_Test" description="After tests actions" doc:id="192617dd-3521-4e63-b53a-53a7b819cddc">
+		<salesforce:delete doc:name="Delete source Customers from Salesforce" doc:id="1b871c98-2329-4e2c-b747-676cf2903de8" config-ref="Salesforce_Config">
+			<salesforce:delete-ids><![CDATA[#[vars.sfdcIds]]]></salesforce:delete-ids>
+		</salesforce:delete>
+	</munit:after-test>
+		<sub-flow name="QueryRecordInSap" doc:id="c29d1db3-4eeb-4f26-8706-00d8050c8731" >
+		<ee:transform doc:name="Prepare query request" doc:id="09063b62-170d-4445-85cc-701a2e8b94f9">
+						<ee:message>
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "BAPI_CUSTOMER_FIND": {
+    "import": {
+      "MAX_CNT": "0",
+      "PL_HOLD": "X"
+    },
+    "tables": {
+      "SELOPT_TAB": {
+        "row": {
+          "TABNAME": "KNA1",
+          "FIELDNAME": "NAME1",
+          "FIELDVALUE": vars.customer[0].Name
+        }
+      }
+    }
+  }
+}]]></ee:set-payload>
+						</ee:message>
+						<ee:variables>
+						</ee:variables>
+					</ee:transform>
+		<sap:execute-synchronous-remote-function-call doc:name="Execute BAPI / Function over sRFC" doc:id="3951685a-6018-4721-bd6f-e15614e75522" config-ref="SAP_Outbound" key="BAPI_CUSTOMER_FIND" targetValue="#[output application/java --- payload]">
+					</sap:execute-synchronous-remote-function-call>
+		<ee:transform doc:name="Save Customer Number" doc:id="5759e8bf-d722-4070-ab9d-a3adee64ffb8">
+						<ee:message>
+							<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+{
+	CustomerNumber: payload.BAPI_CUSTOMER_FIND.tables.RESULT_TAB.row.CUSTOMER
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+		<choice doc:name="Customer exists?" doc:id="5973ff73-0aef-49d2-be63-a829e4c91a2a" >
+			<when expression="#[payload.CustomerNumber != null]">
+				<ee:transform doc:name="Prepare query request" doc:id="496c6463-9ab4-45e7-adcb-bc41c34a7e11">
+						<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "ZSDFM_CUSTOMER_GETLIST": {
+    "import": {
+      "IV_CUST_ID": payload.CustomerNumber
+    }
+  }
+}
+]]></ee:set-payload>
+						</ee:message>
+						<ee:variables>
+						</ee:variables>
+					</ee:transform>
+				<sap:execute-synchronous-remote-function-call doc:name="Execute BAPI / Function over sRFC" doc:id="e47a4e2c-aad5-46dd-9b89-9aba5b627d54" config-ref="SAP_Outbound" key="ZSDFM_CUSTOMER_GETLIST" targetValue="#[output application/java --- payload]">
+					</sap:execute-synchronous-remote-function-call>
+				<ee:transform doc:name="Prepare response" doc:id="1084454e-366d-4523-a639-ed72cea5ee18">
+						<ee:message>
+							<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+var data = payload.ZSDFM_CUSTOMER_GETLIST.tables.T_KNA1.row
+---
+{
+    Name: data.NAME1,
+    Phone : data.TELF1,
+    BillingCity : data.ORT01
+}]]></ee:set-payload>
+						</ee:message>
+						<ee:variables>
+						</ee:variables>
+					</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Empty response" doc:id="16694994-72a9-4e2e-beea-166868519f5e" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</sub-flow>
+</mule>
