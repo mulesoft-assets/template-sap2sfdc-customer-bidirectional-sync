@@ -49,7 +49,7 @@ http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mu
 </flow>
 <flow name="queryFlowSAP">
     <os:retrieve key="watermark" objectStore="watermarkStoreA" target="lastQueryDateA" doc:name="Retrieve lastQueryDateSAP">
-        <os:default-value><![CDATA[${watermark.default.expression}]]></os:default-value>
+        <os:default-value ><![CDATA[#[read(p('watermark.default.expression'))]]]></os:default-value>
     </os:retrieve>
 		<ee:transform doc:name="Prepare query params" doc:id="5679c5d6-7a58-4f46-aa68-e5ee513cc271" >
 			<ee:message >
@@ -97,7 +97,7 @@ if (payload==null) {} else payload]]></ee:set-payload>
 </flow>
 <flow name="queryFlowSFDC">
     <os:retrieve key="watermark" objectStore="watermarkStoreB" target="lastQueryDateB" doc:name="Retrieve lastQueryDateSFDC">
-        <os:default-value><![CDATA[${watermark.default.expression}]]></os:default-value>
+        <os:default-value ><![CDATA[#[read(p('watermark.default.expression'))]]]></os:default-value>
     </os:retrieve>
 		<salesforce:query doc:name="Query accounts from SFDC" doc:id="2e51dc43-6ffa-471a-a8dc-15f01e3e968d" config-ref="Salesforce_Config">
 			<ee:repeatable-file-store-iterable />
